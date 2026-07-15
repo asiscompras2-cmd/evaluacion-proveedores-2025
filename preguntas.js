@@ -13,7 +13,7 @@ async function cargarPreguntas() {
 
     try {
 
-        const respuesta = await fetch("data/preguntas.json");
+        const respuesta = await fetch("preguntas.json");
 
         if (!respuesta.ok) {
             throw new Error("No fue posible leer preguntas.json");
