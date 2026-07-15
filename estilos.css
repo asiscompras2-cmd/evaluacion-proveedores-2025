@@ -1,0 +1,199 @@
+/* ==========================================
+   ESTILOS PROPIOS - DISEÑO SOBRIO Y MINIMALISTA
+   Parque Comercial El Tesoro
+   ========================================== */
+
+:root {
+    --color-canela: #AF872E;
+    --color-verde-claro: #BEC447;
+    --color-verde-oscuro: #71B000;
+    --color-gris: #7B807E;
+    --color-azul-oscuro: #2B5393;
+    --color-beige: #F4F1E9; /* Un beige un poco más claro y limpio */
+    --texto-negro: #000000;
+    --texto-gris: #4A4A4A;
+}
+
+body {
+    background-color: #FFFFFF; /* Fondo blanco puro para minimalismo */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--texto-gris);
+}
+
+.container {
+    max-width: 1100px;
+}
+
+.card {
+    border: 1px solid #E0E0E0;
+    border-radius: 0; /* Bordes rectos para un look más arquitectónico/minimalista */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+}
+
+/* --- Encabezado Sobrio --- */
+.card-header {
+    background-color: #FFFFFF !important; /* Fondo blanco limpio */
+    color: var(--texto-negro);
+    padding: 40px 20px;
+    border-bottom: 4px solid var(--color-canela) !important; /* Línea canela elegante */
+    text-align: center;
+}
+
+.card-header h2 {
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--texto-negro) !important;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.card-header h5 {
+    color: var(--color-canela) !important;
+    font-weight: 400;
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+}
+
+/* --- Títulos de Sección --- */
+.titulo {
+    color: var(--texto-negro);
+    border-bottom: 2px solid var(--color-verde-oscuro);
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+/* --- Navegación --- */
+.nav-tabs {
+    border-bottom: 1px solid #EEE;
+}
+
+.nav-tabs .nav-link {
+    color: var(--color-gris);
+    font-weight: 500;
+    border: none;
+    padding: 15px 25px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--texto-negro);
+    border-bottom: 3px solid var(--color-canela);
+    background: transparent;
+}
+
+/* --- Formulario --- */
+.form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--texto-negro);
+    text-transform: uppercase;
+}
+
+.form-control, .form-select {
+    border: 1px solid #E0E0E0;
+    border-radius: 0;
+    padding: 12px;
+    background-color: #FAFAFA;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-canela);
+    box-shadow: none;
+    background-color: #FFFFFF;
+}
+
+/* --- Preguntas --- */
+.criterio {
+    background-color: var(--color-beige);
+    color: var(--texto-negro);
+    padding: 15px 20px;
+    font-weight: 800;
+    margin-top: 35px;
+    border-left: 8px solid var(--color-verde-oscuro);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.pregunta {
+    padding: 25px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.textoPregunta {
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: var(--texto-negro);
+    line-height: 1.6;
+}
+
+.opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.opciones label {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--texto-gris);
+    display: flex;
+    align-items: center;
+}
+
+.opciones input[type="radio"] {
+    accent-color: var(--color-verde-oscuro);
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+/* --- Resultados --- */
+.resultadoExcelente { border: 2px solid var(--color-verde-oscuro); color: var(--color-verde-oscuro); padding: 30px; margin-top: 30px; text-align: center; }
+.resultadoAprobado  { border: 2px solid var(--color-verde-claro); color: var(--color-verde-claro); padding: 30px; margin-top: 30px; text-align: center; }
+.resultadoAceptable { border: 2px solid var(--color-canela); color: var(--color-canela); padding: 30px; margin-top: 30px; text-align: center; }
+.resultadoPlan      { border: 2px solid var(--color-gris); color: var(--color-gris); padding: 30px; margin-top: 30px; text-align: center; }
+
+/* --- Botones --- */
+.btn {
+    border-radius: 0;
+    padding: 12px 35px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.btn-success {
+    background-color: var(--texto-negro);
+    border-color: var(--texto-negro);
+}
+
+.btn-success:hover {
+    background-color: var(--color-verde-oscuro);
+    border-color: var(--color-verde-oscuro);
+}
+
+/* --- Tabla Historial --- */
+.table {
+    font-size: 0.9rem;
+}
+
+.table-success {
+    --bs-table-bg: var(--color-beige);
+    --bs-table-color: var(--texto-negro);
+}
+
+/* --- Impresión --- */
+@media print {
+    .btn, hr, .nav-tabs, #sinDatos { display: none !important; }
+    .card { border: none !important; box-shadow: none !important; }
+}
