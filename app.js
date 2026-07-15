@@ -113,6 +113,9 @@ async function guardarEvaluacion() {
 
         };
 
+        console.log("Evaluación completa:", evaluacion);
+        console.log("Respuestas:", evaluacion.respuestas);
+        
         await guardarEnHistorial(evaluacion);
 
         mostrarModal("Evaluación guardada correctamente.");
