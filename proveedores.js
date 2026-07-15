@@ -11,7 +11,7 @@ let datosProveedores = [];
 
 async function cargarProveedores() {
     try {
-        const response = await fetch('data/proveedores.json');
+        const response = await fetch('proveedores.json');
         if (!response.ok) throw new Error("No se pudo cargar el archivo de proveedores.");
         
         datosProveedores = await response.json();
