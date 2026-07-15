@@ -12,7 +12,7 @@ let cacheHistorial = [];
 
 async function guardarEnHistorial(evaluacion) {
 
-    const datos = {
+    console.log("Respuestas:", evaluacion.respuestas);
         fecha: evaluacion.fecha,
         nombre: evaluacion.nombre,
         cedula: evaluacion.cedula,
@@ -21,18 +21,18 @@ async function guardarEnHistorial(evaluacion) {
         nit: evaluacion.nit,
         observaciones: evaluacion.observaciones,
 
-        p1: evaluacion.respuestas.P1,
-        p2: evaluacion.respuestas.P2,
-        p3: evaluacion.respuestas.P3,
-        p4: evaluacion.respuestas.P4,
-        p5: evaluacion.respuestas.P5,
-        p6: evaluacion.respuestas.P6,
-        p7: evaluacion.respuestas.P7,
-        p8: evaluacion.respuestas.P8,
-        p9: evaluacion.respuestas.P9,
-        p10: evaluacion.respuestas.P10,
-        p11: evaluacion.respuestas.P11,
-        p12: evaluacion.respuestas.P12,
+        p1: evaluacion.respuestas[1],
+        p2: evaluacion.respuestas[2],
+        p3: evaluacion.respuestas[3],
+        p4: evaluacion.respuestas[4],
+        p5: evaluacion.respuestas[5],
+        p6: evaluacion.respuestas[6],
+        p7: evaluacion.respuestas[7],
+        p8: evaluacion.respuestas[8],
+        p9: evaluacion.respuestas[9],
+        p10: evaluacion.respuestas[10],
+        p11: evaluacion.respuestas[11],
+        p12: evaluacion.respuestas[12],
 
         puntaje_final: evaluacion.puntaje
     };
