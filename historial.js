@@ -9,10 +9,12 @@ let cacheHistorial = [];
 //=====================================
 // GUARDAR EN HISTORIAL
 //=====================================
-
 async function guardarEnHistorial(evaluacion) {
 
     console.log("Respuestas:", evaluacion.respuestas);
+
+    const datos = {
+
         fecha: evaluacion.fecha,
         nombre: evaluacion.nombre,
         cedula: evaluacion.cedula,
@@ -35,6 +37,7 @@ async function guardarEnHistorial(evaluacion) {
         p12: evaluacion.respuestas[12],
 
         puntaje_final: evaluacion.puntaje
+
     };
 
     console.log("Enviando a Supabase:", datos);
@@ -43,24 +46,11 @@ async function guardarEnHistorial(evaluacion) {
         .from("evaluaciones")
         .insert([datos]);
 
-   if (error) {
-    console.error("Código:", error.code);
-    console.error("Mensaje:", error.message);
-    console.error("Detalles:", error.details);
-    console.error("Hint:", error.hint);
-
-    alert(
-        "Código: " + error.code +
-        "\nMensaje: " + error.message +
-        "\nDetalles: " + error.details +
-        "\nHint: " + error.hint
-    );
-
-    return;
+    if (error) {
+        console.error(error);
+        return;
+    }
 }
-
-}
-
 //=====================================
 // CARGAR HISTORIAL
 //=====================================
