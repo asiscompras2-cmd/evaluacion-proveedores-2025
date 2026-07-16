@@ -154,26 +154,25 @@ function mostrarModal(mensaje) {
 // PROTEGER HISTORIAL
 //====================================
 
-window.CLAVE_HISTORIAL = "Tesoro2025";
+const CLAVE_HISTORIAL = "Tesoro2025";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const btnHistorial = document.getElementById("historial-tab");
+    const tabHistorial = document.getElementById("historial-tab");
 
-    if (!btnHistorial) return;
+    if (!tabHistorial) return;
 
-    btnHistorial.addEventListener("click", function (e) {
+    tabHistorial.addEventListener("show.bs.tab", function (e) {
 
         const clave = prompt("Ingrese la contraseña para acceder al historial:");
 
-        if (clave !== window.CLAVE_HISTORIAL) {
+        if (clave !== CLAVE_HISTORIAL) {
 
             e.preventDefault();
-            e.stopPropagation();
 
-            mostrarModal("Contraseña incorrecta.");
-
-            return false;
+            if (clave !== null) {
+                mostrarModal("Contraseña incorrecta.");
+            }
 
         }
 
