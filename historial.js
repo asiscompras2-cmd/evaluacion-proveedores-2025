@@ -454,3 +454,77 @@ function actualizarIndicadores(historial) {
         requierenMejora;
 
 }
+//=========================================
+// ACTIVAR FILTROS
+//=========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const filtroProveedor =
+            document.getElementById(
+                "filtroProveedor"
+            );
+
+        const filtroArea =
+            document.getElementById(
+                "filtroArea"
+            );
+
+        const filtroFechaDesde =
+            document.getElementById(
+                "filtroFechaDesde"
+            );
+
+        const filtroFechaHasta =
+            document.getElementById(
+                "filtroFechaHasta"
+            );
+
+
+        if (filtroProveedor) {
+
+            filtroProveedor.addEventListener(
+                "input",
+                renderizarHistorial
+            );
+
+        }
+
+
+        if (filtroArea) {
+
+            filtroArea.addEventListener(
+                "change",
+                renderizarHistorial
+            );
+
+        }
+
+
+        if (filtroFechaDesde) {
+
+            filtroFechaDesde.addEventListener(
+                "change",
+                renderizarHistorial
+            );
+
+        }
+
+
+        if (filtroFechaHasta) {
+
+            filtroFechaHasta.addEventListener(
+                "change",
+                renderizarHistorial
+            );
+
+        }
+
+
+        cargarAreasFiltro();
+
+    }
+
+);
