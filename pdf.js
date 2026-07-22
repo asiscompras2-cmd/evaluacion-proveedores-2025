@@ -376,22 +376,6 @@ function ejecutarGeneracionPDF(data) {
 
 
     //======================================
-    // ESCALA
-    //======================================
-
-    doc.setFont("helvetica", "italic");
-    doc.setFontSize(8.5);
-
-    doc.text(
-        "Escala de valoración: 1,00 = menor nivel de cumplimiento | 5,00 = mayor nivel de cumplimiento.",
-        20,
-        y
-    );
-
-    y += 7;
-
-
-    //======================================
     // TÍTULO DE CRITERIOS
     //======================================
 
