@@ -1,8 +1,8 @@
 // ==========================================
-// PDF.JS
-// CARTA DE RESULTADOS DE EVALUACIÓN
+// PDF.JS - CARTA DE RESULTADOS OFICIAL
 // Parque Comercial El Tesoro P.H.
-// Formato: F-F-33 | Versión: 01
+// Formato: F-F-33
+// Versión: 01
 // ==========================================
 
 
@@ -16,7 +16,7 @@ function generarPDFISOIndividual(index) {
     const data = historial[index];
 
     if (!data) {
-        mostrarModal("No se encontró la evaluación seleccionada.");
+        mostrarModal("No se encontró la evaluación.");
         return;
     }
 
@@ -25,7 +25,7 @@ function generarPDFISOIndividual(index) {
 
 
 // ==========================================
-// BOTÓN PDF PRINCIPAL
+// BOTÓN PDF GENERAL
 // ==========================================
 
 function generarPDFISO() {
@@ -38,7 +38,7 @@ function generarPDFISO() {
 
 
 // ==========================================
-// GENERAR PDF
+// FUNCIÓN PRINCIPAL
 // ==========================================
 
 function ejecutarGeneracionPDF(data) {
@@ -47,207 +47,221 @@ function ejecutarGeneracionPDF(data) {
 
     const doc = new jsPDF("p", "mm", "a4");
 
-    // --------------------------------------
+    // ==========================================
     // DATOS DE LA EVALUACIÓN
-    // --------------------------------------
+    // ==========================================
 
     const nombre = data.nombre || "";
     const cedula = data.cedula || "";
     const fecha = data.fecha || "";
     const area = data.area || "";
-    const proveedor = data.proveedor || "Proveedor";
+    const proveedor = data.proveedor || "";
     const nit = data.nit || "";
     const observaciones = data.observaciones || "";
 
-    // CORRECCIÓN IMPORTANTE:
-    // En APP.JS se guarda como "puntaje"
+    // IMPORTANTE:
+    // En APP.JS el puntaje se guarda como "puntaje"
     const puntaje = Number(data.puntaje || 0);
 
-    // CORRECCIÓN IMPORTANTE:
-    // Las respuestas se guardan dentro de data.respuestas
+    // Respuestas guardadas
     const respuestas = data.respuestas || {};
 
-    const margenIzquierdo = 20;
-    const anchoContenido = 170;
-
-
-    // ======================================
-    // FUNCIONES AUXILIARES
-    // ======================================
-
-    function textoSeguro(texto) {
-
-        if (texto === null || texto === undefined) {
-            return "";
-        }
-
-        return String(texto);
-    }
-
-
-    function formatearPuntaje(valor) {
-
-        return Number(valor)
-            .toFixed(2)
-            .replace(".", ",");
-    }
-
-
-    function obtenerClasificacion(puntaje) {
-
-        if (puntaje >= 4.50) {
-            return "EXCELENTE";
-        }
-
-        if (puntaje >= 4.00) {
-            return "SATISFACTORIO";
-        }
-
-        if (puntaje >= 3.50) {
-            return "ACEPTABLE CON OPORTUNIDADES DE MEJORA";
-        }
-
-        return "REQUIERE PLAN DE MEJORAMIENTO";
-    }
-
-
-    const clasificacion = obtenerClasificacion(puntaje);
-
-
-    // ======================================
+    // ==========================================
     // ENCABEZADO
-    // ======================================
+    // ==========================================
 
-    function dibujarEncabezado() {
+    function dibujarEncabezado(d) {
 
-        doc.setLineWidth(0.4);
+        d.setDrawColor(130, 130, 130);
+        d.setLineWidth(0.35);
 
-        // Marco principal del encabezado
-        doc.rect(20, 15, 170, 25);
+        // Marco general
+        d.rect(20, 15, 170, 20);
 
         // Divisiones
-        doc.line(70, 15, 70, 40);
-        doc.line(150, 15, 150, 40);
+        d.line(70, 15, 70, 35);
+        d.line(150, 15, 150, 35);
 
-        doc.line(150, 23.3, 190, 23.3);
-        doc.line(150, 31.6, 190, 31.6);
+        d.line(150, 21.67, 190, 21.67);
+        d.line(150, 28.33, 190, 28.33);
 
+        // ------------------------------
+        // LOGO / NOMBRE INSTITUCIONAL
+        // ------------------------------
 
-        // ----------------------------------
-        // LOGO / IDENTIDAD
-        // ----------------------------------
+        d.setFont("helvetica", "bold");
+        d.setFontSize(10);
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(10);
-
-        doc.text("El Tesoro", 45, 25, {
-            align: "center"
-        });
-
-        doc.setFontSize(7);
-
-        doc.text("PARQUE COMERCIAL", 45, 30, {
-            align: "center"
-        });
-
-
-        // ----------------------------------
-        // TÍTULO
-        // ----------------------------------
-
-        doc.setFontSize(10);
-
-        doc.text(
-            "CARTA DE EVALUACIÓN",
-            110,
-            25,
-            {
-                align: "center"
-            }
+        d.text(
+            "EL TESORO",
+            45,
+            23,
+            { align: "center" }
         );
 
-        doc.text(
-            "DE PROVEEDORES",
-            110,
-            31,
-            {
-                align: "center"
-            }
+        d.setFont("helvetica", "normal");
+        d.setFontSize(6.5);
+
+        d.text(
+            "PARQUE COMERCIAL",
+            45,
+            28,
+            { align: "center" }
         );
 
+        // ------------------------------
+        // TÍTULO CENTRAL
+        // ------------------------------
 
-        // ----------------------------------
+        d.setFont("helvetica", "bold");
+        d.setFontSize(9);
+
+        d.text(
+            "CARTA DE EVALUACIÓN DE PROVEEDORES",
+            110,
+            27,
+            { align: "center" }
+        );
+
+        // ------------------------------
         // CONTROL DEL FORMATO
-        // ----------------------------------
+        // ------------------------------
 
-        doc.setFontSize(7);
+        d.setFont("helvetica", "normal");
+        d.setFontSize(7);
 
-        doc.text(
+        d.text(
             "F-F-33",
             170,
-            20,
-            {
-                align: "center"
-            }
+            19,
+            { align: "center" }
         );
 
-        doc.text(
+        d.text(
             "Versión: 01",
             170,
-            28,
-            {
-                align: "center"
-            }
+            25,
+            { align: "center" }
         );
 
-        doc.text(
+        d.text(
             "Fecha: 28/12/2022",
             170,
-            36,
-            {
-                align: "center"
-            }
+            32,
+            { align: "center" }
         );
-
     }
 
 
-    dibujarEncabezado();
+    dibujarEncabezado(doc);
 
 
-    // ======================================
+    // ==========================================
+    // FUNCIÓN PARA TEXTO JUSTIFICADO
+    // ==========================================
+
+    function escribirTextoJustificado(
+        d,
+        texto,
+        x,
+        y,
+        ancho,
+        altoLinea = 4.5
+    ) {
+
+        const lineas = d.splitTextToSize(texto, ancho);
+
+        lineas.forEach((linea, index) => {
+
+            const ultimaLinea =
+                index === lineas.length - 1;
+
+            const palabras = linea.split(" ");
+
+            // La última línea se deja normal
+            if (
+                ultimaLinea ||
+                palabras.length <= 1
+            ) {
+
+                d.text(
+                    linea,
+                    x,
+                    y
+                );
+
+                y += altoLinea;
+
+                return;
+            }
+
+            const anchoTexto =
+                d.getTextWidth(linea);
+
+            const espacioBase =
+                d.getTextWidth(" ");
+
+            const espacioExtra =
+                (
+                    ancho -
+                    anchoTexto
+                ) /
+                (palabras.length - 1);
+
+            let posicionX = x;
+
+            palabras.forEach(
+                (palabra, i) => {
+
+                    d.text(
+                        palabra,
+                        posicionX,
+                        y
+                    );
+
+                    posicionX +=
+                        d.getTextWidth(palabra);
+
+                    if (
+                        i <
+                        palabras.length - 1
+                    ) {
+
+                        posicionX +=
+                            espacioBase +
+                            espacioExtra;
+                    }
+                }
+            );
+
+            y += altoLinea;
+        });
+
+        return y;
+    }
+
+
+    // ==========================================
     // TÍTULO PRINCIPAL
-    // ======================================
-
-    let y = 52;
+    // ==========================================
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFontSize(10.5);
 
     doc.text(
-        "CARTA DE RESULTADOS DE EVALUACIÓN",
+        "CARTA DE RESULTADOS DE EVALUACIÓN DE DESEMPEÑO DE PROVEEDORES",
         105,
-        y,
+        47,
         {
-            align: "center"
-        }
-    );
-
-    doc.text(
-        "DE DESEMPEÑO DE PROVEEDORES",
-        105,
-        y + 6,
-        {
-            align: "center"
+            align: "center",
+            maxWidth: 170
         }
     );
 
 
-    // ======================================
-    // FECHA Y DESTINATARIO
-    // ======================================
-
-    y += 20;
+    // ==========================================
+    // FECHA
+    // ==========================================
 
     const fechaObj = new Date(fecha);
 
@@ -266,510 +280,648 @@ function ejecutarGeneracionPDF(data) {
         "diciembre"
     ];
 
-    let fechaTexto = "";
+    let fechaTexto = fecha;
 
-    if (!isNaN(fechaObj.getTime())) {
+    if (
+        !isNaN(fechaObj.getTime())
+    ) {
 
         fechaTexto =
-            `Fecha: ${fechaObj.getDate()} de ` +
+            `${fechaObj.getDate()} de ` +
             `${meses[fechaObj.getMonth()]} de ` +
             `${fechaObj.getFullYear()}`;
-
-    } else {
-
-        fechaTexto = `Fecha: ${fecha}`;
-
     }
 
-
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
+    doc.setFontSize(9);
 
-    doc.text(fechaTexto, margenIzquierdo, y);
+    doc.text(
+        `Fecha: ${fechaTexto}`,
+        20,
+        58
+    );
 
-    y += 10;
+
+    // ==========================================
+    // DESTINATARIO
+    // ==========================================
 
     doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
 
-    doc.text("Señores", margenIzquierdo, y);
-
-    y += 6;
+    doc.text(
+        "Señores",
+        20,
+        65
+    );
 
     doc.text(
         proveedor.toUpperCase(),
-        margenIzquierdo,
-        y
+        20,
+        70
     );
-
-    y += 6;
 
     doc.setFont("helvetica", "normal");
-
-    doc.text(
-        `NIT: ${nit}`,
-        margenIzquierdo,
-        y
-    );
-
-    y += 6;
 
     doc.text(
         "Ciudad",
-        margenIzquierdo,
-        y
+        20,
+        75
     );
 
 
-    // ======================================
+    // ==========================================
     // ASUNTO
-    // ======================================
-
-    y += 12;
+    // ==========================================
 
     doc.setFont("helvetica", "bold");
 
     doc.text(
-        "Asunto: Resultado de Evaluación de Desempeño de Proveedores",
-        margenIzquierdo,
-        y
+        "Asunto: Resultado de la Evaluación de Desempeño de Proveedores",
+        20,
+        84
     );
 
 
-    // ======================================
-    // SALUDO Y PRESENTACIÓN
-    // ======================================
-
-    y += 12;
+    // ==========================================
+    // INTRODUCCIÓN
+    // ==========================================
 
     doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
 
     const parrafo1 =
-        "Cordial saludo. Apreciado proveedor, el proceso de Compras e Inventarios del Parque Comercial El Tesoro P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado de la evaluación de desempeño realizada a su organización correspondiente al período evaluado.";
+        "Cordial saludo. Apreciado proveedor, el proceso de Compras e Inventarios del PARQUE COMERCIAL EL TESORO P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado de la evaluación de desempeño realizada a su organización correspondiente al período evaluado.";
 
-    const textoParrafo1 =
-        doc.splitTextToSize(
-            parrafo1,
-            anchoContenido
-        );
+    let y = 94;
 
-    doc.text(
-        textoParrafo1,
-        margenIzquierdo,
-        y
+    y = escribirTextoJustificado(
+        doc,
+        parrafo1,
+        20,
+        y,
+        170,
+        4.5
     );
 
-    y += textoParrafo1.length * 5 + 8;
 
-
-    // ======================================
+    // ==========================================
     // CRITERIOS EVALUADOS
-    // ======================================
+    // ==========================================
+
+    y += 3;
 
     const parrafo2 =
-        "La evaluación fue efectuada considerando criterios relacionados con:";
+        "La evaluación fue efectuada considerando criterios relacionados con el tiempo de respuesta y cumplimiento de entregas, la calidad del producto o servicio suministrado, las condiciones comerciales y competitividad, así como el cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST).";
 
-    doc.text(
+    y = escribirTextoJustificado(
+        doc,
         parrafo2,
-        margenIzquierdo,
-        y
+        20,
+        y,
+        170,
+        4.5
     );
 
-    y += 7;
 
-    const criteriosTexto = [
+    // ==========================================
+    // TABLA DE RESULTADOS
+    // ==========================================
 
-        "Tiempo de respuesta y cumplimiento de entregas.",
-
-        "Calidad del producto y/o servicio suministrado.",
-
-        "Condiciones comerciales y competitividad.",
-
-        "Cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST)."
-
-    ];
-
-
-    criteriosTexto.forEach((criterio) => {
-
-        const linea =
-            doc.splitTextToSize(
-                "• " + criterio,
-                160
-            );
-
-        doc.text(
-            linea,
-            25,
-            y
-        );
-
-        y += linea.length * 5 + 1;
-
-    });
-
-
-    // ======================================
-    // TABLA DE CRITERIOS
-    // ======================================
-
-    y += 5;
-
-    doc.setFont("helvetica", "bold");
-
-    doc.text(
-        "Desempeño por categoría",
-        margenIzquierdo,
-        y
-    );
-
+    y += 3;
 
     const resumenCriterios = [];
-
 
     if (
         window.criterios &&
         Array.isArray(window.criterios)
     ) {
 
-        window.criterios.forEach((criterio) => {
+        window.criterios.forEach(
+            criterio => {
 
-            let suma = 0;
+                let suma = 0;
+                let cantidad = 0;
 
-            let cantidad = 0;
+                criterio.preguntas.forEach(
+                    pregunta => {
+
+                        const valor =
+                            Number(
+                                respuestas[pregunta.id]
+                            );
+
+                        if (
+                            !isNaN(valor) &&
+                            valor > 0
+                        ) {
+
+                            suma += valor;
+                            cantidad++;
+                        }
+                    }
+                );
+
+                const promedio =
+                    cantidad > 0
+                        ? (
+                            suma /
+                            cantidad
+                        ).toFixed(2)
+                        : "N/A";
 
 
-            criterio.preguntas.forEach((pregunta) => {
+                let nombreCriterio =
+                    criterio.nombre;
 
-                const valor =
-                    Number(
-                        respuestas[pregunta.id]
-                    );
 
                 if (
-                    !isNaN(valor) &&
-                    valor > 0
+                    criterio.nombre ===
+                    "Cumplimiento"
                 ) {
 
-                    suma += valor;
-
-                    cantidad++;
-
+                    nombreCriterio =
+                        "Tiempo de respuesta y cumplimiento de entregas";
                 }
 
-            });
+
+                if (
+                    criterio.nombre ===
+                    "Calidad"
+                ) {
+
+                    nombreCriterio =
+                        "Calidad del producto o servicio";
+                }
 
 
-            const promedio =
-                cantidad > 0
-                    ? (suma / cantidad).toFixed(2)
-                    : "N/A";
+                if (
+                    criterio.nombre ===
+                    "Condiciones Comerciales"
+                ) {
+
+                    nombreCriterio =
+                        "Condiciones comerciales y competitividad";
+                }
 
 
-            let nombreCriterio =
-                criterio.nombre;
+                if (
+                    criterio.nombre ===
+                    "SST"
+                ) {
+
+                    nombreCriterio =
+                        "Cumplimiento legal, contractual y SST";
+                }
 
 
-            if (
-                criterio.nombre === "Cumplimiento"
-            ) {
-
-                nombreCriterio =
-                    "Tiempo de respuesta y cumplimiento de entregas";
-
+                resumenCriterios.push(
+                    [
+                        nombreCriterio,
+                        `${promedio} / 5,00`
+                    ]
+                );
             }
-
-
-            if (
-                criterio.nombre === "Calidad"
-            ) {
-
-                nombreCriterio =
-                    "Calidad del producto y/o servicio suministrado";
-
-            }
-
-
-            if (
-                criterio.nombre === "Condiciones Comerciales"
-            ) {
-
-                nombreCriterio =
-                    "Condiciones comerciales y competitividad";
-
-            }
-
-
-            if (
-                criterio.nombre === "SST"
-            ) {
-
-                nombreCriterio =
-                    "Cumplimiento de requisitos legales, contractuales y de SST";
-
-            }
-
-
-            resumenCriterios.push([
-
-                nombreCriterio,
-
-                `${promedio} / 5,00`
-
-            ]);
-
-        });
-
+        );
     }
+
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+
+    doc.text(
+        "RESULTADOS POR CATEGORÍA DE EVALUACIÓN",
+        20,
+        y
+    );
 
 
     doc.autoTable({
 
-        startY: y + 5,
-
-        margin: {
-            left: 20,
-            right: 20
-        },
+        startY: y + 3,
 
         head: [
-
             [
                 "Categoría de evaluación",
                 "Calificación"
             ]
-
         ],
 
         body: resumenCriterios,
 
         theme: "grid",
 
-        headStyles: {
-
-            fillColor: [107, 142, 35],
-
-            textColor: 255,
-
-            fontStyle: "bold",
-
-            halign: "center"
-
+        margin: {
+            left: 20,
+            right: 20
         },
 
-        bodyStyles: {
+        tableWidth: 170,
+
+        styles: {
+
+            font: "helvetica",
 
             fontSize: 8,
 
-            cellPadding: 3
+            cellPadding: 2.5,
 
+            lineColor: [
+                190,
+                190,
+                190
+            ],
+
+            lineWidth: 0.25,
+
+            textColor: [
+                50,
+                50,
+                50
+            ]
+        },
+
+        headStyles: {
+
+            fontStyle: "bold",
+
+            fontSize: 8,
+
+            textColor: [
+                255,
+                255,
+                255
+            ],
+
+            fillColor: [
+                85,
+                125,
+                45
+            ],
+
+            halign: "center"
         },
 
         columnStyles: {
 
             0: {
-                cellWidth: 135
+                cellWidth: 125
             },
 
             1: {
-
-                cellWidth: 35,
-
+                cellWidth: 45,
                 halign: "center"
-
             }
-
         }
-
     });
 
 
-    y = doc.lastAutoTable.finalY + 12;
+    // ==========================================
+    // CALIFICACIÓN FINAL
+    // ==========================================
+
+    let yResultado =
+        doc.lastAutoTable.finalY + 6;
 
 
-    // ======================================
-    // RESULTADO FINAL
-    // ======================================
-
-    doc.setFont("helvetica", "bold");
-
-    doc.setFontSize(11);
-
-    doc.text(
-        "RESULTADO DE LA EVALUACIÓN",
-        105,
-        y,
-        {
-            align: "center"
-        }
+    doc.setDrawColor(
+        170,
+        170,
+        170
     );
 
-    y += 12;
-
-    doc.setFontSize(20);
-
-    doc.text(
-        `${formatearPuntaje(puntaje)} / 5,00`,
-        105,
-        y,
-        {
-            align: "center"
-        }
-    );
-
-    y += 8;
-
-    doc.setFontSize(11);
-
-    doc.text(
-        clasificacion,
-        105,
-        y,
-        {
-            align: "center"
-        }
+    doc.setLineWidth(
+        0.3
     );
 
 
-    // ======================================
+    doc.roundedRect(
+
+        20,
+        yResultado,
+
+        170,
+        16,
+
+        2,
+        2
+    );
+
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
+    doc.setFontSize(
+        9
+    );
+
+
+    doc.text(
+
+        "CALIFICACIÓN FINAL",
+
+        25,
+        yResultado + 7
+    );
+
+
+    doc.setFontSize(
+        12
+    );
+
+
+    doc.text(
+
+        `${puntaje.toFixed(2)} / 5,00`,
+
+        165,
+
+        yResultado + 8,
+
+        {
+            align: "right"
+        }
+    );
+
+
+    // ==========================================
+    // CLASIFICACIÓN
+    // ==========================================
+
+    let clasificacion = "";
+
+    if (
+        puntaje >= 4.5
+    ) {
+
+        clasificacion =
+            "Excelente";
+
+    } else if (
+        puntaje >= 4.0
+    ) {
+
+        clasificacion =
+            "Satisfactorio";
+
+    } else if (
+        puntaje >= 3.5
+    ) {
+
+        clasificacion =
+            "Aceptable con oportunidades de mejora";
+
+    } else {
+
+        clasificacion =
+            "Requiere plan de mejoramiento";
+    }
+
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+    doc.setFontSize(
+        8.5
+    );
+
+
+    doc.text(
+
+        `Clasificación: ${clasificacion}`,
+
+        20,
+
+        yResultado + 22
+    );
+
+
+    // ==========================================
     // OBSERVACIONES
-    // ======================================
+    // ==========================================
 
-    y += 14;
+    let yObservaciones =
+        yResultado + 31;
 
-    doc.setFontSize(10);
 
-    doc.setFont("helvetica", "bold");
-
-    doc.text(
-        "OBSERVACIONES",
-        margenIzquierdo,
-        y
+    doc.setFont(
+        "helvetica",
+        "bold"
     );
 
-    y += 7;
+    doc.setFontSize(
+        9
+    );
 
-    doc.setFont("helvetica", "normal");
+
+    doc.text(
+
+        "OBSERVACIONES",
+
+        20,
+
+        yObservaciones
+    );
+
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+    doc.setFontSize(
+        8.5
+    );
+
 
     const textoObservaciones =
+        observaciones ||
+        "No se registraron observaciones.";
+
+
+    const lineasObservaciones =
         doc.splitTextToSize(
-            textoSeguro(observaciones),
-            anchoContenido
+            textoObservaciones,
+            170
         );
 
+
     doc.text(
-        textoObservaciones,
-        margenIzquierdo,
-        y
+
+        lineasObservaciones,
+
+        20,
+
+        yObservaciones + 5
     );
 
-    y +=
-        textoObservaciones.length * 5 +
-        15;
 
-
-    // ======================================
+    // ==========================================
     // CIERRE
-    // ======================================
+    // ==========================================
+
+    let yCierre =
+        yObservaciones +
+        5 +
+        (
+            lineasObservaciones.length *
+            4
+        ) +
+        7;
+
 
     const cierre =
         "Agradecemos su compromiso y disposición para contribuir al cumplimiento de los estándares de calidad, servicio y cumplimiento requeridos con el Parque Comercial El Tesoro P.H.";
 
-    const textoCierre =
-        doc.splitTextToSize(
-            cierre,
-            anchoContenido
-        );
 
-    doc.text(
-        textoCierre,
-        margenIzquierdo,
-        y
+    doc.setFont(
+        "helvetica",
+        "normal"
     );
 
-    y +=
-        textoCierre.length * 5 +
-        15;
+    doc.setFontSize(
+        8.5
+    );
 
 
-    // ======================================
+    const lineasCierre =
+        doc.splitTextToSize(
+            cierre,
+            170
+        );
+
+
+    doc.text(
+
+        lineasCierre,
+
+        20,
+
+        yCierre
+    );
+
+
+    // ==========================================
     // FIRMA
-    // ======================================
+    // ==========================================
+
+    let yFirma =
+        yCierre +
+        (
+            lineasCierre.length *
+            4
+        ) +
+        10;
+
 
     doc.text(
         "Cordialmente,",
-        margenIzquierdo,
-        y
+        20,
+        yFirma
     );
 
-    y += 22;
 
-    doc.setFont("helvetica", "bold");
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
 
     doc.text(
         "María L. Osorno",
-        margenIzquierdo,
-        y
+        20,
+        yFirma + 14
     );
 
-    y += 5;
 
-    doc.setFont("helvetica", "normal");
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
 
     doc.text(
-        "Jefe de Compras e Inventarios",
-        margenIzquierdo,
-        y
+        "JEFE DE COMPRAS E INVENTARIOS",
+        20,
+        yFirma + 19
     );
 
-    y += 5;
+
+    doc.text(
+        "PARQUE COMERCIAL EL TESORO P.H.",
+        20,
+        yFirma + 24
+    );
+
+
+    // ==========================================
+    // PIE DE PÁGINA
+    // ==========================================
+
+    doc.setDrawColor(
+        180,
+        180,
+        180
+    );
+
+    doc.setLineWidth(
+        0.25
+    );
+
+
+    doc.line(
+        20,
+        285,
+        190,
+        285
+    );
+
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+    doc.setFontSize(
+        7
+    );
+
 
     doc.text(
         "Parque Comercial El Tesoro P.H.",
-        margenIzquierdo,
-        y
+        20,
+        290
     );
 
 
-    // ======================================
-    // PIE DE PÁGINA
-    // ======================================
-
-    const totalPaginas =
-        doc.internal.getNumberOfPages();
-
-
-    for (
-        let pagina = 1;
-        pagina <= totalPaginas;
-        pagina++
-    ) {
-
-        doc.setPage(pagina);
-
-        doc.setFontSize(8);
-
-        doc.setFont("helvetica", "normal");
-
-        doc.text(
-            `F-F-33 | Versión 01 | Página ${pagina} de ${totalPaginas}`,
-            105,
-            287,
-            {
-                align: "center"
-            }
-        );
-
-    }
+    doc.text(
+        "F-F-33 | Versión 01",
+        190,
+        290,
+        {
+            align: "right"
+        }
+    );
 
 
-    // ======================================
-    // GUARDAR ARCHIVO
-    // ======================================
+    // ==========================================
+    // NOMBRE DEL ARCHIVO
+    // ==========================================
 
     const nombreArchivo =
         proveedor
-            .replace(/[^\w\s-]/gi, "")
-            .replace(/\s+/g, "_");
+            .replace(
+                /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]/g,
+                ""
+            )
+            .replace(
+                /\s+/g,
+                "_"
+            );
 
 
     doc.save(
