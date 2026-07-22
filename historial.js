@@ -427,7 +427,7 @@ function actualizarIndicadores(historial) {
 
     const requierenMejora =
         historial.filter(
-            e => Number(e.puntaje || 0) < 3.5
+            e => Number(e.puntaje_final || 0) < 3.5
         ).length;
 
 
