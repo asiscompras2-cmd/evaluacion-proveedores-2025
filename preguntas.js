@@ -44,7 +44,6 @@ function renderizarPreguntas() {
 
     criterios.forEach(criterio => {
 
-        // Encabezado del criterio
         const divCriterio = document.createElement("div");
 
         divCriterio.className = "criterio";
@@ -54,8 +53,6 @@ function renderizarPreguntas() {
 
         contenedor.appendChild(divCriterio);
 
-
-        // Preguntas del criterio
         criterio.preguntas.forEach(pregunta => {
 
             const divPregunta = document.createElement("div");
@@ -64,76 +61,65 @@ function renderizarPreguntas() {
 
             divPregunta.innerHTML = `
 
-                <p class="textoPregunta">
-                    ${pregunta.id}. ${pregunta.texto}
-                </p>
+                <div class="preguntaFila">
 
-                <div class="opciones">
+                    <div class="textoPregunta">
+                        ${pregunta.id}. ${pregunta.texto}
+                    </div>
 
-                    <label title="Inaceptable">
-                        <input
-                            type="radio"
-                            name="p${pregunta.id}"
-                            value="1"
-                            onchange="calcularResultado()"
-                        >
-                        <span>
-                            <strong>1</strong>
-                            <small>Inaceptable</small>
-                        </span>
-                    </label>
+                    <div class="opciones">
 
-                    <label title="Deficiente">
-                        <input
-                            type="radio"
-                            name="p${pregunta.id}"
-                            value="2"
-                            onchange="calcularResultado()"
-                        >
-                        <span>
-                            <strong>2</strong>
-                            <small>Deficiente</small>
-                        </span>
-                    </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="p${pregunta.id}"
+                                value="1"
+                                onchange="calcularResultado()"
+                            >
+                            <span>1</span>
+                        </label>
 
-                    <label title="Aceptable">
-                        <input
-                            type="radio"
-                            name="p${pregunta.id}"
-                            value="3"
-                            onchange="calcularResultado()"
-                        >
-                        <span>
-                            <strong>3</strong>
-                            <small>Aceptable</small>
-                        </span>
-                    </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="p${pregunta.id}"
+                                value="2"
+                                onchange="calcularResultado()"
+                            >
+                            <span>2</span>
+                        </label>
 
-                    <label title="Bueno">
-                        <input
-                            type="radio"
-                            name="p${pregunta.id}"
-                            value="4"
-                            onchange="calcularResultado()"
-                        >
-                        <span>
-                            <strong>4</strong>
-                            <small>Bueno</small>
-                        </span>
-                    </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="p${pregunta.id}"
+                                value="3"
+                                onchange="calcularResultado()"
+                            >
+                            <span>3</span>
+                        </label>
 
-                    <label title="Excelente">
-                        <input
-                            type="radio"
-                            name="p${pregunta.id}"
-                            value="5"
-                            onchange="calcularResultado()"
-                        >
-                        <span>
-                            <strong>5</strong>
-                            <small>Excelente</small>
-                        </span>
-                    </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="p${pregunta.id}"
+                                value="4"
+                                onchange="calcularResultado()"
+                            >
+                            <span>4</span>
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="p${pregunta.id}"
+                                value="5"
+                                onchange="calcularResultado()"
+                            >
+                            <span>5</span>
+                        </label>
+
+                    </div>
 
                 </div>
             `;
