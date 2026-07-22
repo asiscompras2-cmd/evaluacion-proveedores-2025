@@ -403,53 +403,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function actualizarIndicadores(historial) {
 
-    const total =
-        historial.length;
-
+    const total = historial.length;
 
     const promedio =
-    total > 0
-        ? historial.reduce(
-            (suma, e) =>
-                suma + Number(e.puntaje_final || 0),
-            0
-        ) / total
-        : 0;
-
+        total > 0
+            ? historial.reduce(
+                (suma, e) =>
+                    suma + Number(e.puntaje_final || 0),
+                0
+            ) / total
+            : 0;
 
     const proveedores =
         new Set(
             historial.map(e => e.nit)
         ).size;
 
-
     const requierenMejora =
         historial.filter(
             e => Number(e.puntaje_final || 0) < 3.5
         ).length;
 
-
     document.getElementById(
         "totalEvaluaciones"
     ).textContent = total;
 
-
     document.getElementById(
         "promedioGeneral"
-    ).textContent =
-        promedio.toFixed(2);
-
+    ).textContent = promedio.toFixed(2);
 
     document.getElementById(
         "proveedoresEvaluados"
-    ).textContent =
-        proveedores;
-
+    ).textContent = proveedores;
 
     document.getElementById(
         "proveedoresMejora"
-    ).textContent =
-        requierenMejora;
+    ).textContent = requierenMejora;
 
 }
 //=========================================
