@@ -562,3 +562,32 @@ function cargarAreasFiltro() {
     });
 
 }
+//=========================================
+// LIMPIAR FILTROS
+//=========================================
+
+function limpiarFiltros() {
+
+    document.getElementById(
+        "filtroProveedor"
+    ).value = "";
+
+
+    document.getElementById(
+        "filtroArea"
+    ).value = "";
+
+
+    document.getElementById(
+        "filtroFechaDesde"
+    ).value = "";
+
+
+    document.getElementById(
+        "filtroFechaHasta"
+    ).value = "";
+
+
+    renderizarHistorial();
+
+}
