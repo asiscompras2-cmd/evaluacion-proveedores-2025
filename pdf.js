@@ -383,7 +383,7 @@ function ejecutarGeneracionPDF(data) {
     doc.setFontSize(8.5);
 
     doc.text(
-        "Escala de valoración: 1,00 = menor nivel de cumplimiento | 5,00 = mayor nivel de cumplimiento.",
+        "Escala de calificación: 1 Inaceptable  |  2 Deficiente  |  3 Aceptable  |  4 Bueno  |  5 Excelente.",
         20,
         y
     );
