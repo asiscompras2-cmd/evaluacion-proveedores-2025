@@ -81,76 +81,206 @@ function obtenerHistorial() {
     return cacheHistorial;
 }
 
-//=====================================
-// RENDERIZAR HISTORIAL
-//=====================================
+//=========================================
+// RENDERIZAR HISTORIAL CON FILTROS
+//=========================================
 
 function renderizarHistorial() {
 
-    const cuerpo = document.getElementById("cuerpoHistorial");
-    const sinDatos = document.getElementById("sinDatos");
+    const historial = cacheHistorial || [];
+
+    const cuerpo =
+        document.getElementById("cuerpoHistorial");
+
+    const sinDatos =
+        document.getElementById("sinDatos");
 
     if (!cuerpo) return;
 
+    const filtroProveedor =
+        document.getElementById("filtroProveedor")?.value
+        .toLowerCase()
+        .trim() || "";
+
+    const filtroArea =
+        document.getElementById("filtroArea")?.value || "";
+
+    const fechaDesde =
+        document.getElementById("filtroFechaDesde")?.value || "";
+
+    const fechaHasta =
+        document.getElementById("filtroFechaHasta")?.value || "";
+
+
+    const historialFiltrado =
+        historial.filter(e => {
+
+            const coincideProveedor =
+                !filtroProveedor ||
+                (e.proveedor || "")
+                    .toLowerCase()
+                    .includes(filtroProveedor);
+
+
+            const coincideArea =
+                !filtroArea ||
+                e.area === filtroArea;
+
+
+            const coincideDesde =
+                !fechaDesde ||
+                e.fecha >= fechaDesde;
+
+
+            const coincideHasta =
+                !fechaHasta ||
+                e.fecha <= fechaHasta;
+
+
+            return (
+
+                coincideProveedor &&
+                coincideArea &&
+                coincideDesde &&
+                coincideHasta
+
+            );
+
+        });
+
+
     cuerpo.innerHTML = "";
 
-    if (cacheHistorial.length === 0) {
 
-        if (sinDatos) {
-            sinDatos.classList.remove("d-none");
+    if (historialFiltrado.length === 0) {
+
+        sinDatos.classList.remove("d-none");
+
+    } else {
+
+        sinDatos.classList.add("d-none");
+
+    }
+
+
+    historialFiltrado.forEach((e) => {
+
+        const indiceReal =
+            historial.indexOf(e);
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        const puntaje =
+            Number(e.puntaje || 0);
+
+
+        let colorPuntaje =
+            "text-danger";
+
+
+        if (puntaje >= 4.5) {
+
+            colorPuntaje =
+                "text-success fw-bold";
+
         }
 
-        return;
-    }
+        else if (puntaje >= 4.0) {
 
-    if (sinDatos) {
-        sinDatos.classList.add("d-none");
-    }
+            colorPuntaje =
+                "text-primary fw-bold";
 
-    cacheHistorial.forEach((e, index) => {
+        }
 
-        let color = "text-danger";
+        else if (puntaje >= 3.5) {
 
-        const puntaje = Number(e.puntaje_final || 0);
+            colorPuntaje =
+                "text-warning fw-bold";
 
-        if (puntaje >= 4.5)
-            color = "text-success fw-bold";
-        else if (puntaje >= 3.75)
-            color = "text-primary fw-bold";
-        else if (puntaje >= 3.0)
-            color = "text-warning fw-bold";
+        }
 
-        const fila = document.createElement("tr");
 
-        fila.innerHTML = `
-            <td>${e.fecha}</td>
+        tr.innerHTML = `
 
             <td>
-                <strong>${e.proveedor}</strong><br>
+                ${e.fecha || ""}
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${e.proveedor || ""}
+                </strong>
+
+                <br>
+
                 <small class="text-muted">
-                    NIT: ${e.nit}<br>
-                    Evaluador: ${e.nombre}
+
+                    NIT:
+                    ${e.nit || "N/A"}
+
                 </small>
+
             </td>
 
-            <td>${e.area}</td>
-
-            <td class="${color}">
-                ${puntaje.toFixed(2)} / 5.00
-            </td>
 
             <td>
-                <button
-                    class="btn btn-sm btn-outline-danger"
-                    onclick="generarPDFISOIndividual(${index})">
-                    <i class="bi bi-file-earmark-pdf"></i>
-                </button>
+                ${e.area || "N/A"}
             </td>
+
+
+            <td>
+                ${e.nombre || "N/A"}
+            </td>
+
+
+            <td class="${colorPuntaje}">
+
+                ${puntaje.toFixed(2)}
+                / 5.00
+
+            </td>
+
+
+            <td>
+
+                <div class="btn-group btn-group-sm">
+
+                    <button
+                        class="btn btn-outline-danger"
+                        onclick="generarPDFISOIndividual(${indiceReal})"
+                        title="Generar PDF">
+
+                        <i class="bi bi-file-earmark-pdf"></i>
+
+                    </button>
+
+                    <button
+                        class="btn btn-outline-success"
+                        onclick="exportarExcelIndividual(${indiceReal})"
+                        title="Exportar Excel">
+
+                        <i class="bi bi-file-earmark-excel"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
         `;
 
-        cuerpo.appendChild(fila);
+
+        cuerpo.appendChild(tr);
 
     });
+
+
+    actualizarIndicadores(historialFiltrado);
 
 }
 
