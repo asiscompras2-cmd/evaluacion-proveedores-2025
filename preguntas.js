@@ -26,11 +26,13 @@ async function cargarPreguntas() {
     } catch (error) {
 
         console.error(error);
+
         alert("No fue posible cargar las preguntas de evaluación.");
 
     }
 
 }
+
 
 //===============================
 // RENDERIZAR PREGUNTAS
@@ -38,13 +40,15 @@ async function cargarPreguntas() {
 
 function renderizarPreguntas() {
 
-    const contenedor = document.getElementById("contenedorPreguntas");
+    const contenedor =
+        document.getElementById("contenedorPreguntas");
 
     contenedor.innerHTML = "";
 
     criterios.forEach(criterio => {
 
-        const divCriterio = document.createElement("div");
+        const divCriterio =
+            document.createElement("div");
 
         divCriterio.className = "criterio";
 
@@ -53,9 +57,11 @@ function renderizarPreguntas() {
 
         contenedor.appendChild(divCriterio);
 
+
         criterio.preguntas.forEach(pregunta => {
 
-            const divPregunta = document.createElement("div");
+            const divPregunta =
+                document.createElement("div");
 
             divPregunta.className = "pregunta";
 
@@ -74,7 +80,7 @@ function renderizarPreguntas() {
                                 type="radio"
                                 name="p${pregunta.id}"
                                 value="1"
-                                onchange="calcularResultado()"
+                                onchange="calcularResultado(); generarObservacionesAutomaticas()"
                             >
                             <span>1</span>
                         </label>
@@ -84,7 +90,7 @@ function renderizarPreguntas() {
                                 type="radio"
                                 name="p${pregunta.id}"
                                 value="2"
-                                onchange="calcularResultado()"
+                                onchange="calcularResultado(); generarObservacionesAutomaticas()"
                             >
                             <span>2</span>
                         </label>
@@ -94,7 +100,7 @@ function renderizarPreguntas() {
                                 type="radio"
                                 name="p${pregunta.id}"
                                 value="3"
-                                onchange="calcularResultado()"
+                                onchange="calcularResultado(); generarObservacionesAutomaticas()"
                             >
                             <span>3</span>
                         </label>
@@ -104,7 +110,7 @@ function renderizarPreguntas() {
                                 type="radio"
                                 name="p${pregunta.id}"
                                 value="4"
-                                onchange="calcularResultado()"
+                                onchange="calcularResultado(); generarObservacionesAutomaticas()"
                             >
                             <span>4</span>
                         </label>
@@ -114,7 +120,7 @@ function renderizarPreguntas() {
                                 type="radio"
                                 name="p${pregunta.id}"
                                 value="5"
-                                onchange="calcularResultado()"
+                                onchange="calcularResultado(); generarObservacionesAutomaticas()"
                             >
                             <span>5</span>
                         </label>
@@ -131,6 +137,8 @@ function renderizarPreguntas() {
     });
 
 }
+
+
 //===============================
 // OBTENER RESPUESTAS
 //===============================
@@ -143,13 +151,15 @@ function obtenerRespuestas() {
 
         criterio.preguntas.forEach(pregunta => {
 
-            const seleccionado = document.querySelector(
-                `input[name="p${pregunta.id}"]:checked`
-            );
+            const seleccionado =
+                document.querySelector(
+                    `input[name="p${pregunta.id}"]:checked`
+                );
 
-            respuestas[pregunta.id] = seleccionado
-                ? parseInt(seleccionado.value)
-                : null;
+            respuestas[pregunta.id] =
+                seleccionado
+                    ? parseInt(seleccionado.value)
+                    : null;
 
         });
 
@@ -158,6 +168,195 @@ function obtenerRespuestas() {
     return respuestas;
 
 }
+
+
+//=========================================
+// GENERAR OBSERVACIONES AUTOMÁTICAS
+//=========================================
+
+function generarObservacionesAutomaticas() {
+
+    const campoObservaciones =
+        document.getElementById("observaciones");
+
+    if (!campoObservaciones) return;
+
+
+    const respuestas =
+        obtenerRespuestas();
+
+
+    let fortalezas = [];
+    let desempenoFavorable = [];
+    let oportunidadesMejora = [];
+    let requiereAtencion = [];
+    let aspectosPrioritarios = [];
+
+
+    criterios.forEach(criterio => {
+
+        criterio.preguntas.forEach(pregunta => {
+
+            const calificacion =
+                respuestas[pregunta.id];
+
+            if (!calificacion) return;
+
+
+            const texto =
+                pregunta.texto;
+
+
+            if (calificacion === 5) {
+
+                fortalezas.push(
+                    `${criterio.criterio}: ${texto}`
+                );
+
+            }
+
+
+            else if (calificacion === 4) {
+
+                desempenoFavorable.push(
+                    `${criterio.criterio}: ${texto}`
+                );
+
+            }
+
+
+            else if (calificacion === 3) {
+
+                oportunidadesMejora.push(
+                    `${criterio.criterio}: ${texto}`
+                );
+
+            }
+
+
+            else if (calificacion === 2) {
+
+                requiereAtencion.push(
+                    `${criterio.criterio}: ${texto}`
+                );
+
+            }
+
+
+            else if (calificacion === 1) {
+
+                aspectosPrioritarios.push(
+                    `${criterio.criterio}: ${texto}`
+                );
+
+            }
+
+        });
+
+    });
+
+
+    let observacion = "";
+
+
+    observacion +=
+        "De acuerdo con la evaluación de desempeño realizada, se identifican los siguientes resultados:\n\n";
+
+
+    if (fortalezas.length > 0) {
+
+        observacion +=
+            "FORTALEZAS:\n";
+
+        fortalezas.forEach(item => {
+
+            observacion +=
+                `• ${item}\n`;
+
+        });
+
+        observacion += "\n";
+
+    }
+
+
+    if (desempenoFavorable.length > 0) {
+
+        observacion +=
+            "DESEMPEÑO FAVORABLE:\n";
+
+        desempenoFavorable.forEach(item => {
+
+            observacion +=
+                `• ${item}\n`;
+
+        });
+
+        observacion += "\n";
+
+    }
+
+
+    if (oportunidadesMejora.length > 0) {
+
+        observacion +=
+            "OPORTUNIDADES DE MEJORA:\n";
+
+        oportunidadesMejora.forEach(item => {
+
+            observacion +=
+                `• ${item}\n`;
+
+        });
+
+        observacion += "\n";
+
+    }
+
+
+    if (requiereAtencion.length > 0) {
+
+        observacion +=
+            "ASPECTOS QUE REQUIEREN ATENCIÓN:\n";
+
+        requiereAtencion.forEach(item => {
+
+            observacion +=
+                `• ${item}\n`;
+
+        });
+
+        observacion += "\n";
+
+    }
+
+
+    if (aspectosPrioritarios.length > 0) {
+
+        observacion +=
+            "ASPECTOS PRIORITARIOS DE MEJORA:\n";
+
+        aspectosPrioritarios.forEach(item => {
+
+            observacion +=
+                `• ${item}\n`;
+
+        });
+
+        observacion += "\n";
+
+    }
+
+
+    observacion +=
+        "Se recomienda mantener las buenas prácticas identificadas y fortalecer los aspectos que presenten oportunidades de mejora, promoviendo el mejoramiento continuo del desempeño y la calidad del servicio suministrado.";
+
+
+    campoObservaciones.value =
+        observacion;
+
+}
+
 
 //===============================
 // LIMPIAR RESPUESTAS
@@ -169,11 +368,16 @@ function limpiarRespuestas() {
 
         criterio.preguntas.forEach(pregunta => {
 
-            const radios = document.querySelectorAll(
-                `input[name="p${pregunta.id}"]`
-            );
+            const radios =
+                document.querySelectorAll(
+                    `input[name="p${pregunta.id}"]`
+                );
 
-            radios.forEach(r => r.checked = false);
+            radios.forEach(radio => {
+
+                radio.checked = false;
+
+            });
 
         });
 
