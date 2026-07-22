@@ -46,46 +46,95 @@ function renderizarPreguntas() {
 
         // Encabezado del criterio
         const divCriterio = document.createElement("div");
+
         divCriterio.className = "criterio";
-        divCriterio.textContent = `${criterio.criterio}  (Peso: ${criterio.peso}%)`;
+
+        divCriterio.textContent =
+            `${criterio.criterio} (Peso: ${criterio.peso}%)`;
+
         contenedor.appendChild(divCriterio);
+
 
         // Preguntas del criterio
         criterio.preguntas.forEach(pregunta => {
 
             const divPregunta = document.createElement("div");
+
             divPregunta.className = "pregunta";
 
             divPregunta.innerHTML = `
+
                 <p class="textoPregunta">
                     ${pregunta.id}. ${pregunta.texto}
                 </p>
+
                 <div class="opciones">
-                    <label>
-                        <input type="radio" name="p${pregunta.id}" value="5"
-                               onchange="calcularResultado()">
-                        Excelente (5)
+
+                    <label title="Inaceptable">
+                        <input
+                            type="radio"
+                            name="p${pregunta.id}"
+                            value="1"
+                            onchange="calcularResultado()"
+                        >
+                        <span>
+                            <strong>1</strong>
+                            <small>Inaceptable</small>
+                        </span>
                     </label>
-                    <label>
-                        <input type="radio" name="p${pregunta.id}" value="4"
-                               onchange="calcularResultado()">
-                        Bueno (4)
+
+                    <label title="Deficiente">
+                        <input
+                            type="radio"
+                            name="p${pregunta.id}"
+                            value="2"
+                            onchange="calcularResultado()"
+                        >
+                        <span>
+                            <strong>2</strong>
+                            <small>Deficiente</small>
+                        </span>
                     </label>
-                    <label>
-                        <input type="radio" name="p${pregunta.id}" value="3"
-                               onchange="calcularResultado()">
-                        Aceptable (3)
+
+                    <label title="Aceptable">
+                        <input
+                            type="radio"
+                            name="p${pregunta.id}"
+                            value="3"
+                            onchange="calcularResultado()"
+                        >
+                        <span>
+                            <strong>3</strong>
+                            <small>Aceptable</small>
+                        </span>
                     </label>
-                    <label>
-                        <input type="radio" name="p${pregunta.id}" value="2"
-                               onchange="calcularResultado()">
-                        Deficiente (2)
+
+                    <label title="Bueno">
+                        <input
+                            type="radio"
+                            name="p${pregunta.id}"
+                            value="4"
+                            onchange="calcularResultado()"
+                        >
+                        <span>
+                            <strong>4</strong>
+                            <small>Bueno</small>
+                        </span>
                     </label>
-                    <label>
-                        <input type="radio" name="p${pregunta.id}" value="1"
-                               onchange="calcularResultado()">
-                        Inaceptable (1)
+
+                    <label title="Excelente">
+                        <input
+                            type="radio"
+                            name="p${pregunta.id}"
+                            value="5"
+                            onchange="calcularResultado()"
+                        >
+                        <span>
+                            <strong>5</strong>
+                            <small>Excelente</small>
+                        </span>
                     </label>
+
                 </div>
             `;
 
@@ -96,7 +145,6 @@ function renderizarPreguntas() {
     });
 
 }
-
 //===============================
 // OBTENER RESPUESTAS
 //===============================
