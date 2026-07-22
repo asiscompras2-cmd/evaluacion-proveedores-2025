@@ -412,7 +412,7 @@ function actualizarIndicadores(historial) {
 
             ? historial.reduce(
                 (suma, e) =>
-                    suma + Number(e.puntaje || 0),
+                    suma + Number(e.puntaje_final || 0)
                 0
             ) / total
 
