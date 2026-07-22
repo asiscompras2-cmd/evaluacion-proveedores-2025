@@ -173,8 +173,8 @@ function renderizarHistorial() {
             document.createElement("tr");
 
 
-        const puntaje =
-            Number(e.puntaje || 0);
+     const puntaje =
+    Number(e.puntaje_final || 0);   
 
 
         let colorPuntaje =
