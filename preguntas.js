@@ -171,7 +171,7 @@ function obtenerRespuestas() {
 
 
 //=========================================
-// GENERAR OBSERVACIONES AUTOMÁTICAS
+// GENERAR OBSERVACIONES BREVES
 //=========================================
 
 function generarObservacionesAutomaticas() {
@@ -181,183 +181,52 @@ function generarObservacionesAutomaticas() {
 
     if (!campoObservaciones) return;
 
+    const respuestas = obtenerRespuestas();
 
-    const respuestas =
-        obtenerRespuestas();
+    const valores = Object.values(respuestas)
+        .filter(valor => valor !== null);
 
+    if (valores.length === 0) {
+        campoObservaciones.value = "";
+        return;
+    }
 
-    let fortalezas = [];
-    let desempenoFavorable = [];
-    let oportunidadesMejora = [];
-    let requiereAtencion = [];
-    let aspectosPrioritarios = [];
-
-
-    criterios.forEach(criterio => {
-
-        criterio.preguntas.forEach(pregunta => {
-
-            const calificacion =
-                respuestas[pregunta.id];
-
-            if (!calificacion) return;
-
-
-            const texto =
-                pregunta.texto;
-
-
-            if (calificacion === 5) {
-
-                fortalezas.push(
-                    `${criterio.criterio}: ${texto}`
-                );
-
-            }
-
-
-            else if (calificacion === 4) {
-
-                desempenoFavorable.push(
-                    `${criterio.criterio}: ${texto}`
-                );
-
-            }
-
-
-            else if (calificacion === 3) {
-
-                oportunidadesMejora.push(
-                    `${criterio.criterio}: ${texto}`
-                );
-
-            }
-
-
-            else if (calificacion === 2) {
-
-                requiereAtencion.push(
-                    `${criterio.criterio}: ${texto}`
-                );
-
-            }
-
-
-            else if (calificacion === 1) {
-
-                aspectosPrioritarios.push(
-                    `${criterio.criterio}: ${texto}`
-                );
-
-            }
-
-        });
-
-    });
-
+    const promedio =
+        valores.reduce((a, b) => a + b, 0) / valores.length;
 
     let observacion = "";
 
+    if (promedio >= 4.5) {
 
-    observacion +=
-        "De acuerdo con la evaluación de desempeño realizada, se identifican los siguientes resultados:\n\n";
-
-
-    if (fortalezas.length > 0) {
-
-        observacion +=
-            "FORTALEZAS:\n";
-
-        fortalezas.forEach(item => {
-
-            observacion +=
-                `• ${item}\n`;
-
-        });
-
-        observacion += "\n";
+        observacion =
+            "El proveedor presenta un desempeño excelente y consistente en los criterios evaluados. Se recomienda mantener las buenas prácticas identificadas y continuar fortaleciendo la calidad del servicio suministrado.";
 
     }
 
+    else if (promedio >= 4.0) {
 
-    if (desempenoFavorable.length > 0) {
-
-        observacion +=
-            "DESEMPEÑO FAVORABLE:\n";
-
-        desempenoFavorable.forEach(item => {
-
-            observacion +=
-                `• ${item}\n`;
-
-        });
-
-        observacion += "\n";
+        observacion =
+            "El proveedor presenta un desempeño favorable en los criterios evaluados, evidenciando un cumplimiento satisfactorio. Se identifican oportunidades puntuales de mejora que pueden ser fortalecidas mediante seguimiento continuo.";
 
     }
 
+    else if (promedio >= 3.5) {
 
-    if (oportunidadesMejora.length > 0) {
-
-        observacion +=
-            "OPORTUNIDADES DE MEJORA:\n";
-
-        oportunidadesMejora.forEach(item => {
-
-            observacion +=
-                `• ${item}\n`;
-
-        });
-
-        observacion += "\n";
+        observacion =
+            "El desempeño general del proveedor es aceptable. Se recomienda fortalecer los aspectos con menor calificación y realizar seguimiento a las oportunidades de mejora identificadas.";
 
     }
 
+    else {
 
-    if (requiereAtencion.length > 0) {
-
-        observacion +=
-            "ASPECTOS QUE REQUIEREN ATENCIÓN:\n";
-
-        requiereAtencion.forEach(item => {
-
-            observacion +=
-                `• ${item}\n`;
-
-        });
-
-        observacion += "\n";
+        observacion =
+            "Se identifican aspectos que requieren atención y acciones de mejora. Se recomienda establecer un seguimiento orientado al fortalecimiento del desempeño y la calidad del servicio suministrado.";
 
     }
 
-
-    if (aspectosPrioritarios.length > 0) {
-
-        observacion +=
-            "ASPECTOS PRIORITARIOS DE MEJORA:\n";
-
-        aspectosPrioritarios.forEach(item => {
-
-            observacion +=
-                `• ${item}\n`;
-
-        });
-
-        observacion += "\n";
-
-    }
-
-
-    observacion +=
-        "Se recomienda mantener las buenas prácticas identificadas y fortalecer los aspectos que presenten oportunidades de mejora, promoviendo el mejoramiento continuo del desempeño y la calidad del servicio suministrado.";
-
-
-    campoObservaciones.value =
-        observacion;
+    campoObservaciones.value = observacion;
 
 }
-
-
 //===============================
 // LIMPIAR RESPUESTAS
 //===============================
