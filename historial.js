@@ -261,9 +261,7 @@ function renderizarHistorial() {
 
                  <button
     class="btn btn-outline-success btn-sm"
-    onclick="exportarExcelIndividual(${indiceReal})">
 
-    <i class="bi bi-file-earmark-excel"></i>
 
 </button>
 
