@@ -528,3 +528,37 @@ document.addEventListener(
     }
 
 );
+//=========================================
+// CARGAR ÁREAS EN EL FILTRO
+//=========================================
+
+function cargarAreasFiltro() {
+
+    const select =
+        document.getElementById("filtroArea");
+
+    if (!select) return;
+
+
+    const areas =
+        [...new Set(
+            cacheHistorial
+                .map(e => e.area)
+                .filter(Boolean)
+        )];
+
+
+    areas.forEach(area => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = area;
+
+        option.textContent = area;
+
+        select.appendChild(option);
+
+    });
+
+}
