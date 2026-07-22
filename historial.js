@@ -408,15 +408,13 @@ function actualizarIndicadores(historial) {
 
 
     const promedio =
-        total > 0
-
-            ? historial.reduce(
-                (suma, e) =>
-                    suma + Number(e.puntaje_final || 0)
-                0
-            ) / total
-
-            : 0;
+    total > 0
+        ? historial.reduce(
+            (suma, e) =>
+                suma + Number(e.puntaje_final || 0),
+            0
+        ) / total
+        : 0;
 
 
     const proveedores =
