@@ -93,33 +93,7 @@ function ejecutarGeneracionPDF(data) {
                 16
             );
         } catch(e) {
-            // Si falla, mostrar texto
-            doc.setFont("times","bold");
-            doc.setFontSize(10);
-            doc.setTextColor(...VERDE);
-            doc.text("EL TESORO", 35, 18);
-        }
-
-        doc.setFont("times","bold");
-        doc.setFontSize(9);
-        doc.setTextColor(...VERDE);
-
-        doc.text(
-            "EL TESORO",
-            35,
-            18,
-            {align:"center"}
-        );
-
-        doc.setFontSize(6.5);
-        doc.setTextColor(70);
-
-        doc.text(
-            "PARQUE COMERCIAL",
-            35,
-            22,
-            {align:"center"}
-        );
+           
 
         // Título
         doc.setFontSize(10);
