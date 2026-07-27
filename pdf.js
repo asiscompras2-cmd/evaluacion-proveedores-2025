@@ -512,8 +512,8 @@ function ejecutarGeneracionPDF(data) {
             .replace(/[^\w\s-]/gi, "")
             .replace(/\s+/g, "_");
 
-    doc.save(
-        `Carta_Evaluacion_${nombreArchivo}.pdf`
-    );
+   doc.save(
+    `Carta_Evaluacion_${nombreArchivo}.pdf`
+);
 
 }
