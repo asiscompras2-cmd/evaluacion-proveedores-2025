@@ -373,17 +373,15 @@ doc.splitTextToSize(
 const parrafo2 =
 "La evaluación se realizó teniendo en cuenta diferentes criterios relacionados con el desempeño del proveedor. Los aspectos evaluados fueron:";
 
-const texto2 =
+const textoResultado =
 doc.splitTextToSize(
-    parrafo2,
-    170
-);
+    parrafoResultado,
 
 doc.setFont("helvetica","normal");
 doc.setFontSize(9.5);
 
 doc.text(
-    texto2,
+    textoResultado,,
     20,
     y,
     {
@@ -392,7 +390,7 @@ doc.text(
     }
 );
 
-y += texto2.length*4.8+5;
+y += textoResultado.length * 4.8 + 5;
 
 
 //--------------------------------------
