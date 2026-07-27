@@ -81,18 +81,23 @@ function ejecutarGeneracionPDF(data) {
         // Si tienes el logo en base64, reemplaza logoBase64 con tu valor
         
         try {
-            // Intentar cargar logo desde URL pública o base64
-            const logoURL = "/logo.png"; // Ruta relativa
-            
-            doc.addImage(
-                logoURL,
-                'PNG',
-                18,
-                10,
-                28,
-                16
-            );
-        } catch(e) {
+
+    const logoURL = "/img/logo.png";
+
+    doc.addImage(
+        logoURL,
+        "PNG",
+        18,
+        10,
+        28,
+        16
+    );
+
+} catch (e) {
+
+    console.warn("No se pudo cargar el logo:", e);
+
+}
            
 
         // Título
