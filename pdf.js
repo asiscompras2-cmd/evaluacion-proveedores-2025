@@ -439,15 +439,13 @@ function ejecutarGeneracionPDF(data) {
     doc.setFontSize(9);
 
     doc.text(
-        textoCierre,
-        20,
-        y,
-        {
-            align:"justify",
-            maxWidth:165,
-            lineHeightFactor: 1.2
-        }
-    );
+    textoCierre,
+    20,
+    y,
+    {
+        maxWidth: 170
+    }
+);
 
     y += textoCierre.length * 4.5 + 16;
 
