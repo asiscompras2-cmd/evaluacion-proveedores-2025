@@ -82,7 +82,7 @@ function ejecutarGeneracionPDF(data) {
         
         try {
 
-    const logoURL = "/img/logo.png";
+    const logoURL = "/imagen/logo.png";
 
     doc.addImage(
         logoURL,
