@@ -449,7 +449,7 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    y += textoCierre.length * 4 + 8;
+    y += textoCierre.length * 4.5 + 16;
 
     //-----------------------------------------------------
     // DESPEDIDA
