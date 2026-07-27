@@ -275,7 +275,7 @@ function ejecutarGeneracionPDF(data) {
             170
         );
 
-    let y = 105; // Initialize y here
+    let y = 100; // Initialize y here (moved up by 5mm)
 
     doc.text(
         textoIntro,
@@ -288,7 +288,7 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    y += textoIntro.length * 6 + 10; // Update y based on intro text
+    y += textoIntro.length * 6 + 8; // Update y based on intro text (reduced by 2mm)
 
     //======================================
     // EXPLICACIÓN DE LA EVALUACIÓN Y CRITERIOS
@@ -317,7 +317,7 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    y += textoResultadoSplit.length * 6 + 8;
+    y += textoResultadoSplit.length * 6 + 6; // Reduced by 2mm
 
 
     //--------------------------------------
@@ -333,7 +333,7 @@ function ejecutarGeneracionPDF(data) {
     y
     );
 
-    y+=7;
+    y+=6;
 
     doc.text(
     "•  Calidad del producto y/o servicio suministrado.",
@@ -341,7 +341,7 @@ function ejecutarGeneracionPDF(data) {
     y
     );
 
-    y+=7;
+    y+=6;
 
     doc.text(
     "•  Condiciones comerciales y competitividad.",
@@ -349,7 +349,7 @@ function ejecutarGeneracionPDF(data) {
     y
     );
 
-    y+=7;
+    y+=6;
 
     const sst =
     "•  Cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST).";
@@ -367,7 +367,7 @@ function ejecutarGeneracionPDF(data) {
     { lineHeightFactor: 1.5 }
     );
 
-    y+=splitSST.length*6+10;
+    y+=splitSST.length*6+8; // Reduced by 2mm
 
 
     //--------------------------------------
@@ -412,7 +412,7 @@ function ejecutarGeneracionPDF(data) {
     30,
     y,
     150,
-    38,
+    35, // Reduced height by 3mm
     3,
     3,
     "FD"
@@ -425,7 +425,7 @@ function ejecutarGeneracionPDF(data) {
     doc.text(
     "RESULTADO DE LA EVALUACIÓN",
     105,
-    y+8,
+    y+7,
     {
     align:"center"
     }
@@ -441,7 +441,7 @@ function ejecutarGeneracionPDF(data) {
     doc.text(
     `${puntaje.toFixed(2).replace(".",",")} / 5,00`,
     105,
-    y+22,
+    y+20,
     {
     align:"center"
     }
@@ -479,13 +479,13 @@ function ejecutarGeneracionPDF(data) {
     doc.text(
     clasificacion,
     105,
-    y+31,
+    y+28,
     {
     align:"center"
     }
     );
 
-    y+=50;
+    y+=45; // Reduced by 5mm
 
     doc.setTextColor(0);
 
@@ -588,7 +588,7 @@ function ejecutarGeneracionPDF(data) {
     );
 
     // Dejar un espacio amplio para la firma manuscrita
-    y += 25;
+    y += 35; // Increased signature space by 10mm
 
 
     //-----------------------------------------------------
@@ -667,3 +667,4 @@ function ejecutarGeneracionPDF(data) {
     );
 
 }
+
