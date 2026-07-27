@@ -291,12 +291,12 @@ function ejecutarGeneracionPDF(data) {
     // EXPLICACIÓN DE LA EVALUACIÓN
     //======================================
 
-    const parrafo2 =
+    const parrafoResultado =
         "La evaluación de desempeño fue realizada mediante la valoración de diferentes criterios relacionados con la gestión y el cumplimiento del proveedor. Cada criterio fue calificado en una escala de uno (1,00) a cinco (5,00), donde una calificación más alta representa un mayor nivel de cumplimiento y desempeño. Los aspectos evaluados fueron:";
 
-    const textoParrafo2 =
-        doc.splitTextToSize(
-            parrafo2,
+  const textoResultado =
+doc.splitTextToSize(
+    parrafoResultado,
             170
         );
 
