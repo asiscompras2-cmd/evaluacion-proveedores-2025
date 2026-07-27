@@ -267,7 +267,7 @@ function ejecutarGeneracionPDF(data) {
     doc.setFontSize(11);
 
     const intro =
-    "Apreciado proveedor, el proceso de Compras e Inventarios del Parque Comercial El Tesoro P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado obtenido en la evaluación de desempeño realizada durante el período evaluado.";
+    "El proceso de Compras e Inventarios del Parque Comercial El Tesoro P.H. informa el resultado de su evaluación de desempeño.";
 
     const textoIntro=
         doc.splitTextToSize(
@@ -288,14 +288,14 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    y += textoIntro.length * 6 + 8; // Update y based on intro text (reduced by 2mm)
+    y += textoIntro.length * 6 + 5; // Further reduced spacing
 
     //======================================
     // EXPLICACIÓN DE LA EVALUACIÓN Y CRITERIOS
     //======================================
 
     const parrafoResultado =
-        "La evaluación de desempeño fue realizada mediante la valoración de diferentes criterios relacionados con la gestión y el cumplimiento del proveedor. Cada criterio fue calificado en una escala de uno (1,00) a cinco (5,00), donde una calificación más alta representa un mayor nivel de cumplimiento y desempeño. Los aspectos evaluados fueron:";
+        "La evaluación se basó en criterios de gestión y cumplimiento, calificados de 1.00 a 5.00. Los aspectos evaluados fueron:";
 
     const textoResultadoSplit =
         doc.splitTextToSize(
@@ -317,7 +317,7 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    y += textoResultadoSplit.length * 6 + 6; // Reduced by 2mm
+    y += textoResultadoSplit.length * 6 + 3; // Further reduced spacing
 
 
     //--------------------------------------
@@ -667,4 +667,3 @@ function ejecutarGeneracionPDF(data) {
     );
 
 }
-
