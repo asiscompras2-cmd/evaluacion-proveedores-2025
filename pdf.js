@@ -40,12 +40,10 @@ function generarPDFISO() {
 function ejecutarGeneracionPDF(data) {
 
     const { jsPDF } = window.jspdf;
-
     const doc = new jsPDF("p", "mm", "a4");
 
-    //======================================
-    // DATOS DE LA EVALUACIÓN
-    //======================================
+    const VERDE = [103, 153, 0];
+    const GRIS = [120, 120, 120];
 
     const nombre = data.nombre || "";
     const cedula = data.cedula || "";
@@ -58,248 +56,237 @@ function ejecutarGeneracionPDF(data) {
         data.observaciones ||
         "No se registraron observaciones.";
 
-    // Compatible con ambos nombres
     const puntaje =
         Number(data.puntaje ?? data.puntaje_final ?? 0);
 
-    //======================================
-    // RESPUESTAS
-    //======================================
+    //-------------------------------------------------
+    // ENCABEZADO CORPORATIVO
+    //-------------------------------------------------
 
-    const respuestas = {
+    function drawHeader(){
 
-        P1: Number(data.p1 || 0),
-        P2: Number(data.p2 || 0),
-        P3: Number(data.p3 || 0),
-        P4: Number(data.p4 || 0),
-        P5: Number(data.p5 || 0),
-        P6: Number(data.p6 || 0),
-        P7: Number(data.p7 || 0),
-        P8: Number(data.p8 || 0),
-        P9: Number(data.p9 || 0),
-        P10: Number(data.p10 || 0),
-        P11: Number(data.p11 || 0),
-        P12: Number(data.p12 || 0)
+        // Franja superior
+        doc.setFillColor(...VERDE);
+        doc.rect(0,0,210,6,"F");
 
-    };
+        // Marco
+        doc.setDrawColor(180);
+        doc.rect(15,10,180,26);
 
+        // divisiones
+        doc.line(55,10,55,36);
+        doc.line(160,10,160,36);
 
-    //======================================
-    // ENCABEZADO
-    //======================================
+        // ======== LOGO ========
 
-    const drawHeader = (d) => {
+        /*
+        Reemplazar por:
 
-        d.setLineWidth(0.5);
+        doc.addImage(
+             logoTesoro,
+             'PNG',
+             19,
+             13,
+             30,
+             18
+        );
 
-        // Marco general
-        d.rect(20, 15, 170, 20);
+        */
 
-        // División logo / título
-        d.line(70, 15, 70, 35);
+        doc.setFont("helvetica","bold");
+        doc.setFontSize(11);
+        doc.setTextColor(...VERDE);
 
-        // División información derecha
-        d.line(150, 15, 150, 35);
+        doc.text(
+            "EL TESORO",
+            35,
+            21,
+            {align:"center"}
+        );
 
-        d.line(150, 21.6, 190, 21.6);
-        d.line(150, 28.3, 190, 28.3);
+        doc.setFontSize(7);
 
+        doc.setTextColor(70);
 
-        // Logo institucional textual
-        d.setFont("helvetica", "bold");
-        d.setFontSize(10);
-
-        d.text("El Tesoro", 30, 24);
-
-        d.setFontSize(7);
-
-        d.text(
+        doc.text(
             "PARQUE COMERCIAL",
-            30,
-            28
+            35,
+            26,
+            {align:"center"}
         );
 
+        // Título
 
-        // Título central
-        d.setFontSize(10);
-        d.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.setTextColor(0);
 
-        d.text(
-            "CARTA DE EVALUACIÓN DE PROVEEDORES",
-            110,
-            27,
-            {
-                align: "center"
-            }
+        doc.text(
+            "CARTA DE EVALUACIÓN\nDE DESEMPEÑO DE PROVEEDORES",
+            108,
+            20,
+            {align:"center"}
         );
 
+        // ISO
 
-        // Información del formato
-        d.setFontSize(8);
+        doc.setFontSize(8);
 
-        d.text(
+        doc.text(
+            "Código",
+            166,
+            16
+        );
+
+        doc.text(
             "F-F-33",
-            170,
-            19,
-            {
-                align: "center"
-            }
+            184,
+            16,
+            {align:"center"}
         );
 
-        d.text(
-            "Versión: 01",
-            170,
-            25,
-            {
-                align: "center"
-            }
+        doc.line(160,18,195,18);
+
+        doc.text(
+            "Versión",
+            166,
+            24
         );
 
-        d.text(
-            "Fecha: 28/12/2022",
-            170,
+        doc.text(
+            "01",
+            184,
+            24,
+            {align:"center"}
+        );
+
+        doc.line(160,26,195,26);
+
+        doc.text(
+            "Fecha",
+            166,
+            32
+        );
+
+        doc.text(
+            "28/12/2022",
+            184,
             32,
-            {
-                align: "center"
-            }
+            {align:"center"}
         );
 
-    };
+    }
 
+    drawHeader();
 
-    drawHeader(doc);
+    //-------------------------------------------------
+    // TITULO
+    //-------------------------------------------------
 
-
-    //======================================
-    // TÍTULO DE LA CARTA
-    //======================================
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(15);
 
     doc.text(
-        "CARTA DE RESULTADOS DE EVALUACIÓN DE DESEMPEÑO DE PROVEEDORES",
+        "RESULTADO DE LA EVALUACIÓN",
         105,
-        47,
-        {
-            align: "center"
-        }
+        48,
+        {align:"center"}
     );
 
-
-    //======================================
+    //-------------------------------------------------
     // FECHA
-    //======================================
+    //-------------------------------------------------
 
     const fechaObj = new Date(fecha);
 
     const meses = [
-        "enero",
-        "febrero",
-        "marzo",
-        "abril",
-        "mayo",
-        "junio",
-        "julio",
-        "agosto",
-        "septiembre",
-        "octubre",
-        "noviembre",
-        "diciembre"
+        "enero","febrero","marzo","abril","mayo","junio",
+        "julio","agosto","septiembre","octubre","noviembre","diciembre"
     ];
 
-    let fechaTexto = "";
+    let fechaTexto="";
 
-    if (!isNaN(fechaObj.getTime())) {
+    if(!isNaN(fechaObj)){
 
-        fechaTexto =
-            `Fecha: ${fechaObj.getDate()} de ` +
-            `${meses[fechaObj.getMonth()]} de ` +
-            `${fechaObj.getFullYear()}`;
+        fechaTexto=
+        `${fechaObj.getDate()} de ${meses[fechaObj.getMonth()]} de ${fechaObj.getFullYear()}`;
 
-    } else {
+    }else{
 
-        fechaTexto = `Fecha: ${fecha}`;
+        fechaTexto=fecha;
 
     }
 
-    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
 
     doc.text(
-        fechaTexto,
+        `Fecha: ${fechaTexto}`,
         20,
-        57
+        60
     );
 
-
-    //======================================
+    //-------------------------------------------------
     // DESTINATARIO
-    //======================================
+    //-------------------------------------------------
 
-    doc.setFont("helvetica", "bold");
+    doc.setFont("helvetica","bold");
 
-    doc.text(
-        "Señores",
-        20,
-        64
-    );
+    doc.text("Señores",20,70);
+
+    doc.setFontSize(11);
 
     doc.text(
         proveedor.toUpperCase(),
         20,
-        70
+        77
     );
 
-    doc.setFont("helvetica", "normal");
+    doc.setFont("helvetica","normal");
 
     doc.text(
         "Ciudad",
         20,
-        76
+        84
     );
 
-
-    //======================================
+    //-------------------------------------------------
     // ASUNTO
-    //======================================
+    //-------------------------------------------------
 
-    doc.setFont("helvetica", "bold");
+    doc.setFont("helvetica","bold");
 
     doc.text(
-        "Asunto: Resultado de la Evaluación de Desempeño de Proveedores",
+        "Asunto: Resultado de la Evaluación de Desempeño",
         20,
-        86
+        94
     );
 
-
-    //======================================
+    //-------------------------------------------------
     // INTRODUCCIÓN
-    //======================================
+    //-------------------------------------------------
 
-    doc.setFont("helvetica", "normal");
+    doc.setFont("helvetica","normal");
     doc.setFontSize(9.5);
 
-    const parrafo1 =
-        "Apreciado proveedor, el proceso de Compras e Inventarios del PARQUE COMERCIAL EL TESORO P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado de la evaluación de desempeño realizada a su organización correspondiente al período evaluado.";
+    const intro =
+    "Apreciado proveedor, el proceso de Compras e Inventarios del Parque Comercial El Tesoro P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado obtenido en la evaluación de desempeño realizada durante el período evaluado.";
 
-    const textoParrafo1 =
+    const textoIntro=
         doc.splitTextToSize(
-            parrafo1,
+            intro,
             170
         );
 
     doc.text(
-        textoParrafo1,
+        textoIntro,
         20,
-        96,
+        103,
         {
-            align: "justify",
-            maxWidth: 170
+            align:"justify",
+            maxWidth:170
         }
     );
 
-
+    let y=123;
     //======================================
     // EXPLICACIÓN DE LA EVALUACIÓN
     //======================================
@@ -379,364 +366,345 @@ function ejecutarGeneracionPDF(data) {
     // TÍTULO DE CRITERIOS
     //======================================
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
+    //-----------------------------------------------------
+// ASPECTOS EVALUADOS
+//-----------------------------------------------------
 
-    doc.text(
-        "Criterios evaluados y desempeño por categoría",
-        20,
-        y
-    );
+const parrafo2 =
+"La evaluación se realizó teniendo en cuenta diferentes criterios relacionados con el desempeño del proveedor. Los aspectos evaluados fueron:";
 
-    y += 3;
+const texto2 =
+doc.splitTextToSize(
+    parrafo2,
+    170
+);
 
+doc.setFont("helvetica","normal");
+doc.setFontSize(9.5);
 
-    //======================================
-    // CÁLCULO DE CRITERIOS
-    //======================================
-
-    const resumenCriterios = [];
-
-
-    if (
-        window.criterios &&
-        Array.isArray(window.criterios)
-    ) {
-
-        window.criterios.forEach(c => {
-
-            let suma = 0;
-            let count = 0;
-
-
-            c.preguntas.forEach(p => {
-
-                const valor =
-                    respuestas[p.id];
-
-                if (
-                    valor !== null &&
-                    valor !== undefined &&
-                    valor > 0
-                ) {
-
-                    suma += valor;
-                    count++;
-
-                }
-
-            });
-
-
-            const promedio =
-                count > 0
-                    ? (suma / count).toFixed(2)
-                    : "N/A";
-
-
-            let nombreCriterio =
-                c.nombre;
-
-
-            if (
-                c.nombre === "Cumplimiento"
-            ) {
-
-                nombreCriterio =
-                    "Tiempo de respuesta y cumplimiento de entregas";
-
-            }
-
-
-            if (
-                c.nombre === "Calidad"
-            ) {
-
-                nombreCriterio =
-                    "Calidad del producto y/o servicio suministrado";
-
-            }
-
-
-            if (
-                c.nombre === "Condiciones Comerciales"
-            ) {
-
-                nombreCriterio =
-                    "Condiciones comerciales y competitividad";
-
-            }
-
-
-            if (
-                c.nombre === "SST"
-            ) {
-
-                nombreCriterio =
-                    "Cumplimiento de requisitos legales, contractuales y de SST";
-
-            }
-
-
-            resumenCriterios.push(
-
-                [
-                    nombreCriterio,
-                    `${promedio} / 5,00`
-                ]
-
-            );
-
-        });
-
+doc.text(
+    texto2,
+    20,
+    y,
+    {
+        align:"justify",
+        maxWidth:170
     }
+);
+
+y += texto2.length*4.8+5;
 
 
-    //======================================
-    // TABLA DE RESULTADOS
-    //======================================
+//--------------------------------------
+// LISTA DE ASPECTOS
+//--------------------------------------
 
-    doc.autoTable({
+doc.setFont("helvetica","bold");
 
-        startY: y + 2,
+doc.text(
+"✓ Tiempo de respuesta y cumplimiento de entregas.",
+25,
+y
+);
 
-        margin: {
-            left: 20,
-            right: 20
-        },
+y+=7;
 
-        head: [
+doc.text(
+"✓ Calidad del producto y/o servicio suministrado.",
+25,
+y
+);
 
-            [
-                "Categoría de evaluación",
-                "Calificación"
-            ]
+y+=7;
 
-        ],
+doc.text(
+"✓ Condiciones comerciales y competitividad.",
+25,
+y
+);
 
-        body: resumenCriterios,
+y+=7;
 
-        theme: "grid",
+const sst =
+"✓ Cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST).";
 
-        headStyles: {
+const splitSST=
+doc.splitTextToSize(
+sst,
+160
+);
 
-            fillColor: [113, 176, 0],
+doc.text(
+splitSST,
+25,
+y
+);
 
-            textColor: 255,
-
-            fontStyle: "bold",
-
-            halign: "center",
-
-            fontSize: 8.5
-
-        },
-
-        bodyStyles: {
-
-            fontSize: 8.5,
-
-            cellPadding: 2.5
-
-        },
-
-        columnStyles: {
-
-            0: {
-                cellWidth: 135
-            },
-
-            1: {
-
-                cellWidth: 35,
-
-                halign: "center",
-
-                fontStyle: "bold"
-
-            }
-
-        }
-
-    });
+y+=splitSST.length*5+8;
 
 
-    //======================================
-    // RESULTADO FINAL
-    //======================================
+//--------------------------------------
+// MENSAJE
+//--------------------------------------
 
-    y =
-        doc.lastAutoTable.finalY + 7;
+doc.setFont("helvetica","normal");
 
+const mensaje =
+"Como resultado del proceso de evaluación, su organización obtuvo la siguiente calificación final:";
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
+const splitMensaje =
+doc.splitTextToSize(
+mensaje,
+170
+);
 
-    doc.text(
-        "Calificación final obtenida:",
-        20,
-        y
-    );
+doc.text(
+splitMensaje,
+20,
+y,
+{
+align:"justify",
+maxWidth:170
+}
+);
 
-
-    doc.setFontSize(13);
-
-    doc.text(
-        `${puntaje.toFixed(2).replace(".", ",")} / 5,00`,
-        90,
-        y
-    );
-
-
-    //======================================
-    // CLASIFICACIÓN
-    //======================================
-
-    let clasificacion = "";
+y+=14;
 
 
-    if (puntaje >= 4.5) {
+//=====================================================
+// CAJA RESULTADO
+//=====================================================
 
-        clasificacion =
-            "Excelente";
+doc.setDrawColor(103,153,0);
 
-    } else if (puntaje >= 4.0) {
+doc.setFillColor(247,250,244);
 
-        clasificacion =
-            "Satisfactorio";
+doc.roundedRect(
+30,
+y,
+150,
+38,
+3,
+3,
+"FD"
+);
 
-    } else if (puntaje >= 3.5) {
+doc.setFontSize(10);
 
-        clasificacion =
-            "Aceptable con oportunidades de mejora";
+doc.setTextColor(100);
 
-    } else {
+doc.text(
+"RESULTADO DE LA EVALUACIÓN",
+105,
+y+8,
+{
+align:"center"
+}
+);
 
-        clasificacion =
-            "Requiere plan de mejoramiento";
+doc.setFontSize(24);
 
-    }
+doc.setTextColor(103,153,0);
+
+doc.setFont("helvetica","bold");
+
+doc.text(
+`${puntaje.toFixed(2).replace(".",",")} / 5,00`,
+105,
+y+22,
+{
+align:"center"
+}
+);
 
 
-    doc.setFontSize(9);
+//=========================================
+// CLASIFICACIÓN
+//=========================================
 
-    doc.text(
-        `Clasificación: ${clasificacion}`,
-        20,
-        y + 6
-    );
+let clasificacion="";
 
+if(puntaje>=4.5){
+
+clasificacion="EXCELENTE";
+
+}else if(puntaje>=4){
+
+clasificacion="SATISFACTORIO";
+
+}else if(puntaje>=3.5){
+
+clasificacion="ACEPTABLE";
+
+}else{
+
+clasificacion="REQUIERE PLAN DE MEJORAMIENTO";
+
+}
+
+doc.setFontSize(12);
+
+doc.setTextColor(0);
+
+doc.text(
+clasificacion,
+105,
+y+31,
+{
+align:"center"
+}
+);
+
+y+=50;
+
+doc.setTextColor(0);
 
     //======================================
     // OBSERVACIONES
     //======================================
+//-----------------------------------------------------
+// OBSERVACIONES
+//-----------------------------------------------------
 
-    y += 16;
+doc.setFont("helvetica", "bold");
+doc.setFontSize(11);
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
+doc.text(
+    "OBSERVACIONES",
+    20,
+    y
+);
 
-    doc.text(
-        "Observaciones:",
-        20,
-        y
+y += 5;
+
+// Recuadro de observaciones
+doc.setDrawColor(180);
+doc.setFillColor(250,250,250);
+
+const splitObs = doc.splitTextToSize(
+    observaciones,
+    160
+);
+
+const altoCaja =
+    Math.max(
+        28,
+        splitObs.length * 5 + 10
     );
 
+doc.roundedRect(
+    20,
+    y,
+    170,
+    altoCaja,
+    2,
+    2,
+    "FD"
+);
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9.5);
+doc.setFont("helvetica","normal");
+doc.setFontSize(9.5);
 
+doc.text(
+    splitObs,
+    25,
+    y + 8,
+    {
+        align:"justify",
+        maxWidth:160
+    }
+);
 
-    const splitObs =
-        doc.splitTextToSize(
-            observaciones,
-            170
-        );
-
-
-    doc.text(
-        splitObs,
-        20,
-        y + 6,
-        {
-            align: "justify",
-            maxWidth: 170
-        }
-    );
-
-
-    y +=
-        splitObs.length * 4.5 + 15;
-
-
-    //======================================
-    // CIERRE
-    //======================================
-
-    const cierre =
-        "Agradecemos su compromiso y disposición para contribuir al cumplimiento de los estándares de calidad, servicio y cumplimiento requeridos con el Parque Comercial El Tesoro P.H.";
-
-    const textoCierre =
-        doc.splitTextToSize(
-            cierre,
-            170
-        );
+y += altoCaja + 10;
 
 
-    doc.text(
-        textoCierre,
-        20,
-        y,
-        {
-            align: "justify",
-            maxWidth: 170
-        }
-    );
+//-----------------------------------------------------
+// CIERRE
+//-----------------------------------------------------
+
+const cierre =
+"Agradecemos su compromiso y disposición para contribuir al cumplimiento de los estándares de calidad, servicio y mejoramiento continuo requeridos por el Parque Comercial El Tesoro P.H. Esperamos continuar fortaleciendo nuestra relación comercial y seguir construyendo alianzas estratégicas de beneficio mutuo.";
+
+const textoCierre =
+doc.splitTextToSize(
+    cierre,
+    170
+);
+
+doc.setFont("helvetica","normal");
+
+doc.text(
+    textoCierre,
+    20,
+    y,
+    {
+        align:"justify",
+        maxWidth:170
+    }
+);
+
+y += textoCierre.length * 5 + 10;
 
 
-    y +=
-        textoCierre.length * 4.5 + 12;
+//-----------------------------------------------------
+// DESPEDIDA
+//-----------------------------------------------------
+
+doc.setFont("helvetica","normal");
+
+doc.text(
+    "Cordialmente,",
+    20,
+    y
+);
+
+y += 18;
 
 
-    //======================================
-    // FIRMA
-    //======================================
+//-----------------------------------------------------
+// LÍNEA DE FIRMA
+//-----------------------------------------------------
 
-    doc.text(
-        "Cordialmente,",
-        20,
-        y
-    );
+doc.setDrawColor(120);
 
+doc.line(
+    20,
+    y,
+    80,
+    y
+);
 
-    y += 14;
-
-
-    doc.setFont("helvetica", "bold");
-
-    doc.text(
-        "María L. Osorno",
-        20,
-        y
-    );
+y += 6;
 
 
-    doc.setFont("helvetica", "normal");
+//-----------------------------------------------------
+// FIRMA
+//-----------------------------------------------------
 
-    doc.text(
-        "JEFE DE COMPRAS E INVENTARIOS",
-        20,
-        y + 5
-    );
+doc.setFont("helvetica","bold");
+doc.setFontSize(10);
 
-    doc.text(
-        "PARQUE COMERCIAL EL TESORO P.H.",
-        20,
-        y + 10
-    );
+doc.text(
+    "María L. Osorno",
+    20,
+    y
+);
 
+doc.setFont("helvetica","normal");
+doc.setFontSize(9);
 
-    //======================================
+doc.text(
+    "Jefe de Compras e Inventarios",
+    20,
+    y + 5
+);
+
+doc.text(
+    "Parque Comercial El Tesoro P.H.",
+    20,
+    y + 10
+);
+        //======================================
     // PIE DE PÁGINA
     //======================================
 
