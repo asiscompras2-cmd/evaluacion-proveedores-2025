@@ -286,7 +286,7 @@ function ejecutarGeneracionPDF(data) {
         }
     );
 
-    let y=123;
+   y += 14;
     //======================================
     // EXPLICACIÓN DE LA EVALUACIÓN
     //======================================
