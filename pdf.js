@@ -56,7 +56,7 @@ function ejecutarGeneracionPDF(data) {
         "No se registraron observaciones.";
 
     const puntaje =
-        Number(data.puntaje ?? data.puntaje_final ?? 0);
+        Number(data.puntaje ?? data.puntaje_final ?? 0);}
 
     //-------------------------------------------------
     // ENCABEZADO CORPORATIVO CON LOGO
