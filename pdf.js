@@ -92,7 +92,7 @@ function ejecutarGeneracionPDF(data) {
 
         */
 
-        doc.setFont("helvetica","bold");
+        doc.setFont("times","bold");
         doc.setFontSize(11);
         doc.setTextColor(...VERDE);
 
@@ -181,7 +181,7 @@ function ejecutarGeneracionPDF(data) {
     // TITULO
     //-------------------------------------------------
 
-    doc.setFont("helvetica","bold");
+    doc.setFont("times","bold");
     doc.setFontSize(15);
 
     doc.text(
@@ -227,7 +227,7 @@ function ejecutarGeneracionPDF(data) {
     // DESTINATARIO
     //-------------------------------------------------
 
-    doc.setFont("helvetica","bold");
+    doc.setFont("times","bold");
 
     doc.text("Señores",20,70);
 
@@ -239,7 +239,7 @@ function ejecutarGeneracionPDF(data) {
         77
     );
 
-    doc.setFont("helvetica","normal");
+    doc.setFont("times","normal");
 
     doc.text(
         "Ciudad",
@@ -251,7 +251,7 @@ function ejecutarGeneracionPDF(data) {
     // ASUNTO
     //-------------------------------------------------
 
-    doc.setFont("helvetica","bold");
+    doc.setFont("times","bold");
 
     doc.text(
         "Asunto: Resultado de la Evaluación de Desempeño",
@@ -263,8 +263,8 @@ function ejecutarGeneracionPDF(data) {
     // INTRODUCCIÓN
     //-------------------------------------------------
 
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9.5);
+    doc.setFont("times","normal");
+    doc.setFontSize(11);
 
     const intro =
     "Apreciado proveedor, el proceso de Compras e Inventarios del Parque Comercial El Tesoro P.H., con el propósito de promover el mejoramiento continuo y fortalecer las relaciones comerciales con nuestros aliados estratégicos, se permite informar el resultado obtenido en la evaluación de desempeño realizada durante el período evaluado.";
@@ -275,7 +275,7 @@ function ejecutarGeneracionPDF(data) {
             170
         );
 
-    let y = 103; // Initialize y here
+    let y = 105; // Initialize y here
 
     doc.text(
         textoIntro,
@@ -283,11 +283,12 @@ function ejecutarGeneracionPDF(data) {
         y,
         {
             align:"justify",
-            maxWidth:170
+            maxWidth:170,
+            lineHeightFactor: 1.5
         }
     );
 
-    y += textoIntro.length * 4.5 + 14; // Update y based on intro text
+    y += textoIntro.length * 6 + 10; // Update y based on intro text
 
     //======================================
     // EXPLICACIÓN DE LA EVALUACIÓN Y CRITERIOS
@@ -302,8 +303,8 @@ function ejecutarGeneracionPDF(data) {
             170
         );
 
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9.5);
+    doc.setFont("times","normal");
+    doc.setFontSize(11);
 
     doc.text(
         textoResultadoSplit,
@@ -311,21 +312,23 @@ function ejecutarGeneracionPDF(data) {
         y,
         {
             align: "justify",
-            maxWidth: 170
+            maxWidth: 170,
+            lineHeightFactor: 1.5
         }
     );
 
-    y += textoResultadoSplit.length * 4.8 + 5;
+    y += textoResultadoSplit.length * 6 + 8;
 
 
     //--------------------------------------
     // LISTA DE ASPECTOS
     //--------------------------------------
 
-    doc.setFont("helvetica","bold");
+    doc.setFont("times","normal");
+    doc.setFontSize(11);
 
     doc.text(
-    "✓ Tiempo de respuesta y cumplimiento de entregas.",
+    "•  Tiempo de respuesta y cumplimiento de entregas.",
     25,
     y
     );
@@ -333,7 +336,7 @@ function ejecutarGeneracionPDF(data) {
     y+=7;
 
     doc.text(
-    "✓ Calidad del producto y/o servicio suministrado.",
+    "•  Calidad del producto y/o servicio suministrado.",
     25,
     y
     );
@@ -341,7 +344,7 @@ function ejecutarGeneracionPDF(data) {
     y+=7;
 
     doc.text(
-    "✓ Condiciones comerciales y competitividad.",
+    "•  Condiciones comerciales y competitividad.",
     25,
     y
     );
@@ -349,7 +352,7 @@ function ejecutarGeneracionPDF(data) {
     y+=7;
 
     const sst =
-    "✓ Cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST).";
+    "•  Cumplimiento de requisitos legales, contractuales y de Seguridad y Salud en el Trabajo (SST).";
 
     const splitSST=
     doc.splitTextToSize(
@@ -360,17 +363,19 @@ function ejecutarGeneracionPDF(data) {
     doc.text(
     splitSST,
     25,
-    y
+    y,
+    { lineHeightFactor: 1.5 }
     );
 
-    y+=splitSST.length*5+8;
+    y+=splitSST.length*6+10;
 
 
     //--------------------------------------
     // MENSAJE
     //--------------------------------------
 
-    doc.setFont("helvetica","normal");
+    doc.setFont("times","normal");
+    doc.setFontSize(11);
 
     const mensaje =
     "Como resultado del proceso de evaluación, su organización obtuvo la siguiente calificación final:";
@@ -387,11 +392,12 @@ function ejecutarGeneracionPDF(data) {
     y,
     {
     align:"justify",
-    maxWidth:170
+    maxWidth:170,
+    lineHeightFactor: 1.5
     }
     );
 
-    y+=14;
+    y+=12;
 
 
     //=====================================================
@@ -430,7 +436,7 @@ function ejecutarGeneracionPDF(data) {
 
     doc.setTextColor(103,153,0);
 
-    doc.setFont("helvetica","bold");
+    doc.setFont("times","bold");
 
     doc.text(
     `${puntaje.toFixed(2).replace(".",",")} / 5,00`,
@@ -487,7 +493,7 @@ function ejecutarGeneracionPDF(data) {
     // OBSERVACIONES
     //======================================
 
-    doc.setFont("helvetica", "bold");
+    doc.setFont("times", "bold");
     doc.setFontSize(11);
 
     doc.text(
@@ -523,7 +529,7 @@ function ejecutarGeneracionPDF(data) {
         "FD"
     );
 
-    doc.setFont("helvetica","normal");
+    doc.setFont("times","normal");
     doc.setFontSize(9.5);
 
     doc.text(
@@ -552,7 +558,8 @@ function ejecutarGeneracionPDF(data) {
         170
     );
 
-    doc.setFont("helvetica","normal");
+    doc.setFont("times","normal");
+    doc.setFontSize(11);
 
     doc.text(
         textoCierre,
@@ -560,18 +567,19 @@ function ejecutarGeneracionPDF(data) {
         y,
         {
             align:"justify",
-            maxWidth:170
+            maxWidth:170,
+            lineHeightFactor: 1.5
         }
     );
 
-    y += textoCierre.length * 5 + 10;
+    y += textoCierre.length * 6 + 15;
 
 
     //-----------------------------------------------------
     // DESPEDIDA
     //-----------------------------------------------------
 
-    doc.setFont("helvetica","normal");
+    doc.setFont("times","normal");
 
     doc.text(
         "Cordialmente,",
@@ -579,14 +587,15 @@ function ejecutarGeneracionPDF(data) {
         y
     );
 
-    y += 18;
+    // Dejar un espacio amplio para la firma manuscrita
+    y += 25;
 
 
     //-----------------------------------------------------
     // LÍNEA DE FIRMA
     //-----------------------------------------------------
 
-    doc.setDrawColor(120);
+    doc.setDrawColor(0); // Línea negra más formal
 
     doc.line(
         20,
@@ -595,15 +604,15 @@ function ejecutarGeneracionPDF(data) {
         y
     );
 
-    y += 6;
+    y += 5;
 
 
     //-----------------------------------------------------
     // FIRMA
     //-----------------------------------------------------
 
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(10);
+    doc.setFont("times","bold");
+    doc.setFontSize(11);
 
     doc.text(
         "María L. Osorno",
@@ -611,8 +620,8 @@ function ejecutarGeneracionPDF(data) {
         y
     );
 
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9);
+    doc.setFont("times","normal");
+    doc.setFontSize(10);
 
     doc.text(
         "Jefe de Compras e Inventarios",
