@@ -433,7 +433,7 @@ function ejecutarGeneracionPDF(data) {
 
     const cierre = "Agradecemos su compromiso para contribuir al cumplimiento de los estándares de calidad y mejoramiento continuo requeridos por el Parque Comercial El Tesoro P.H.";
 
-    const textoCierre = doc.splitTextToSize(cierre, 170);
+    const textoCierre = doc.splitTextToSize(cierre, 165);
 
     doc.setFont("times","normal");
     doc.setFontSize(9);
@@ -444,7 +444,7 @@ function ejecutarGeneracionPDF(data) {
         y,
         {
             align:"justify",
-            maxWidth:170,
+            maxWidth:165,
             lineHeightFactor: 1.2
         }
     );
