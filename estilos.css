@@ -1,190 +1,57 @@
 /* =========================
-   GENERAL
+   TABLA TIPO EMPRESA
 ========================= */
-body {
-    background-color: #f4f6f9;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    color: #333;
+
+.tabla-header,
+.fila-pregunta {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 50px);
+    align-items: center;
+    gap: 10px;
 }
 
-/* =========================
-   CONTENEDOR PRINCIPAL
-========================= */
-.container {
-    max-width: 1000px;
-}
-
-/* =========================
-   TARJETAS / BLOQUES
-========================= */
-.card, .seccion {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-}
-
-/* =========================
-   TITULOS
-========================= */
-h1, h2, h3 {
+/* HEADER */
+.tabla-header {
     font-weight: 600;
-    color: #2c3e50;
-}
-
-h1 {
-    font-size: 28px;
-}
-
-h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-/* =========================
-   INPUTS
-========================= */
-input, select, textarea {
-    border-radius: 8px !important;
-    border: 1px solid #ccc !important;
-    padding: 8px;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: #0d6efd !important;
-    box-shadow: 0 0 0 2px rgba(13,110,253,0.1);
-}
-
-/* =========================
-   BOTONES
-========================= */
-button {
-    border-radius: 8px !important;
-    padding: 8px 16px;
-    font-weight: 500;
-}
-
-.btn-primary {
     background: #0d6efd;
-    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.btn-primary:hover {
-    background: #0b5ed7;
-}
-
-/* =========================
-   PREGUNTAS
-========================= */
-#contenedorPreguntas {
-    margin-top: 15px;
-}
-
-/* cada bloque de pregunta */
+/* FILAS */
 #contenedorPreguntas > div {
-    padding: 12px;
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 50px);
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
     border-bottom: 1px solid #eee;
-    transition: all 0.2s ease;
 }
 
-/* hover suave */
+/* TEXTO PREGUNTA */
+#contenedorPreguntas label:first-child,
+#contenedorPreguntas strong {
+    text-align: left;
+}
+
+/* RADIOS CENTRADOS */
+#contenedorPreguntas input[type="radio"] {
+    margin: auto;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* HOVER */
 #contenedorPreguntas > div:hover {
     background: #f8f9fa;
 }
 
-/* texto pregunta */
-#contenedorPreguntas strong,
-#contenedorPreguntas label:first-child {
-    font-weight: 500;
-    display: block;
-    margin-bottom: 6px;
-}
-
-/* radios */
-#contenedorPreguntas input[type="radio"] {
-    margin: 0 8px;
-    transform: scale(1.15);
-    cursor: pointer;
-}
-
-/* =========================
-   COLORES DE EVALUACION
-========================= */
-input[value="1"]:checked { accent-color: #dc3545; } /* rojo */
-input[value="2"]:checked { accent-color: #fd7e14; } /* naranja */
-input[value="3"]:checked { accent-color: #6c757d; } /* gris */
-input[value="4"]:checked { accent-color: #0d6efd; } /* azul */
-input[value="5"]:checked { accent-color: #198754; } /* verde */
-
-/* =========================
-   TABLAS (si usas)
-========================= */
-table {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-th {
-    background: #0d6efd;
-    color: white;
-    text-align: center;
-}
-
-td {
-    text-align: center;
-    vertical-align: middle;
-}
-
-/* =========================
-   RESULTADO FINAL
-========================= */
-#resultado, .resultado {
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    padding: 10px;
-}
-
-/* =========================
-   BADGES / ESTADO
-========================= */
-.badge-aprobado {
-    background: #198754;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 6px;
-}
-
-.badge-regular {
-    background: #ffc107;
-    color: black;
-    padding: 5px 10px;
-    border-radius: 6px;
-}
-
-.badge-rechazado {
-    background: #dc3545;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 6px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-
-    #contenedorPreguntas input[type="radio"] {
-        margin: 0 5px;
-        transform: scale(1.1);
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
-}
+/* COLORES */
+input[value="1"]:checked { accent-color: #dc3545; }
+input[value="2"]:checked { accent-color: #fd7e14; }
+input[value="3"]:checked { accent-color: #6c757d; }
+input[value="4"]:checked { accent-color: #0d6efd; }
+input[value="5"]:checked { accent-color: #198754; }
