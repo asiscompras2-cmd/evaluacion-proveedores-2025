@@ -52,7 +52,7 @@ function llenarComboAreas() {
 // LLENAR COMBO PROVEEDORES
 //===============================
 
-function llenarComboProveedores(areaSeleccionada) {
+async function llenarComboProveedores(areaSeleccionada) {
     const comboProveedor = document.getElementById("proveedor");
     const nitInput = document.getElementById("nit");
     const servicioInput = document.getElementById("servicio");
