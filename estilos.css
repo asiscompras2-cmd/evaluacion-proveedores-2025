@@ -481,3 +481,84 @@ body {
     font-size: 0.85rem;
 
 }
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+.tabla-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   TABLA
+========================= */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+th {
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Primera columna (texto) */
+td:nth-child(2) {
+    text-align: left;
+    font-weight: 500;
+}
+
+/* Hover filas */
+tbody tr:hover {
+    background: #f8f9fa;
+    transition: 0.2s;
+}
+
+/* =========================
+   COLORES HEADER (SIN TOCAR HTML)
+========================= */
+th:nth-child(3) { background: #dc3545; color: white; }
+th:nth-child(4) { background: #fd7e14; color: white; }
+th:nth-child(5) { background: #6c757d; color: white; }
+th:nth-child(6) { background: #0d6efd; color: white; }
+th:nth-child(7) { background: #198754; color: white; }
+
+/* =========================
+   RADIOS (NO AFECTA JS)
+========================= */
+input[type="radio"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Cuando seleccionas */
+input[type="radio"]:checked {
+    accent-color: #198754;
+}
+
+/* =========================
+   FILA MÁS LIMPIA
+========================= */
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+/* =========================
+   ENCABEZADO FIJO (PRO)
+========================= */
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
