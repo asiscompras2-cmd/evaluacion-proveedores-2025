@@ -57,6 +57,22 @@ function llenarComboProveedores(areaSeleccionada) {
     const nitInput = document.getElementById("nit");
     const servicioInput = document.getElementById("servicio");
     const cedulaActual = document.getElementById("cedula").value.trim();
+    let nitsEvaluados = [];
+
+if (cedulaActual) {
+
+    const { data, error } = await window.supabaseClient
+        .from("evaluaciones")
+        .select("nit")
+        .eq("cedula", cedulaActual);
+
+    if (error) {
+        console.error(error);
+    } else {
+        nitsEvaluados = data.map(e => String(e.nit));
+    }
+
+}
     
     if (!comboProveedor) return;
     
