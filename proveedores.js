@@ -126,3 +126,17 @@ if (cedulaActual) {
         }
     };
 }
+async function obtenerNitsEvaluados(cedula) {
+
+    const { data, error } = await window.supabaseClient
+        .from("evaluaciones")
+        .select("nit")
+        .eq("cedula", cedula);
+
+    if (error) {
+        console.error("Error consultando evaluaciones:", error);
+        return [];
+    }
+
+    return data.map(e => String(e.nit));
+}
