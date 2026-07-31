@@ -562,3 +562,15 @@ thead th {
     top: 0;
     z-index: 2;
 }
+.resultado-box {
+    border: 2px solid #198754;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.resultado-box h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #198754;
+}
