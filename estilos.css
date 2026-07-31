@@ -585,3 +585,124 @@ button:hover {
     transform: translateY(-1px);
     transition: 0.2s;
 }
+/* =========================
+   GENERAL
+========================= */
+body {
+    background-color: #f4f6f9;
+}
+
+/* TITULOS */
+.titulo {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* ESCALA */
+.escala-evaluacion {
+    background: #eef2f7;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* =========================
+   CONTENEDOR PREGUNTAS
+========================= */
+#contenedorPreguntas {
+    width: 100%;
+}
+
+/* CADA PREGUNTA */
+.pregunta {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 1fr);
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+}
+
+/* HOVER */
+.pregunta:hover {
+    background: #f8f9fa;
+}
+
+/* TEXTO */
+.pregunta-texto {
+    font-weight: 500;
+}
+
+/* OPCIONES */
+.opciones {
+    display: contents;
+}
+
+/* RADIO */
+input[type="radio"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* COLORES POR COLUMNA */
+.opciones label:nth-child(1) { color: #dc3545; }
+.opciones label:nth-child(2) { color: #fd7e14; }
+.opciones label:nth-child(3) { color: #6c757d; }
+.opciones label:nth-child(4) { color: #0d6efd; }
+.opciones label:nth-child(5) { color: #198754; }
+
+/* =========================
+   RESULTADO
+========================= */
+#resultado .alert {
+    border-radius: 10px;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+button {
+    border-radius: 10px !important;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+/* =========================
+   TARJETAS DASHBOARD
+========================= */
+.indicador {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+}
+
+.indicador-icon {
+    font-size: 1.5rem;
+    color: #0d6efd;
+}
+
+/* =========================
+   FILTROS
+========================= */
+.filtros-card {
+    border-radius: 10px;
+}
+
+/* =========================
+   TABLA HISTORIAL
+========================= */
+.table th {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+}
