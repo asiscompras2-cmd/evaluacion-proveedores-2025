@@ -811,3 +811,23 @@ input[value="5"]:checked { accent-color: #198754; }
 .escala-evaluacion strong {
     text-align: left;
 }
+#contenedorPreguntas > div {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 50px);
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#contenedorPreguntas input[type="radio"] {
+    margin: auto;
+    transform: scale(1.2);
+}
+
+/* COLORES */
+input[value="1"]:checked { accent-color: #dc3545; }
+input[value="2"]:checked { accent-color: #fd7e14; }
+input[value="3"]:checked { accent-color: #6c757d; }
+input[value="4"]:checked { accent-color: #0d6efd; }
+input[value="5"]:checked { accent-color: #198754; }
