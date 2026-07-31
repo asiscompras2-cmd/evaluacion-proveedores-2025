@@ -1,833 +1,190 @@
-/* ==========================================
-   ESTILOS PROPIOS - DISEÑO SOBRIO Y MINIMALISTA
-   Parque Comercial El Tesoro
-   ========================================== */
-
-:root {
-    --color-canela: #AF872E;
-    --color-verde-claro: #BEC447;
-    --color-verde-oscuro: #71B000;
-    --color-gris: #7B807E;
-    --color-azul-oscuro: #2B5393;
-    --color-beige: #F4F1E9; /* Un beige un poco más claro y limpio */
-    --texto-negro: #000000;
-    --texto-gris: #4A4A4A;
-}
-
-body {
-    background-color: #FFFFFF; /* Fondo blanco puro para minimalismo */
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: var(--texto-gris);
-}
-
-.container {
-    max-width: 1100px;
-}
-
-.card {
-    border: 1px solid #E0E0E0;
-    border-radius: 0; /* Bordes rectos para un look más arquitectónico/minimalista */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-}
-
-/* --- Encabezado Sobrio --- */
-.card-header {
-    background-color: #FFFFFF !important; /* Fondo blanco limpio */
-    color: var(--texto-negro);
-    padding: 20px 20px 16px;
-    border-bottom: 4px solid var(--color-canela) !important; /* Línea canela elegante */
-    text-align: center;
-}
-
-.card-header h2 {
-    font-weight: 900;
-    letter-spacing: 2px;
-    color: var(--texto-negro) !important;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.card-header h5 {
-    color: var(--color-canela) !important;
-    font-weight: 400;
-    letter-spacing: 4px;
-    font-size: 0.9rem;
-}
-
-/* --- Títulos de Sección --- */
-.titulo {
-    color: var(--texto-negro);
-    border-bottom: 2px solid var(--color-verde-oscuro);
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-top: 22px;
-    margin-bottom: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
-
-/* --- Navegación --- */
-.nav-tabs {
-    border-bottom: 1px solid #EEE;
-}
-
-.nav-tabs .nav-link {
-    color: var(--color-gris);
-    font-weight: 500;
-    border: none;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-}
-
-.nav-tabs .nav-link.active {
-    color: var(--texto-negro);
-    border-bottom: 3px solid var(--color-canela);
-    background: transparent;
-}
-
-/* --- Formulario --- */
-.form-label {
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--texto-negro);
-    text-transform: uppercase;
-}
-
-.form-control, .form-select {
-    border: 1px solid #E0E0E0;
-    border-radius: 0;
-    padding: 12px;
-    background-color: #FAFAFA;
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: var(--color-canela);
-    box-shadow: none;
-    background-color: #FFFFFF;
-}
-
-/* --- Preguntas --- */
-.criterio {
-    background-color: var(--color-beige);
-    color: var(--texto-negro);
-    padding: 15px 20px;
-    font-weight: 800;
-    margin-top: 35px;
-    border-left: 8px solid var(--color-verde-oscuro);
-    text-transform: uppercase;
-    font-size: 0.9rem;
-}
-
-.pregunta {
-    padding: 25px;
-    background: #FFFFFF;
-    border-bottom: 1px solid #F0F0F0;
-}
-
-.textoPregunta {
-    font-weight: 500;
-    margin-bottom: 15px;
-    color: var(--texto-negro);
-    line-height: 1.6;
-}
-
-.opciones {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-
-.opciones label {
-    cursor: pointer;
-    font-size: 0.85rem;
-    color: var(--texto-gris);
-    display: flex;
-    align-items: center;
-}
-
-.opciones input[type="radio"] {
-    accent-color: var(--color-verde-oscuro);
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-}
-
-/* --- Resultados --- */
-.resultadoExcelente { border: 2px solid var(--color-verde-oscuro); color: var(--color-verde-oscuro); padding: 30px; margin-top: 30px; text-align: center; }
-.resultadoAprobado  { border: 2px solid var(--color-verde-claro); color: var(--color-verde-claro); padding: 30px; margin-top: 30px; text-align: center; }
-.resultadoAceptable { border: 2px solid var(--color-canela); color: var(--color-canela); padding: 30px; margin-top: 30px; text-align: center; }
-.resultadoPlan      { border: 2px solid var(--color-gris); color: var(--color-gris); padding: 30px; margin-top: 30px; text-align: center; }
-
-/* --- Botones --- */
-.btn {
-    border-radius: 12px;
-    padding: 12px 35px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-}
-
-.btn-success {
-    background-color: var(--texto-negro);
-    border-color: var(--texto-negro);
-}
-
-.btn-success:hover {
-    background-color: var(--color-verde-oscuro);
-    border-color: var(--color-verde-oscuro);
-}
-
-/* --- Tabla Historial --- */
-.table {
-    font-size: 0.9rem;
-}
-
-.table-success {
-    --bs-table-bg: var(--color-beige);
-    --bs-table-color: var(--texto-negro);
-}
-
-/* --- Impresión --- */
-@media print {
-    .btn, hr, .nav-tabs, #sinDatos { display: none !important; }
-    .card { border: none !important; box-shadow: none !important; }
-}
-/* ==========================================
-   ESCALA DE CALIFICACIÓN COMPACTA
-   ========================================== */
-
-.opciones {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 10px;
-    max-width: 700px;
-}
-
-.opciones label {
-    flex: 1;
-    min-width: 85px;
-    min-height: 55px;
-    padding: 8px 5px;
-    border: 1px solid #E0E0E0;
-    background-color: #FAFAFA;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.opciones label:hover {
-    border-color: var(--color-canela);
-    background-color: var(--color-beige);
-}
-
-.opciones input[type="radio"] {
-    width: 17px;
-    height: 17px;
-    margin: 0 0 4px 0;
-    accent-color: var(--color-verde-oscuro);
-}
-
-.opciones label span {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
-}
-
-.opciones label strong {
-    font-size: 0.9rem;
-    color: var(--texto-negro);
-}
-
-.opciones label small {
-    font-size: 0.68rem;
-    color: var(--texto-gris);
-    margin-top: 2px;
-}
-
-/* Resaltar la opción seleccionada */
-.opciones label:has(input:checked) {
-    border: 2px solid var(--color-verde-oscuro);
-    background-color: #F4F8E8;
-}
-
-/* En pantallas pequeñas */
-@media (max-width: 768px) {
-
-    .opciones {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 5px;
-        width: 100%;
-    }
-
-    .opciones label {
-        min-width: 0;
-        min-height: 60px;
-        padding: 5px 2px;
-    }
-
-    .opciones label small {
-        font-size: 0.58rem;
-    }
-}
-/* ==========================================
-   PREGUNTAS MUY COMPACTAS
-   ========================================== */
-
-.pregunta {
-    padding: 9px 12px;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.preguntaFila {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.textoPregunta {
-    flex: 1;
-    margin: 0;
-    font-size: 0.88rem;
-    line-height: 1.25;
-    color: var(--texto-negro);
-}
-
-.opciones {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.opciones label {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    cursor: pointer;
-    font-size: 0.78rem;
-    color: var(--texto-gris);
-}
-
-.opciones input[type="radio"] {
-    width: 15px;
-    height: 15px;
-    margin: 0;
-    accent-color: var(--color-verde-oscuro);
-}
-
-.opciones label span {
-    font-weight: 600;
-}
-
-/* Opción seleccionada */
-.opciones label:has(input:checked) {
-    color: var(--color-verde-oscuro);
-    font-weight: bold;
-}
-
-/* Encabezado de criterio más pequeño */
-.criterio {
-    padding: 8px 12px;
-    margin-top: 16px;
-    font-size: 0.8rem;
-    border-left-width: 4px;
-}
-
-/* En pantallas pequeñas */
-@media (max-width: 768px) {
-
-    .preguntaFila {
-        display: block;
-    }
-
-    .textoPregunta {
-        margin-bottom: 8px;
-    }
-
-    .opciones {
-        justify-content: flex-start;
-        gap: 15px;
-    }
-}
-/* ==========================================
-   DASHBOARD HISTORIAL
-   ========================================== */
-
-.dashboard-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-}
-
-
-.indicador {
-
-    border: 1px solid #e5e5e5;
-
-    border-radius: 8px;
-
-    padding: 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    height: 100%;
-
-    box-shadow: none !important;
-
-}
-
-
-.indicador-icon {
-
-    width: 42px;
-
-    height: 42px;
-
-    border-radius: 50%;
-
-    background-color: #f4f1e9;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 20px;
-
-    color: var(--color-canela);
-
-}
-
-
-.indicador small {
-
-    color: #777;
-
-    font-size: 0.75rem;
-
-}
-
-
-.indicador h3 {
-
-    margin: 3px 0 0;
-
-    color: #222;
-
-    font-weight: 700;
-
-}
-
-
-.filtros-card {
-
-    border: 1px solid #e5e5e5;
-
-    border-radius: 8px;
-
-    box-shadow: none !important;
-
-}
-
-
-#tablaHistorial thead {
-
-    background-color: #f4f1e9;
-
-}
-
-
-#tablaHistorial th {
-
-    font-size: 0.75rem;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.5px;
-
-    color: #555;
-
-}
-
-
-#tablaHistorial td {
-
-    vertical-align: middle;
-
-    font-size: 0.85rem;
-
-}
-/* =========================
-   CONTENEDOR GENERAL
-========================= */
-.tabla-container {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
-
-/* =========================
-   TABLA
-========================= */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 0.9rem;
-}
-
-th {
-    font-weight: 600;
-    text-align: center;
-    padding: 10px;
-}
-
-td {
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-/* Primera columna (texto) */
-td:nth-child(2) {
-    text-align: left;
-    font-weight: 500;
-}
-
-/* Hover filas */
-tbody tr:hover {
-    background: #f8f9fa;
-    transition: 0.2s;
-}
-
-/* =========================
-   COLORES HEADER (SIN TOCAR HTML)
-========================= */
-th:nth-child(3) { background: #dc3545; color: white; }
-th:nth-child(4) { background: #fd7e14; color: white; }
-th:nth-child(5) { background: #6c757d; color: white; }
-th:nth-child(6) { background: #0d6efd; color: white; }
-th:nth-child(7) { background: #198754; color: white; }
-
-/* =========================
-   RADIOS (NO AFECTA JS)
-========================= */
-input[type="radio"] {
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-/* Cuando seleccionas */
-input[type="radio"]:checked {
-    accent-color: #198754;
-}
-
-/* =========================
-   FILA MÁS LIMPIA
-========================= */
-tbody tr {
-    border-bottom: 1px solid #eee;
-}
-
-/* =========================
-   ENCABEZADO FIJO (PRO)
-========================= */
-thead th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-.resultado-box {
-    border: 2px solid #198754;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-}
-
-.resultado-box h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #198754;
-}
-button {
-    border-radius: 10px;
-    padding: 14px;
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-button:hover {
-    transform: translateY(-1px);
-    transition: 0.2s;
-}
 /* =========================
    GENERAL
 ========================= */
 body {
     background-color: #f4f6f9;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    color: #333;
 }
 
-/* TITULOS */
-.titulo {
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.container {
+    max-width: 1000px;
+}
+
+/* =========================
+   TARJETAS / BLOQUES
+========================= */
+.card, .seccion {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+/* =========================
+   TITULOS
+========================= */
+h1, h2, h3 {
     font-weight: 600;
-    margin-bottom: 15px;
     color: #2c3e50;
 }
 
-/* ESCALA */
-.escala-evaluacion {
-    background: #eef2f7;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
 }
 
 /* =========================
-   CONTENEDOR PREGUNTAS
+   INPUTS
 ========================= */
-#contenedorPreguntas {
-    width: 100%;
+input, select, textarea {
+    border-radius: 8px !important;
+    border: 1px solid #ccc !important;
+    padding: 8px;
 }
 
-/* CADA PREGUNTA */
-.pregunta {
-    display: grid;
-    grid-template-columns: 2fr repeat(5, 1fr);
-    align-items: center;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    transition: 0.2s;
+input:focus, select:focus, textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 2px rgba(13,110,253,0.1);
 }
 
-/* HOVER */
-.pregunta:hover {
-    background: #f8f9fa;
-}
-
-/* TEXTO */
-.pregunta-texto {
+/* =========================
+   BOTONES
+========================= */
+button {
+    border-radius: 8px !important;
+    padding: 8px 16px;
     font-weight: 500;
 }
 
-/* OPCIONES */
-.opciones {
-    display: contents;
+.btn-primary {
+    background: #0d6efd;
+    border: none;
 }
 
-/* RADIO */
-input[type="radio"] {
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-/* COLORES POR COLUMNA */
-.opciones label:nth-child(1) { color: #dc3545; }
-.opciones label:nth-child(2) { color: #fd7e14; }
-.opciones label:nth-child(3) { color: #6c757d; }
-.opciones label:nth-child(4) { color: #0d6efd; }
-.opciones label:nth-child(5) { color: #198754; }
-
-/* =========================
-   RESULTADO
-========================= */
-#resultado .alert {
-    border-radius: 10px;
+.btn-primary:hover {
+    background: #0b5ed7;
 }
 
 /* =========================
-   BOTÓN
+   PREGUNTAS
 ========================= */
-button {
-    border-radius: 10px !important;
-    font-weight: 600;
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-1px);
-}
-
-/* =========================
-   TARJETAS DASHBOARD
-========================= */
-.indicador {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-}
-
-.indicador-icon {
-    font-size: 1.5rem;
-    color: #0d6efd;
-}
-
-/* =========================
-   FILTROS
-========================= */
-.filtros-card {
-    border-radius: 10px;
-}
-
-/* =========================
-   TABLA HISTORIAL
-========================= */
-.table th {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-}
-
-.table td {
-    vertical-align: middle;
-}
-/* CONTENEDOR */
 #contenedorPreguntas {
     margin-top: 15px;
 }
 
-/* CADA BLOQUE DE PREGUNTA */
+/* cada bloque de pregunta */
 #contenedorPreguntas > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    border-bottom: 1px solid #eee;
-    padding: 10px;
-}
-
-/* TEXTO (lado izquierdo) */
-#contenedorPreguntas > div > span,
-#contenedorPreguntas > div > label:first-child {
-    flex: 2;
-    font-weight: 500;
-}
-
-/* OPCIONES (lado derecho) */
-#contenedorPreguntas input[type="radio"] {
-    margin: 0 8px;
-    transform: scale(1.2);
-}
-
-/* HOVER */
-#contenedorPreguntas > div:hover {
-    background: #f8f9fa;
-}
-
-/* COLORES POR VALOR */
-input[value="1"]:checked { accent-color: #dc3545; }
-input[value="2"]:checked { accent-color: #fd7e14; }
-input[value="3"]:checked { accent-color: #6c757d; }
-input[value="4"]:checked { accent-color: #0d6efd; }
-input[value="5"]:checked { accent-color: #198754; }
-
-/* ===== CONTENEDOR GENERAL ===== */
-#contenedorPreguntas {
-    margin-top: 20px;
-}
-
-/* ===== BLOQUE DE CADA PREGUNTA ===== */
-#contenedorPreguntas > div {
-    display: grid;
-    grid-template-columns: 2fr repeat(5, 60px);
-    align-items: center;
-    gap: 10px;
-
     padding: 12px;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #eee;
     transition: all 0.2s ease;
 }
 
-/* HOVER */
+/* hover suave */
 #contenedorPreguntas > div:hover {
     background: #f8f9fa;
 }
 
-/* TEXTO DE LA PREGUNTA */
-#contenedorPreguntas > div > *:first-child {
+/* texto pregunta */
+#contenedorPreguntas strong,
+#contenedorPreguntas label:first-child {
     font-weight: 500;
-    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 6px;
 }
 
-/* RADIOS CENTRADOS */
+/* radios */
 #contenedorPreguntas input[type="radio"] {
-    margin: auto;
-    transform: scale(1.3);
+    margin: 0 8px;
+    transform: scale(1.15);
     cursor: pointer;
 }
 
-/* ===== EFECTO SELECCIÓN ===== */
-#contenedorPreguntas input[type="radio"]:checked {
-    accent-color: #198754;
+/* =========================
+   COLORES DE EVALUACION
+========================= */
+input[value="1"]:checked { accent-color: #dc3545; } /* rojo */
+input[value="2"]:checked { accent-color: #fd7e14; } /* naranja */
+input[value="3"]:checked { accent-color: #6c757d; } /* gris */
+input[value="4"]:checked { accent-color: #0d6efd; } /* azul */
+input[value="5"]:checked { accent-color: #198754; } /* verde */
+
+/* =========================
+   TABLAS (si usas)
+========================= */
+table {
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-/* ===== COLORES POR VALOR ===== */
-input[value="1"]:checked { accent-color: #dc3545; }
-input[value="2"]:checked { accent-color: #fd7e14; }
-input[value="3"]:checked { accent-color: #6c757d; }
-input[value="4"]:checked { accent-color: #0d6efd; }
-input[value="5"]:checked { accent-color: #198754; }
-
-/* ===== CABECERA TIPO TABLA (FAKE PERO PRO) ===== */
-.escala-evaluacion {
-    display: grid;
-    grid-template-columns: 2fr repeat(5, 60px);
-    align-items: center;
+th {
+    background: #0d6efd;
+    color: white;
     text-align: center;
+}
 
-    background: #eef2f7;
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* =========================
+   RESULTADO FINAL
+========================= */
+#resultado, .resultado {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
     padding: 10px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
 }
 
-/* OPCIONAL: números centrados */
-.escala-evaluacion strong {
-    text-align: left;
-}
-#contenedorPreguntas > div {
-    display: grid;
-    grid-template-columns: 2fr repeat(5, 50px);
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+/* =========================
+   BADGES / ESTADO
+========================= */
+.badge-aprobado {
+    background: #198754;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
-#contenedorPreguntas input[type="radio"] {
-    margin: auto;
-    transform: scale(1.2);
+.badge-regular {
+    background: #ffc107;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
-/* COLORES */
-input[value="1"]:checked { accent-color: #dc3545; }
-input[value="2"]:checked { accent-color: #fd7e14; }
-input[value="3"]:checked { accent-color: #6c757d; }
-input[value="4"]:checked { accent-color: #0d6efd; }
-input[value="5"]:checked { accent-color: #198754; }
+.badge-rechazado {
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+    #contenedorPreguntas input[type="radio"] {
+        margin: 0 5px;
+        transform: scale(1.1);
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
