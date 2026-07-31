@@ -82,22 +82,7 @@ if (cedulaActual) {
     if (servicioInput) servicioInput.value = "";
 
     if (!areaSeleccionada) return;
-
-    // Obtener NITs ya evaluados por este evaluador (si hay cédula)
-   async function obtenerNitsEvaluados(cedula) {
-
-    const { data, error } = await window.supabaseClient
-        .from("evaluaciones")
-        .select("nit")
-        .eq("cedula", cedula);
-
-    if (error) {
-        console.error(error);
-        return [];
-    }
-
-    return data.map(e => String(e.nit));
-}
+   
 
     // Filtrar por área
     const filtrados = datosProveedores.filter(p => p.AREA === areaSeleccionada);
