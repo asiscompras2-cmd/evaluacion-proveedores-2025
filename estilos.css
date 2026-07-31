@@ -706,3 +706,42 @@ button:hover {
 .table td {
     vertical-align: middle;
 }
+/* CONTENEDOR */
+#contenedorPreguntas {
+    margin-top: 15px;
+}
+
+/* CADA BLOQUE DE PREGUNTA */
+#contenedorPreguntas > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+
+/* TEXTO (lado izquierdo) */
+#contenedorPreguntas > div > span,
+#contenedorPreguntas > div > label:first-child {
+    flex: 2;
+    font-weight: 500;
+}
+
+/* OPCIONES (lado derecho) */
+#contenedorPreguntas input[type="radio"] {
+    margin: 0 8px;
+    transform: scale(1.2);
+}
+
+/* HOVER */
+#contenedorPreguntas > div:hover {
+    background: #f8f9fa;
+}
+
+/* COLORES POR VALOR */
+input[value="1"]:checked { accent-color: #dc3545; }
+input[value="2"]:checked { accent-color: #fd7e14; }
+input[value="3"]:checked { accent-color: #6c757d; }
+input[value="4"]:checked { accent-color: #0d6efd; }
+input[value="5"]:checked { accent-color: #198754; }
