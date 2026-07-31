@@ -574,3 +574,14 @@ thead th {
     font-weight: bold;
     color: #198754;
 }
+button {
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    transition: 0.2s;
+}
