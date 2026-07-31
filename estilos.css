@@ -745,3 +745,69 @@ input[value="2"]:checked { accent-color: #fd7e14; }
 input[value="3"]:checked { accent-color: #6c757d; }
 input[value="4"]:checked { accent-color: #0d6efd; }
 input[value="5"]:checked { accent-color: #198754; }
+
+/* ===== CONTENEDOR GENERAL ===== */
+#contenedorPreguntas {
+    margin-top: 20px;
+}
+
+/* ===== BLOQUE DE CADA PREGUNTA ===== */
+#contenedorPreguntas > div {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 60px);
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+#contenedorPreguntas > div:hover {
+    background: #f8f9fa;
+}
+
+/* TEXTO DE LA PREGUNTA */
+#contenedorPreguntas > div > *:first-child {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* RADIOS CENTRADOS */
+#contenedorPreguntas input[type="radio"] {
+    margin: auto;
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+/* ===== EFECTO SELECCIÓN ===== */
+#contenedorPreguntas input[type="radio"]:checked {
+    accent-color: #198754;
+}
+
+/* ===== COLORES POR VALOR ===== */
+input[value="1"]:checked { accent-color: #dc3545; }
+input[value="2"]:checked { accent-color: #fd7e14; }
+input[value="3"]:checked { accent-color: #6c757d; }
+input[value="4"]:checked { accent-color: #0d6efd; }
+input[value="5"]:checked { accent-color: #198754; }
+
+/* ===== CABECERA TIPO TABLA (FAKE PERO PRO) ===== */
+.escala-evaluacion {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 60px);
+    align-items: center;
+    text-align: center;
+
+    background: #eef2f7;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* OPCIONAL: números centrados */
+.escala-evaluacion strong {
+    text-align: left;
+}
