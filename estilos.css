@@ -34,3 +34,39 @@ input[value="2"]:checked { accent-color: #fd7e14; }
 input[value="3"]:checked { accent-color: #6c757d; }
 input[value="4"]:checked { accent-color: #0d6efd; }
 input[value="5"]:checked { accent-color: #198754; }
+
+.tabla-evaluacion {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.tabla-evaluacion th,
+.tabla-evaluacion td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+}
+
+.tabla-evaluacion th:first-child,
+.tabla-evaluacion td:first-child {
+    text-align: left;
+    width: 60%;
+}
+
+/* compacto real */
+.tabla-evaluacion tbody tr {
+    height: 32px;
+}
+
+/* hover suave */
+.tabla-evaluacion tbody tr:hover {
+    background: #f5f5f5;
+}
+
+/* radios */
+input[type="radio"] {
+    transform: scale(1.1);
+    cursor: pointer;
+}
