@@ -1,31 +1,36 @@
-/* CONTENEDOR DE CADA PREGUNTA */
-#contenedorPreguntas > div {
-    padding: 15px 10px;
-    border-bottom: 1px solid #ddd;
+.tabla-evaluacion {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
 }
 
-/* TEXTO DE PREGUNTA */
-#contenedorPreguntas > div > label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 500;
+.tabla-evaluacion th,
+.tabla-evaluacion td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
 }
 
-/* 🔥 CLAVE: PONER OPCIONES EN FILA */
-#contenedorPreguntas > div label {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 15px;
+.tabla-evaluacion th:first-child,
+.tabla-evaluacion td:first-child {
+    text-align: left;
+    width: 50%;
+}
+
+/* hover */
+.tabla-evaluacion tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* radios más grandes */
+input[type="radio"] {
+    transform: scale(1.2);
     cursor: pointer;
 }
 
-/* RADIO */
-#contenedorPreguntas input[type="radio"] {
-    margin-right: 5px;
-    transform: scale(1.1);
-}
-
-/* HOVER */
-#contenedorPreguntas > div:hover {
-    background: #f9fafb;
-}
+/* colores */
+input[value="1"]:checked { accent-color: #dc3545; }
+input[value="2"]:checked { accent-color: #fd7e14; }
+input[value="3"]:checked { accent-color: #6c757d; }
+input[value="4"]:checked { accent-color: #0d6efd; }
+input[value="5"]:checked { accent-color: #198754; }
