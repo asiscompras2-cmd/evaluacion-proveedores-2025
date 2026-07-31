@@ -1,77 +1,48 @@
 /* =========================
-   TABLA COMPLETA
+   BLOQUE PREGUNTAS
 ========================= */
-.tabla-evaluacion {
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+#contenedorPreguntas {
+    margin-top: 20px;
 }
 
-/* =========================
-   FILAS
-========================= */
-.fila {
-    display: grid;
-    grid-template-columns: 50px 1fr repeat(5, 80px);
-    align-items: center;
+/* CADA PREGUNTA */
+#contenedorPreguntas > div {
+    padding: 12px 10px;
     border-bottom: 1px solid #e5e7eb;
-    font-size: 14px;
 }
 
-/* =========================
-   HEADER
-========================= */
-.header {
-    background: linear-gradient(90deg, #0f5132, #198754);
-    color: white;
-    font-weight: 600;
+/* TEXTO DE PREGUNTA */
+#contenedorPreguntas label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
 }
 
-.header div {
-    padding: 12px;
-    text-align: center;
+/* OPCIONES EN LINEA ORDENADAS */
+.opciones {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/* COLORES COLUMNAS */
-.header .c1 { background: #dc3545; }
-.header .c2 { background: #fd7e14; }
-.header .c3 { background: #6c757d; }
-.header .c4 { background: #0d6efd; }
-.header .c5 { background: #198754; }
-
-/* =========================
-   CELDAS
-========================= */
-.fila div {
-    padding: 10px;
-    text-align: center;
-}
-
-/* TEXTO CRITERIO */
-.fila div:nth-child(2) {
-    text-align: left;
-}
-
-/* =========================
-   HOVER
-========================= */
-.fila:not(.header):hover {
-    background: #f9fafb;
-}
-
-/* =========================
-   RADIOS
-========================= */
-input[type="radio"] {
-    transform: scale(1.2);
+/* RADIOS */
+.opciones input[type="radio"] {
+    transform: scale(1.1);
     cursor: pointer;
 }
 
-/* =========================
-   COLORES SELECCIONADOS
-========================= */
+/* NUMEROS */
+.opciones span {
+    margin-right: 5px;
+    font-size: 13px;
+}
+
+/* HOVER */
+#contenedorPreguntas > div:hover {
+    background: #f9fafb;
+}
+
+/* COLORES */
 input[value="1"]:checked { accent-color: #dc3545; }
 input[value="2"]:checked { accent-color: #fd7e14; }
 input[value="3"]:checked { accent-color: #6c757d; }
