@@ -108,10 +108,14 @@ input[type="radio"] {
 }
 
 /* --- ESTILOS GENERALES --- */
-body {
-    background-color: var(--bg-color);
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    color: var(--text-main);
+body{
+
+    background:linear-gradient(180deg,#F5F8F2,#EEF4E9);
+
+    font-family:"Segoe UI",sans-serif;
+
+    color:var(--text-main);
+
 }
 
 .titulo {
