@@ -232,3 +232,28 @@ function limpiarFormulario() {
     `;
 
 }
+function obtenerPendientes(proveedores, historial) {
+  return proveedores.filter(p => 
+    !historial.some(h => h.proveedorId === p.id)
+  );
+}
+function mostrarPendientes() {
+  const historial = JSON.parse(localStorage.getItem("historial")) || [];
+
+  const pendientes = obtenerPendientes(proveedores, historial);
+
+  renderPendientes(pendientes);
+}
+function renderPendientes(lista) {
+  const contenedor = document.getElementById("pendientes");
+
+  if (!lista.length) {
+    contenedor.innerHTML = "<p>✅ No hay pendientes</p>";
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <h3>📋 Pendientes (${lista.length})</h3>
+    ${lista.map(p => `<div>❌ ${p.nombre}</div>`).join("")}
+  `;
+}
