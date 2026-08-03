@@ -71,20 +71,40 @@ input[type="radio"] {
     cursor: pointer;
 }
 /* --- VARIABLES GLOBALES --- */
-:root {
-    --primary-color: #4f46e5;
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
-    
-    /* Colores Niveles */
-    --color-1: #fee2e2; --accent-1: #ef4444;
-    --color-2: #ffedd5; --accent-2: #f97316;
-    --color-3: #f1f5f9; --accent-3: #94a3b8;
-    --color-4: #dbeafe; --accent-4: #3b82f6;
-    --color-5: #dcfce7; --accent-5: #22c55e;
+:root{
+
+    /* ========= COLORES CORPORATIVOS EL TESORO ========= */
+
+    --primary-color:#5F7F2F;
+    --secondary-color:#A6BF3A;
+    --gold-color:#AF872E;
+
+    --bg-color:#F5F8F2;
+    --card-bg:#FFFFFF;
+
+    --text-main:#24321D;
+    --text-muted:#707A72;
+
+    --border-color:#D8E2CF;
+
+
+    /* ========= COLORES DE CALIFICACIÓN ========= */
+
+    --color-1:#FDECEC;
+    --accent-1:#D9534F;
+
+    --color-2:#FFF6E3;
+    --accent-2:#D79A1C;
+
+    --color-3:#F3F4F6;
+    --accent-3:#94A3B8;
+
+    --color-4:#EDF7E3;
+    --accent-4:#83A93B;
+
+    --color-5:#DCF5DB;
+    --accent-5:#2E7D32;
+
 }
 
 /* --- ESTILOS GENERALES --- */
