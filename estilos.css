@@ -36,6 +36,11 @@ input[value="4"]:checked { accent-color: #0d6efd; }
 input[value="5"]:checked { accent-color: #198754; }
 
 .tabla-evaluacion {
+.card-header h5{
+    font-size:1.1rem;
+    margin:0;
+    font-weight:500;
+}
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
