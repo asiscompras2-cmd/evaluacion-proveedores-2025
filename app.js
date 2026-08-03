@@ -158,6 +158,13 @@ function mostrarPendientes() {
 
   renderPendientes(pendientes);
 }
+function mostrarPendientes() {
+  const historial = JSON.parse(localStorage.getItem("historial")) || [];
+
+  const pendientes = obtenerPendientes(proveedores, historial);
+
+  renderPendientes(pendientes);
+}
 //====================================
 // PROTEGER HISTORIAL
 //====================================
