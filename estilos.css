@@ -388,3 +388,13 @@ RESULTADO
 .card-header h2{
     font-size:1.8rem;    /* 29px */
 }
+.menu-informes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.menu-informes button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
