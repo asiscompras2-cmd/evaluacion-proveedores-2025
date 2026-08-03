@@ -127,9 +127,20 @@ body{
     padding-left: 10px;
 }
 
-.card {
-    border-radius: 12px;
-    border: none;
+.card{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#FFFFFF;
+
+    box-shadow:
+
+    0 12px 35px rgba(0,0,0,.08);
+
 }
 
 .card-header {
