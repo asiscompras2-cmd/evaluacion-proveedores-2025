@@ -257,3 +257,7 @@ function renderPendientes(lista) {
     ${lista.map(p => `<div>❌ ${p.nombre}</div>`).join("")}
   `;
 }
+function verHistorial() {
+  const historial = JSON.parse(localStorage.getItem("historial")) || [];
+  console.log("Historial:", historial);
+}
