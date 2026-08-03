@@ -184,27 +184,48 @@ body{
     margin-top:15px;
 
 }
-.tabla-evaluacion-premium th {
-    background-color: #f8fafc;
-    padding: 12px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    border-bottom: 2px solid var(--border-color);
-    text-transform: uppercase;
+.tabla-evaluacion-premium th{
+
+    background:linear-gradient(90deg,#5F7F2F,#82A23C);
+
+    color:#fff;
+
+    padding:15px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    border:none;
+
+    letter-spacing:.5px;
+
+    text-transform:uppercase;
+
 }
 
-.tabla-evaluacion-premium td {
-    padding: 0;
-    border-bottom: 1px solid var(--border-color);
-    vertical-align: middle;
+.tabla-evaluacion-premium td{
+
+    padding:0;
+
+    border-bottom:1px solid #E5E7EB;
+
+    vertical-align:middle;
+
+    transition:.25s;
+
 }
 
-.tabla-evaluacion-premium td:first-child {
-    padding: 12px 15px;
-    font-weight: 500;
-    font-size: 0.9rem;
+.tabla-evaluacion-premium td:first-child{
+
+    padding:14px 18px;
+
+    font-weight:600;
+
+    font-size:14px;
+
 }
 
 /* Clickable Area */
