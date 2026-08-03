@@ -289,3 +289,94 @@ td:has(.val-5:checked) { background-color: var(--color-5); }
 .dot-1 { background: var(--accent-1); }
 .dot-3 { background: var(--accent-3); }
 .dot-5 { background: var(--accent-5); }
+/*=========================================
+FILAS
+==========================================*/
+
+.tabla-evaluacion-premium tbody tr:nth-child(even){
+
+    background:#FBFCFA;
+
+}
+
+.tabla-evaluacion-premium tbody tr:hover{
+
+    background:#F1F7EA;
+
+}
+
+/*=========================================
+INPUTS
+==========================================*/
+
+.form-control{
+
+    border-radius:10px;
+
+    border:1px solid #D8E2CF;
+
+    min-height:45px;
+
+}
+
+.form-control:focus{
+
+    border-color:#88A83D;
+
+    box-shadow:0 0 0 .2rem rgba(95,127,47,.15);
+
+}
+
+.form-select{
+
+    border-radius:10px;
+
+    min-height:45px;
+
+}
+
+/*=========================================
+BOTÓN
+==========================================*/
+
+.btn-success{
+
+    background:#5F7F2F;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-success:hover{
+
+    background:#4F6D27;
+
+    transform:translateY(-2px);
+
+}
+
+/*=========================================
+RESULTADO
+==========================================*/
+
+#resultado{
+
+    margin-top:35px;
+
+}
+
+#resultado .alert{
+
+    border-radius:15px;
+
+    border:1px solid #D8E2CF;
+
+}
