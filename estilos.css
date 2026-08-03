@@ -168,13 +168,22 @@ body{
 }
 
 /* --- TABLA PREMIUM DE EVALUACIÓN --- */
-.tabla-evaluacion-premium {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 10px;
-}
 
+.tabla-evaluacion-premium{
+
+    width:100%;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
+    overflow:hidden;
+
+    border-radius:14px;
+
+    margin-top:15px;
+
+}
 .tabla-evaluacion-premium th {
     background-color: #f8fafc;
     padding: 12px;
