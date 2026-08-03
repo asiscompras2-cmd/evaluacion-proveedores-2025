@@ -158,12 +158,39 @@ function mostrarPendientes() {
 
   renderPendientes(pendientes);
 }
-function mostrarPendientes() {
+
+//====================================
+// OBTENER PENDIENTES
+//====================================
+function obtenerPendientes(proveedores, historial) {
+  return proveedores.filter(p => 
+    !historial.some(h => h.proveedorId === p.id)
+  );
+}
+
+//====================================
+// RENDER
+//====================================
+function renderPendientes(lista) {
+  const contenedor = document.getElementById("pendientes");
+
+  if (!lista.length) {
+    contenedor.innerHTML = "<p>✅ No hay pendientes</p>";
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <h3>📋 Pendientes (${lista.length})</h3>
+    ${lista.map(p => `<div>❌ ${p.nombre}</div>`).join("")}
+  `;
+}
+
+//====================================
+// HISTORIAL
+//====================================
+function verHistorial() {
   const historial = JSON.parse(localStorage.getItem("historial")) || [];
-
-  const pendientes = obtenerPendientes(proveedores, historial);
-
-  renderPendientes(pendientes);
+  console.log("Historial:", historial);
 }
 //====================================
 // PROTEGER HISTORIAL
@@ -231,33 +258,4 @@ function limpiarFormulario() {
         </div>
     `;
 
-}
-function obtenerPendientes(proveedores, historial) {
-  return proveedores.filter(p => 
-    !historial.some(h => h.proveedorId === p.id)
-  );
-}
-function mostrarPendientes() {
-  const historial = JSON.parse(localStorage.getItem("historial")) || [];
-
-  const pendientes = obtenerPendientes(proveedores, historial);
-
-  renderPendientes(pendientes);
-}
-function renderPendientes(lista) {
-  const contenedor = document.getElementById("pendientes");
-
-  if (!lista.length) {
-    contenedor.innerHTML = "<p>✅ No hay pendientes</p>";
-    return;
-  }
-
-  contenedor.innerHTML = `
-    <h3>📋 Pendientes (${lista.length})</h3>
-    ${lista.map(p => `<div>❌ ${p.nombre}</div>`).join("")}
-  `;
-}
-function verHistorial() {
-  const historial = JSON.parse(localStorage.getItem("historial")) || [];
-  console.log("Historial:", historial);
 }
