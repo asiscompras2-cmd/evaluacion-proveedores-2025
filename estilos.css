@@ -118,15 +118,23 @@ body{
 
 }
 
-.titulo {
-    color: var(--primary-color);
-    font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    border-left: 4px solid var(--primary-color);
-    padding-left: 10px;
-}
+.titulo{
 
+    color:#5F7F2F;
+
+    font-size:23px;
+
+    font-weight:700;
+
+    margin-top:28px;
+
+    margin-bottom:18px;
+
+    padding-left:15px;
+
+    border-left:6px solid #AF872E;
+
+}
 .card{
 
     border:none;
