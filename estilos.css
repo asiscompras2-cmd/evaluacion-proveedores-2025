@@ -380,3 +380,6 @@ RESULTADO
     border:1px solid #D8E2CF;
 
 }
+.card-header h2{
+    font-size:1.8rem;    /* 29px */
+}
