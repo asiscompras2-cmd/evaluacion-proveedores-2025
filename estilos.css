@@ -143,10 +143,20 @@ body{
 
 }
 
-.card-header {
-    background-color: #fff;
-    border-bottom: 1px solid var(--border-color);
-    padding: 20px;
+.card-header{
+
+    background:
+
+    linear-gradient(90deg,#5F7F2F,#88A83D);
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+
+    border:none;
+
 }
 
 /* --- TABLA PREMIUM DE EVALUACIÓN --- */
