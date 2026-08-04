@@ -387,10 +387,6 @@ function generarConceptoAutomatico(stats, puntajeActual) {
     return concepto;
 
 }
-document
-    .getElementById("btnPendientes")
-    .addEventListener("click", exportarPendientes);
-
 //=====================================
 // INICIALIZAR
 //=====================================
