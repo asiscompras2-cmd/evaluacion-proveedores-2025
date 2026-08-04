@@ -87,7 +87,7 @@ function mostrarResultado(puntaje) {
             </h3>
             <h4>Calificación Final: ${puntaje.toFixed(2)} / 5.00</h4>
             <p>
-                ${puntaje >= 4.5
+                ${puntaje = 5.0
                     ? "El proveedor cumple de manera sobresaliente con todos los criterios de evaluación."
                     : puntaje >= 3.75
                     ? "El proveedor cumple satisfactoriamente con los criterios de evaluación."
