@@ -259,3 +259,23 @@ function limpiarFormulario() {
     `;
 
 }
+const txtCedula = document.getElementById("cedula");
+const txtNombre = document.getElementById("nombre");
+
+txtCedula.addEventListener("input", () => {
+
+    const persona = usuarios.find(
+        u => u.cedula === txtCedula.value.trim()
+    );
+
+    if (persona) {
+
+        txtNombre.value = persona.nombre;
+
+    } else {
+
+        txtNombre.value = "";
+
+    }
+
+});
