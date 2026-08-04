@@ -43,10 +43,19 @@
                     <!-- ── DATOS DEL EVALUADOR ── -->
                     <h4 class="titulo">Datos del Evaluador</h4>
                     <div class="row">
-                       <div class="col-md-3 mb-3">
+                   <div class="col-md-3 mb-3">
     <label>Cédula</label>
-    <input type="text" id="cedula" class="form-control">
-</div>
+
+    <input
+        type="text"
+        id="cedula"
+        class="form-control"
+        placeholder="Digite la cédula">
+
+    <small id="mensajeUsuario" class="text-danger d-none">
+        Usuario no autorizado.
+    </small>
+</div>  
 
 <div class="col-md-9 mb-3">
     <label>Nombre Completo</label>
