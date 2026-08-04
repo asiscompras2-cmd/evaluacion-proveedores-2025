@@ -259,8 +259,6 @@ function limpiarFormulario() {
     `;
 
 }
-const txtCedula = document.getElementById("cedula");
-const txtNombre = document.getElementById("nombre");
 
 txtCedula.addEventListener("input", () => {
 
