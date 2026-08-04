@@ -51,50 +51,7 @@ async function guardarEnHistorial(evaluacion) {
         return;
     }
 }
-//=====================================
-// FUNCION EXPORTAR PENDIENTES
-//=====================================
-async function exportarPendientes() {
 
-    try {
-
-        // Leer proveedores
-        const respuesta = await fetch("proveedores.json");
-
-        const proveedores = await respuesta.json();
-
-        // Obtener evaluaciones desde Supabase
-        const { data, error } = await supabase
-            .from("evaluaciones")
-            .select("nit");
-
-        if (error) throw error;
-
-        // Lista de NIT evaluados
-        const nitsEvaluados = new Set(
-            data.map(e => Number(e.nit))
-        );
-
-        // Filtrar pendientes
-        const pendientes = proveedores.filter(p =>
-            !nitsEvaluados.has(Number(p.NIT))
-        );
-
-        console.log("Pendientes", pendientes);
-
-        alert(
-            `Se encontraron ${pendientes.length} proveedores pendientes.`
-        );
-
-    } catch (err) {
-
-        console.error(err);
-
-        alert("Error obteniendo proveedores pendientes.");
-
-    }
-
-}
 //=====================================
 // CARGAR HISTORIAL
 //=====================================
