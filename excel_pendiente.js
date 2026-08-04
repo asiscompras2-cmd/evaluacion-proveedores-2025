@@ -55,3 +55,61 @@ async function exportarProveedoresPendientes() {
         alert("Error al generar el informe. Revisa la consola.");
     }
 }
+async function exportarProveedoresPendientes() {
+    try {
+        // 1. Cargar historial y proveedores
+        await cargarHistorialDesdeNube();
+        const historial = obtenerHistorial();
+        
+        // Cargamos el JSON de proveedores (asegúrate que el nombre coincida)
+        const respuesta = await fetch('proveedores.json');
+        const todosLosProveedores = await respuesta.json();
+
+        // 2. Identificar evaluados por NIT
+        const nitsEvaluados = new Set(
+            historial.map(ev => String(ev.nit || "").trim())
+        );
+
+        // 3. Filtrar los que faltan
+        const pendientes = todosLosProveedores.filter(p => {
+            const nit = String(p.NIT || "").trim();
+            return !nitsEvaluados.has(nit);
+        });
+
+        if (pendientes.length === 0) {
+            alert("Todos los proveedores han sido evaluados.");
+            return;
+        }
+
+        // 4. Crear el Excel
+        let filas = [
+            ["PROVEEDORES PENDIENTES DE EVALUACIÓN"],
+            ["PARQUE COMERCIAL EL TESORO P.H."],
+            ["Fecha:", new Date().toLocaleDateString()],
+            [],
+            ["NIT", "PROVEEDOR", "ÁREA", "SERVICIO/BIEN"]
+        ];
+
+        pendientes.forEach(p => {
+            filas.push([
+                p.NIT,
+                p["NOMBRE DE PROVEEDOR"],
+                p.AREA,
+                p["BIEN O SERVICIO PRESTADO"]
+            ]);
+        });
+
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(filas);
+        
+        // Ajuste de columnas
+        ws["!cols"] = [{wch:15}, {wch:45}, {wch:20}, {wch:50}];
+        
+        XLSX.utils.book_append_sheet(wb, ws, "Pendientes");
+        XLSX.writeFile(wb, "Proveedores_Pendientes.xlsx");
+
+    } catch (error) {
+        console.error(error);
+        alert("Error al generar el reporte de pendientes.");
+    }
+}
