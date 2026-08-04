@@ -279,3 +279,35 @@ txtCedula.addEventListener("input", () => {
     }
 
 });
+const txtCedula = document.getElementById("cedula");
+const txtNombre = document.getElementById("nombre");
+const mensaje = document.getElementById("mensajeUsuario");
+const btnGuardar = document.getElementById("btnGuardar");
+
+txtCedula.addEventListener("input", buscarUsuario);
+
+function buscarUsuario() {
+
+    const cedula = txtCedula.value.trim();
+
+    const usuario = usuarios.find(u => u.cedula === cedula);
+
+    if (usuario) {
+
+        txtNombre.value = usuario.nombre;
+
+        mensaje.classList.add("d-none");
+
+        btnGuardar.disabled = false;
+
+    } else {
+
+        txtNombre.value = "";
+
+        mensaje.classList.remove("d-none");
+
+        btnGuardar.disabled = true;
+
+    }
+
+}
