@@ -283,6 +283,8 @@ const txtCedula = document.getElementById("cedula");
 const txtNombre = document.getElementById("nombre");
 const mensaje = document.getElementById("mensajeUsuario");
 const btnGuardar = document.getElementById("btnGuardar");
+// Deshabilitar el botón al iniciar la página
+btnGuardar.disabled = true;
 
 txtCedula.addEventListener("input", buscarUsuario);
 
