@@ -18,6 +18,20 @@
     <button id="btnExportarHistorial" class="btn btn-success">
         📊 Exportar Historial
     </button>
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <button class="btn btn-success" onclick="exportarReporteConsolidado()">
+        <i class="bi bi-file-earmark-excel"></i> Exportar Consolidado
+    </button>
+    
+    <!-- NUEVO BOTÓN AGREGADO AQUÍ -->
+    <button class="btn btn-warning" onclick="exportarProveedoresPendientes()">
+        <i class="bi bi-exclamation-triangle"></i> Informe Pendientes
+    </button>
+
+    <button class="btn btn-outline-secondary" onclick="limpiarFiltros()">
+        <i class="bi bi-eraser"></i> Limpiar Filtros
+    </button>
+</div>
 
 </div>
 <button id="btnPendientes" class="btn btn-warning">
