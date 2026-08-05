@@ -137,12 +137,33 @@
                     </div>
 
                     <!-- ── OBSERVACIONES ── -->
-                    <h4 class="titulo mt-4">Observaciones</h4>
-                    <textarea id="observaciones" rows="5" class="form-control" placeholder="Escriba aquí las observaciones obligatorias..."></textarea>
+                    <!-- ── OBSERVACIONES AUTOMÁTICAS ── -->
+<h4 class="titulo mt-4">Observaciones automáticas del sistema</h4>
 
-                      
+<textarea
+    id="observaciones"
+    rows="5"
+    class="form-control bg-light"
+    readonly>
+</textarea>
 
+<!-- ── COMENTARIOS DEL EVALUADOR ── -->
+<h4 class="titulo mt-3">
+    Comentarios del evaluador <span class="text-danger">*</span>
+</h4>
 
+<textarea
+    id="comentarioEvaluador"
+    rows="4"
+    class="form-control"
+    maxlength="1000"
+    required
+    placeholder="Describa fortalezas, oportunidades de mejora, compromisos o cualquier observación adicional.">
+</textarea>
+
+<small class="text-muted">
+Este campo es obligatorio.
+</small>
                     <!-- ── RESULTADO ── -->
                     <div id="resultado" class="text-center">
                         <div class="alert alert-light border">
