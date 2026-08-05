@@ -48,7 +48,15 @@ async function guardarEvaluacion() {
         const nombre = document.getElementById("nombre").value.trim();
         const cedula = document.getElementById("cedula").value.trim();
         const proveedor = document.getElementById("proveedor").value;
+
+        // Observaciones generadas automáticamente
         const observaciones = document.getElementById("observaciones").value.trim();
+
+        // Comentario obligatorio del evaluador
+        const comentarioEvaluador = document
+            .getElementById("comentarioEvaluador")
+            .value
+            .trim();
 
         if (!nombre) {
             return mostrarModal("Por favor ingrese el nombre del evaluador.");
@@ -62,8 +70,13 @@ async function guardarEvaluacion() {
             return mostrarModal("Por favor seleccione un proveedor.");
         }
 
-        if (!observaciones) {
-            return mostrarModal("Por favor ingrese las observaciones de la evaluación.");
+        if (!comentarioEvaluador) {
+            return mostrarModal("Debe ingresar los comentarios del evaluador.");
+        }
+
+        // Opcional: exigir mínimo 20 caracteres
+        if (comentarioEvaluador.length < 20) {
+            return mostrarModal("Los comentarios del evaluador deben tener al menos 20 caracteres.");
         }
 
         const respuestas = obtenerRespuestas();
@@ -75,6 +88,8 @@ async function guardarEvaluacion() {
         }
 
         const nit = document.getElementById("nit").value;
+
+        // Continúa el resto de tu código...
 
         // Verificar duplicado
         const duplicado = await existeEvaluacion(cedula, nit);
