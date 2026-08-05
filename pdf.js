@@ -346,7 +346,7 @@ function ejecutarGeneracionPDF(data) {
     doc.setFont("times","bold");
 
     doc.text(
-        `${puntaje.toFixed(1).replace(".",",")} / 5,00`,
+        `${puntaje.toFixed(1).replace(".",",")} / 5,0`,
         105,
         y+17,
         {align:"center"}
