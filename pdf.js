@@ -73,8 +73,8 @@ function ejecutarGeneracionPDF(data) {
         doc.rect(15,8,180,22);
 
         // divisiones
-        doc.line(55,8,55,30);
-        doc.line(160,8,160,30);
+       doc.setDrawColor(170);
+       doc.setFillColor(245,245,245);
 
         // ======== LOGO ========
         // Convertir imagen a base64 o usar URL
