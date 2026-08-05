@@ -259,15 +259,12 @@ function limpiarFormulario() {
     `;
 
 }
-
 const txtNombre = document.getElementById("nombre");
 const mensaje = document.getElementById("mensajeUsuario");
 const btnGuardar = document.getElementById("btnGuardar");
-
 const txtCedula = document.getElementById("cedula");
 
 txtCedula.addEventListener("input", buscarUsuario);
-
 function buscarUsuario() {
 
     const cedula = txtCedula.value.trim();
