@@ -487,7 +487,7 @@ doc.setFillColor(245,245,245);
     // CIERRE (COMPACTO)
     //-----------------------------------------------------
 
-    const cierre = "Agradecemos su compromiso para contribuir al cumplimiento de los estándares de calidad y mejoramiento continuo requeridos por el Parque Comercial El Tesoro P.H.";
+    const cierre = "Agradecemos su compromiso para contribuir al cumplimiento de los estándares de calidad y mejoramiento continuo requeridos por el Parque Comercial El Tesoro P.H si tiene alguna duda con gusto sera atendida, nos puedes escribir al correo compras@eltesoro.com.co.";
 
     const textoCierre = doc.splitTextToSize(cierre, 165);
 
