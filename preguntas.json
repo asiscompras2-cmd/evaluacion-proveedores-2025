@@ -73,12 +73,12 @@
     "preguntas": [
       {
         "id": 11,
-        "texto": "Cumplimiento contractual, pólizas.",
+        "texto": "Tiempo de entrega.",
         "valor": 0.05
       },
       {
         "id": 12,
-        "texto": "Documentación requerida vigente (RUT, Cámara de Comercio, Industria y Comercio, Calidad, SST).",
+        "texto": "Documentación requerida vigente (RUT, Cámara de Comercio, Industria y Comercio, Calidad, SST y polizas).",
         "valor": 0.05
       }
     ]
