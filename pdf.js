@@ -318,8 +318,8 @@ function ejecutarGeneracionPDF(data) {
     // CAJA RESULTADO (REDUCIDA)
     //=====================================================
 
-    doc.setDrawColor(103,153,0);
-    doc.setFillColor(247,250,244);
+doc.setDrawColor(90,90,90);
+doc.setFillColor(245,245,245);
 
     doc.roundedRect(
         40,
