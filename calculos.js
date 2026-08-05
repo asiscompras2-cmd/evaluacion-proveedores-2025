@@ -7,6 +7,50 @@
 // CALCULAR RESULTADO
 //===============================
 
+function calcularResultado() {
+
+    const respuestas = obtenerRespuestas();
+
+    const totalPreguntas = Object.keys(respuestas).length;
+    const respondidas = Object.values(respuestas).filter(v => v !== null).length;
+
+    if (respondidas < totalPreguntas) {
+
+        document.getElementById("resultado").innerHTML = `
+            <div class="alert alert-secondary">
+                <h5 class="mb-2">
+                    <i class="bi bi-hourglass-split"></i>
+                    Resultado pendiente
+                </h5>
+
+                <p class="mb-0">
+                    Ha respondido <strong>${respondidas}</strong> de
+                    <strong>${totalPreguntas}</strong> preguntas.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    let puntajeFinal = 0;
+
+    criterios.forEach(criterio => {
+
+        criterio.preguntas.forEach(pregunta => {
+
+            const calificacion = respuestas[pregunta.id];
+
+            puntajeFinal += calificacion * pregunta.valor;
+
+        });
+
+    });
+
+    mostrarResultado(puntajeFinal);
+
+}
+
 //===============================
 // MOSTRAR RESULTADO PREMIUM
 //===============================
