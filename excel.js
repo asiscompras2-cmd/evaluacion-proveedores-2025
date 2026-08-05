@@ -128,10 +128,10 @@ filas.push(fila);
     { wch: 60 }  // Comentarios
 ];
 
-    ws["!merges"] = [
-        { s: { r: 0, c: 0 }, e: { r: 0, c: 14 } },
-        { s: { r: 1, c: 0 }, e: { r: 1, c: 14 } }
-    ];
+  ws["!merges"] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 19 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 19 } }
+];
 
     XLSX.utils.book_append_sheet(
         wb,
