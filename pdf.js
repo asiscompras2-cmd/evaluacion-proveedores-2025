@@ -271,27 +271,6 @@ function ejecutarGeneracionPDF(data) {
     y += textoResultadoSplit.length * 5 + 3;
 
     //--------------------------------------
-    // LISTA DE ASPECTOS (COMPACTA)
-    //--------------------------------------
-
-    doc.setFont("times","normal");
-    doc.setFontSize(9);
-
-    doc.text("•  Tiempo de respuesta y cumplimiento de entregas.", 25, y);
-    y += 4;
-
-    doc.text("•  Calidad del producto y/o servicio suministrado.", 25, y);
-    y += 4;
-
-    doc.text("•  Condiciones comerciales y competitividad.", 25, y);
-    y += 4;
-
-    const sst = "•  Cumplimiento de requisitos legales, contractuales y SST.";
-    const splitSST = doc.splitTextToSize(sst, 160);
-    doc.text(splitSST, 25, y, { lineHeightFactor: 1.2 });
-    y += splitSST.length * 4 + 4;
-
-    //--------------------------------------
     // MENSAJE
     //--------------------------------------
 
