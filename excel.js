@@ -102,7 +102,7 @@ async function exportarProveedor(nombreProveedor) {
 
         }
 
-    fila.push(Number(total.toFixed(2)));
+    fila.push(Number(total.toFixed(1)));
 
 // Observaciones automáticas
 fila.push(ev.observaciones || "");
