@@ -116,11 +116,9 @@ function ejecutarGeneracionPDF(data) {
 
         doc.text("Código", 166, 14);
         doc.text("F-F-33", 184, 14, {align:"center"});
-        doc.line(160,16,195,16);
 
         doc.text("Versión", 166, 21);
         doc.text("01", 184, 21, {align:"center"});
-        doc.line(160,23,195,23);
 
         doc.text("Fecha", 166, 28);
         doc.text("28/12/2022", 184, 28, {align:"center"});
