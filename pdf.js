@@ -65,7 +65,7 @@ function ejecutarGeneracionPDF(data) {
     function drawHeader(){
 
         // Franja superior
-        doc.setFillColor(...VERDE);
+        doc.setFillColor(...GRIS_OSCURO);
         doc.rect(0,0,210,5,"F");
 
         // Marco
