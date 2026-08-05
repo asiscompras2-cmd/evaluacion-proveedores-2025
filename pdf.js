@@ -342,7 +342,7 @@ doc.setFillColor(245,245,245);
     );
 
     doc.setFontSize(20);
-    doc.setTextColor(103,153,0);
+    doc.setTextColor(60,60,60);
     doc.setFont("times","bold");
 
     doc.text(
