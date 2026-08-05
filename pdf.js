@@ -379,7 +379,85 @@ doc.setFillColor(245,245,245);
     );
 
     y += 35;
+    //======================================
+// RESULTADO POR CRITERIO
+//======================================
 
+const filasCriterios = [];
+
+criterios.forEach(criterio => {
+
+    let suma = 0;
+    let cantidad = 0;
+
+    criterio.preguntas.forEach(pregunta => {
+
+        let valor = 0;
+
+        // Compatible con historial antiguo y Supabase
+        if (data.respuestas) {
+
+            valor = Number(data.respuestas[pregunta.id] || 0);
+
+        } else {
+
+            valor = Number(data["p" + pregunta.id] || 0);
+
+        }
+
+        suma += valor;
+        cantidad++;
+
+    });
+
+    const promedio = cantidad > 0 ? suma / cantidad : 0;
+
+    filasCriterios.push([
+        criterio.criterio,
+        promedio.toFixed(1).replace(".", ",")
+    ]);
+
+});
+
+doc.setFont("times", "bold");
+doc.setFontSize(9);
+doc.text("RESULTADO POR CRITERIO", 20, y);
+
+y += 3;
+
+doc.autoTable({
+
+    startY: y,
+
+    head: [["CRITERIO EVALUADO", "RESULTADO"]],
+
+    body: filasCriterios,
+
+    theme: "grid",
+
+    styles: {
+        font: "times",
+        fontSize: 8,
+        cellPadding: 2,
+        lineColor: [180,180,180],
+        lineWidth: 0.2
+    },
+
+    headStyles: {
+        fillColor: [90,90,90],
+        textColor: [255,255,255],
+        fontStyle: "bold",
+        halign: "center"
+    },
+
+    columnStyles: {
+        0: { cellWidth: 125 },
+        1: { cellWidth: 35, halign: "center" }
+    }
+
+});
+
+y = doc.lastAutoTable.finalY + 8;
     //======================================
     // OBSERVACIONES (REDUCIDA)
     //======================================
