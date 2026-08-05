@@ -84,9 +84,11 @@ async function exportarProveedor(nombreProveedor) {
         datos.forEach(ev => {
 
         let fila = [
-            ev.fecha || "",
-            ev.area || ""
-        ];
+    ev.fecha || "",
+    ev.area || "",
+    ev.cedula || "",
+    ev.nombre || ""
+];
 
         let total = 0;
 
@@ -100,10 +102,15 @@ async function exportarProveedor(nombreProveedor) {
 
         }
 
-        fila.push(Number(total.toFixed(2)));
+    fila.push(Number(total.toFixed(2)));
 
-        filas.push(fila);
+// Observaciones automáticas
+fila.push(ev.observaciones || "");
 
+// Comentarios del evaluador
+fila.push(ev.comentario_evaluador || "");
+
+filas.push(fila);   
     });
 
     const wb = XLSX.utils.book_new();
