@@ -40,9 +40,9 @@ function ejecutarGeneracionPDF(data) {
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF("p", "mm", "a4");
-
-    const VERDE = [103, 153, 0];
-    const GRIS = [120, 120, 120];
+    const GRIS_OSCURO = [70, 70, 70];
+    const GRIS = [140, 140, 140];
+    const GRIS_CLARO = [245, 245, 245];
 
     const nombre = data.nombre || "";
     const cedula = data.cedula || "";
