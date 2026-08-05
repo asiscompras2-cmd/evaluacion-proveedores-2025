@@ -286,13 +286,6 @@ function ejecutarGeneracionPDF(data) {
 doc.setFont("times","bold");
 doc.setFontSize(10);
 
-doc.text(
-    "RESULTADO POR CRITERIO",
-    105,
-    y,
-    { align: "center" }
-);
-
 y += 4;
 
 const filasCriterios = [];
