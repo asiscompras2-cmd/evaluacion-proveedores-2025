@@ -58,18 +58,6 @@ function ejecutarGeneracionPDF(data) {
     const puntaje =
     Number(data.puntaje ?? data.puntaje_final ?? 0);
 
-    const tiempo =
-    ((Number(data.p1)+Number(data.p2)+Number(data.p3))/3);
-
-const calidad =
-    ((Number(data.p4)+Number(data.p5)+Number(data.p6))/3);
-
-const comercial =
-    ((Number(data.p7)+Number(data.p8)+Number(data.p9))/3);
-
-const sst =
-    ((Number(data.p10)+Number(data.p11)+Number(data.p12))/3);
-
     //-------------------------------------------------
     // ENCABEZADO CORPORATIVO CON LOGO
     //-------------------------------------------------
