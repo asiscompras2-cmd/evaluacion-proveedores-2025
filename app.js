@@ -260,23 +260,6 @@ function limpiarFormulario() {
 
 }
 
-txtCedula.addEventListener("input", () => {
-
-    const persona = usuarios.find(
-        u => u.cedula === txtCedula.value.trim()
-    );
-
-    if (persona) {
-
-        txtNombre.value = persona.nombre;
-
-    } else {
-
-        txtNombre.value = "";
-
-    }
-
-});
 const txtNombre = document.getElementById("nombre");
 const mensaje = document.getElementById("mensajeUsuario");
 const btnGuardar = document.getElementById("btnGuardar");
