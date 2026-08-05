@@ -85,7 +85,7 @@ function mostrarResultado(puntaje) {
                 <i class="bi ${icono}"></i>
                 ${etiqueta}
             </h3>
-            <h4>Calificación Final: ${puntaje.toFixed(1)} / 5.00</h4>
+            <h4>Calificación Final: ${puntaje.toFixed(1)} / 5.0</h4>
             <p>
                 ${puntaje = 5.0
                     ? "El proveedor cumple de manera sobresaliente con todos los criterios de evaluación."
