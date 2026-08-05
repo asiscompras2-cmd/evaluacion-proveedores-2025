@@ -220,13 +220,13 @@ async function exportarReporteConsolidado() {
 
             const promedio = p.total[i] / p.cantidad;
 
-            fila.push(Number(promedio.toFixed(2)));
+            fila.push(Number(promedio.toFixed(1)));
 
             puntaje += promedio * PESOS[i];
 
         }
 
-        fila.push(Number(puntaje.toFixed(2)));
+        fila.push(Number(puntaje.toFixed(1)));
 
         filas.push(fila);
 
