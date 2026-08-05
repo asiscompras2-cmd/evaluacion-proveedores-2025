@@ -116,17 +116,18 @@ async function guardarEvaluacion() {
 
         const evaluacion = {
 
-            fecha: document.getElementById("fecha").value,
-            nombre,
-            cedula,
-            area: document.getElementById("area").value,
-            proveedor,
-            nit,
-            puntaje: puntajeActual,
-            observaciones,
-            respuestas
+    fecha: document.getElementById("fecha").value,
+    nombre,
+    cedula,
+    area: document.getElementById("area").value,
+    proveedor,
+    nit,
+    puntaje: puntajeActual,
+    observaciones,
+    comentario_evaluador: comentarioEvaluador,
+    respuestas
 
-        };
+};
 
         console.log("Evaluación completa:", evaluacion);
         console.log("Respuestas:", evaluacion.respuestas);
