@@ -512,7 +512,7 @@ doc.setFillColor(245,245,245);
     doc.setFont("times","normal");
     doc.setFontSize(9);
 
-    doc.text("Cordialmente,", 20, y);
+    doc.text("Cordialmente,", 12, y);
 
     // Espacio para firma manuscrita
     y += 28;
