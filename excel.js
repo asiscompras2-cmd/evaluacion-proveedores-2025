@@ -117,12 +117,16 @@ filas.push(fila);
 
     const ws = XLSX.utils.aoa_to_sheet(filas);
 
-    ws["!cols"] = [
-        { wch: 15 },
-        { wch: 20 },
-        ...Array(12).fill({ wch: 8 }),
-        { wch: 18 }
-    ];
+   ws["!cols"] = [
+    { wch: 15 }, // Fecha
+    { wch: 20 }, // Área
+    { wch: 18 }, // Cédula
+    { wch: 35 }, // Nombre
+    ...Array(12).fill({ wch: 8 }),
+    { wch: 15 }, // Puntaje
+    { wch: 60 }, // Observaciones
+    { wch: 60 }  // Comentarios
+];
 
     ws["!merges"] = [
         { s: { r: 0, c: 0 }, e: { r: 0, c: 14 } },
