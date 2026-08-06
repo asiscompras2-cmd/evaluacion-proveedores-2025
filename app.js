@@ -1,5 +1,5 @@
-// ==========================================
-// APP.JS
+===========================
+// APP.JS - CORREGIDO
 // Parque Comercial El Tesoro
 // ==========================================
 
@@ -100,37 +100,41 @@ async function guardarEvaluacion() {
             );
         }
 
-        // Obtener puntaje
+        // ========== CORRECCIÓN: Buscar el puntaje en H2 en lugar de H4 ==========
         let puntajeActual = 0;
 
+        // Buscar en h2 (donde está el puntaje en calculos.js)
         const resultadoH2 = document.querySelector("#resultado h2");
 
-        if (resultadoH4) {
-
-            const match = resultadoH4.textContent.match(/([\d.]+)/);
+        if (resultadoH2) {
+            // Extraer el número del texto (ej: "4.5" de "4.5")
+            const match = resultadoH2.textContent.match(/([\d.]+)/);
 
             if (match) {
                 puntajeActual = parseFloat(match[1]);
             }
         }
 
+        console.log("Puntaje extraído:", puntajeActual);
+
         const evaluacion = {
 
-    fecha: document.getElementById("fecha").value,
-    nombre,
-    cedula,
-    area: document.getElementById("area").value,
-    proveedor,
-    nit,
-    puntaje: puntajeActual,
-    observaciones,
-    comentario_evaluador: comentarioEvaluador,
-    respuestas
+            fecha: document.getElementById("fecha").value,
+            nombre,
+            cedula,
+            area: document.getElementById("area").value,
+            proveedor,
+            nit,
+            puntaje: puntajeActual,
+            observaciones,
+            comentario_evaluador: comentarioEvaluador,
+            respuestas
 
-};
+        };
 
         console.log("Evaluación completa:", evaluacion);
         console.log("Respuestas:", evaluacion.respuestas);
+        console.log("Puntaje a guardar:", evaluacion.puntaje);
         
         await guardarEnHistorial(evaluacion);
 
