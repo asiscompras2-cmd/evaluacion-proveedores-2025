@@ -120,71 +120,26 @@ const porcentaje = (puntajeFinal / 5) * 100;
         promedios: { tiempo: promTiempo, calidad: promCalidad, precio: promPrecio, sst: promSST }
     };
 }
-
 /**
- * OBSERVACIONES DETALLADAS POR CRITERIO
- * Genera análisis completo basado en puntajes de cada criterio
+ * OBSERVACIÓN AUTOMÁTICA BREVE SEGÚN RESULTADO FINAL
  */
 function generarObservacionDetallada(promTiempo, promCalidad, promPrecio, promSST, puntajeFinal) {
-    
-    let observacion = "";
 
-    // ========== TIEMPO DE RESPUESTA ==========
-    if (promTiempo >= 4.5) {
-        observacion += "• Tiempo de respuesta: Excelente oportunidad en entregas y capacidad de respuesta frente a requerimientos e imprevistos.\n\n";
-    } else if (promTiempo >= 4.0) {
-        observacion += "• Tiempo de respuesta: Buen desempeño en entregas y respuesta a requerimientos. Se recomienda mantener los estándares.\n\n";
-    } else if (promTiempo >= 3.5) {
-        observacion += "• Tiempo de respuesta: Desempeño aceptable. Se recomienda fortalecer la oportunidad en entregas y capacidad de respuesta.\n\n";
-    } else {
-        observacion += "• Tiempo de respuesta: Se evidencian retrasos en entregas y respuesta a requerimientos. Requiere mejora inmediata.\n\n";
-    }
-
-    // ========== CALIDAD DEL PRODUCTO/SERVICIO ==========
-    if (promCalidad >= 4.5) {
-        observacion += "• Calidad del producto o servicio: Se evidencia un excelente nivel de calidad, cumplimiento de especificaciones y adecuada atención a novedades y garantías.\n\n";
-    } else if (promCalidad >= 4.0) {
-        observacion += "• Calidad del producto o servicio: Buen nivel de calidad y cumplimiento de especificaciones. Atención adecuada a novedades.\n\n";
-    } else if (promCalidad >= 3.5) {
-        observacion += "• Calidad del producto o servicio: Calidad aceptable. Se recomienda fortalecer el cumplimiento de especificaciones y atención a garantías.\n\n";
-    } else {
-        observacion += "• Calidad del producto o servicio: Se evidencian deficiencias en calidad y especificaciones. Requiere plan de mejora.\n\n";
-    }
-
-    // ========== PRECIO Y CONDICIONES COMERCIALES ==========
-    if (promPrecio >= 4.5) {
-        observacion += "• Precio y condiciones comerciales: El proveedor ofrece condiciones comerciales altamente competitivas y favorables para el Parque Comercial.\n\n";
-    } else if (promPrecio >= 4.0) {
-        observacion += "• Precio y condiciones comerciales: Condiciones comerciales competitivas y favorables. Buena relación precio-calidad.\n\n";
-    } else if (promPrecio >= 3.5) {
-        observacion += "• Precio y condiciones comerciales: Condiciones comerciales aceptables. Se recomienda evaluar oportunidades de mejora en precios.\n\n";
-    } else {
-        observacion += "• Precio y condiciones comerciales: Condiciones comerciales no competitivas. Se requiere revisión de precios y términos.\n\n";
-    }
-
-    // ========== SST Y REQUISITOS LEGALES ==========
-    if (promSST >= 4.5) {
-        observacion += "• Cumplimiento de SST y requisitos legales: El proveedor demuestra un excelente cumplimiento de requisitos legales, documentales y de Seguridad y Salud en el Trabajo.\n\n";
-    } else if (promSST >= 4.0) {
-        observacion += "• Cumplimiento de SST y requisitos legales: Adecuado cumplimiento de requisitos legales y de Seguridad y Salud en el Trabajo.\n\n";
-    } else if (promSST >= 3.5) {
-        observacion += "• Cumplimiento de SST y requisitos legales: Cumplimiento básico de requisitos. Se recomienda fortalecer documentación y SST.\n\n";
-    } else {
-        observacion += "• Cumplimiento de SST y requisitos legales: Deficiencias en cumplimiento de requisitos legales y SST. Requiere atención inmediata.\n\n";
-    }
-
-    // ========== CONCLUSIÓN GENERAL ==========
     if (puntajeFinal >= 4.5) {
-        observacion += "Conclusión: El proveedor obtuvo un desempeño excelente durante la evaluación. Se recomienda mantener las buenas prácticas evidenciadas y continuar fortaleciendo la relación comercial.";
-    } else if (puntajeFinal >= 4.0) {
-        observacion += "Conclusión: El proveedor obtuvo un buen desempeño. Se recomienda mantener los estándares actuales y continuar con la relación comercial.";
-    } else if (puntajeFinal >= 3.5) {
-        observacion += "Conclusión: El proveedor obtuvo un desempeño aceptable. Se recomienda seguimiento en los aspectos identificados para mejora.";
-    } else if (puntajeFinal >= 3.0) {
-        observacion += "Conclusión: El proveedor requiere plan de mejora inmediato. Se sugiere establecer cronograma de seguimiento y evaluación.";
-    } else {
-        observacion += "Conclusión: El desempeño es insuficiente. Se recomienda evaluar alternativas de proveedores.";
+        return "El proveedor obtuvo un desempeño excelente durante el período evaluado, evidenciando un alto nivel de cumplimiento, calidad y oportunidad en la prestación de sus productos y/o servicios. Se recomienda mantener las buenas prácticas y fortalecer la relación comercial.";
     }
 
-    return observacion;
+    if (puntajeFinal >= 4.0) {
+        return "El proveedor obtuvo un buen desempeño general, cumpliendo satisfactoriamente con los requisitos establecidos por el Parque Comercial El Tesoro P.H. Se recomienda continuar fortaleciendo los procesos que permitan mantener este nivel de desempeño.";
+    }
+
+    if (puntajeFinal >= 3.5) {
+        return "El proveedor presentó un desempeño aceptable durante el período evaluado. Se identifican oportunidades de mejora que permitirán fortalecer la calidad, la oportunidad y el cumplimiento de los requisitos establecidos.";
+    }
+
+    if (puntajeFinal >= 3.0) {
+        return "El proveedor requiere implementar acciones de mejora para fortalecer su desempeño y asegurar el cumplimiento de los estándares de calidad, servicio y oportunidad exigidos por el Parque Comercial El Tesoro P.H.";
+    }
+
+    return "El desempeño del proveedor fue insuficiente durante el período evaluado, por lo que se recomienda establecer un plan de mejoramiento inmediato y realizar seguimiento a las acciones correctivas correspondientes.";
 }
