@@ -577,3 +577,60 @@ function limpiarFiltros() {
     renderizarHistorial();
 
 }
+//=========================================
+// MIS EVALUACIONES (SOLO DEL EVALUADOR ACTUAL)
+//=========================================
+
+function renderizarMisEvaluaciones() {
+
+    const cedulaEvaluador = document.getElementById("cedula")?.value.trim();
+
+    if (!cedulaEvaluador) {
+        alert("Primero identifique al evaluador.");
+        return;
+    }
+
+    const historial = cacheHistorial || [];
+
+    // Solo las evaluaciones hechas por este evaluador
+    const misEvaluaciones = historial.filter(
+        e => String(e.cedula).trim() === String(cedulaEvaluador).trim()
+    );
+
+    const cuerpo = document.getElementById("cuerpoMisEvaluaciones");
+    const sinDatos = document.getElementById("sinMisEvaluaciones");
+
+    if (!cuerpo) return;
+
+    cuerpo.innerHTML = "";
+
+    if (misEvaluaciones.length === 0) {
+        if (sinDatos) sinDatos.classList.remove("d-none");
+        return;
+    }
+
+    if (sinDatos) sinDatos.classList.add("d-none");
+
+    misEvaluaciones.forEach((e) => {
+
+        const indiceReal = historial.indexOf(e);
+        const puntaje = Number(e.puntaje_final || 0);
+
+        cuerpo.innerHTML += `
+            <tr>
+                <td>${e.fecha || ""}</td>
+                <td><strong>${e.proveedor || ""}</strong></td>
+                <td>${e.area || ""}</td>
+                <td>${puntaje.toFixed(2)} / 5.00</td>
+                <td>
+                    <button
+                        class="btn btn-outline-danger btn-sm"
+                        onclick="generarPDFISOIndividual(${indiceReal})"
+                        title="Ver PDF">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
