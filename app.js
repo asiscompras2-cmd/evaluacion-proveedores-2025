@@ -103,7 +103,7 @@ async function guardarEvaluacion() {
         // Obtener puntaje
         let puntajeActual = 0;
 
-        const resultadoH4 = document.querySelector("#resultado h4");
+        const resultadoH2 = document.querySelector("#resultado h2");
 
         if (resultadoH4) {
 
