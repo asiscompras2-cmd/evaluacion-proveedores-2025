@@ -1,5 +1,5 @@
 // ==========================================
-// CALCULOS.JS - VERSIÓN FINAL UNIFICADA
+// CALCULOS.JS - OBSERVACIONES BREVES
 // ==========================================
 
 // 1. PESOS EXACTOS SEGÚN TABLA ISO
@@ -100,7 +100,7 @@ function calcularResultado() {
                     </div>
                 </div>
                 <div class="mt-3 p-2 bg-light rounded border text-center">
-                    <small class="text-muted d-block">Sugerencia de observación:</small>
+                    <small class="text-muted d-block">Conclusión:</small>
                     <span class="fst-italic">"${observacionAuto}"</span>
                 </div>
             </div>
@@ -115,10 +115,22 @@ function calcularResultado() {
     };
 }
 
+/**
+ * OBSERVACIONES BREVES Y CONCISAS
+ * Máximo 1-2 líneas por conclusión
+ */
 function generarObservacionCoherente(puntaje) {
-    if (puntaje >= 4.7) return "Proveedor excelente. Cumple con altos estándares de calidad y tiempos.";
-    if (puntaje >= 4.0) return "Proveedor confiable con buen desempeño. Cumple los requisitos satisfactoriamente.";
-    if (puntaje >= 3.5) return "Desempeño aceptable. Se sugiere seguimiento en los puntos de menor calificación.";
-    if (puntaje >= 3.0) return "Nivel crítico. Requiere plan de mejora inmediato y supervisión estrecha.";
-    return "Desempeño insuficiente. No cumple los estándares mínimos. Evaluar alternativas.";
+    if (puntaje >= 4.7) {
+        return "Proveedor excelente. Cumple con altos estándares en todos los criterios.";
+    }
+    if (puntaje >= 4.0) {
+        return "Proveedor confiable. Desempeño satisfactorio y cumplimiento de requisitos.";
+    }
+    if (puntaje >= 3.5) {
+        return "Desempeño aceptable. Se recomienda seguimiento en aspectos críticos.";
+    }
+    if (puntaje >= 3.0) {
+        return "Nivel crítico. Requiere plan de mejora inmediato.";
+    }
+    return "Desempeño insuficiente. No cumple estándares mínimos.";
 }
