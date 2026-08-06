@@ -1,244 +1,120 @@
 // ==========================================
-// CALCULOS.JS
-// Parque Comercial El Tesoro - Escala 1.0 a 5.0
+// CALCULOS.JS - VERSIÓN FINAL CORREGIDA
+// Parque Comercial El Tesoro
 // ==========================================
 
-//===============================
-// CALCULAR RESULTADO
-//===============================
+// 1. PESOS EXACTOS SEGÚN TABLA ISO (Valor descripción)
+const PESOS = [
+    0.100, 0.100, 0.100,        // Criterio 1: Tiempo de respuesta (30%)
+    0.133, 0.133, 0.133, 0.133, // Criterio 2: Calidad del Producto/Servicio (40%)
+    0.067, 0.067, 0.067,        // Criterio 3: Precio y Condiciones (20%)
+    0.033, 0.033                // Criterio 4: Cumplimiento de SST y Legales (10%)
+];
 
-function calcularResultado() {
+/**
+ * Realiza el cálculo del puntaje final y promedios por criterio.
+ */
+function calcularPuntaje() {
+    let respuestas = {};
+    let todasRespondidas = true;
 
-    const respuestas = obtenerRespuestas();
-
-    const totalPreguntas = Object.keys(respuestas).length;
-    const respondidas = Object.values(respuestas).filter(v => v !== null).length;
-
-    if (respondidas < totalPreguntas) {
-
-        document.getElementById("resultado").innerHTML = `
-            <div class="alert alert-secondary">
-                <h5 class="mb-2">
-                    <i class="bi bi-hourglass-split"></i>
-                    Resultado pendiente
-                </h5>
-
-                <p class="mb-0">
-                    Ha respondido <strong>${respondidas}</strong> de
-                    <strong>${totalPreguntas}</strong> preguntas.
-                </p>
-            </div>
-        `;
-
-        return;
+    // Capturar respuestas de las 12 preguntas (p1 a p12)
+    for (let i = 1; i <= 12; i++) {
+        const opciones = document.getElementsByName(`p${i}`);
+        let valor = 0;
+        for (const opt of opciones) {
+            if (opt.checked) {
+                valor = parseInt(opt.value);
+                break;
+            }
+        }
+        if (valor === 0) todasRespondidas = false;
+        respuestas[i] = valor;
     }
-
-    let puntajeFinal = 0;
-
-    criterios.forEach(criterio => {
-
-        let sumaCriterio = 0;
-
-        criterio.preguntas.forEach(pregunta => {
-
-            const calificacion = Number(respuestas[pregunta.id]) || 0;
-
-            sumaCriterio += calificacion;
-
-        });
-
-        const promedio = sumaCriterio / criterio.preguntas.length;
-
-        puntajeFinal += promedio * criterio.peso;
-
-    });
-
-    // ESTA LÍNEA FALTABA
-    mostrarResultado(puntajeFinal);
-
-}   // ESTA LLAVE FALTABA
-//===============================
-// MOSTRAR RESULTADO PREMIUM
-//===============================
-
-function mostrarResultado(puntaje) {
 
     const divResultado = document.getElementById("resultado");
+    if (!divResultado) return { todasRespondidas: false };
 
-    let color = "";
-    let clase = "";
-    let icono = "";
-    let etiqueta = "";
-    let mensaje = "";
-
-    if (puntaje >= 4.5) {
-
-        color = "success";
-        clase = "bg-success";
-        icono = "bi-trophy-fill";
-        etiqueta = "EXCELENTE";
-        mensaje = "El proveedor demuestra un desempeño sobresaliente y consistente en todos los criterios evaluados.";
-
-    } else if (puntaje >= 3.75) {
-
-        color = "primary";
-        clase = "bg-primary";
-        icono = "bi-check-circle-fill";
-        etiqueta = "SATISFACTORIO";
-        mensaje = "El proveedor cumple satisfactoriamente con los criterios establecidos.";
-
-    } else if (puntaje >= 3.0) {
-
-        color = "warning";
-        clase = "bg-warning";
-        icono = "bi-exclamation-triangle-fill";
-        etiqueta = "ACEPTABLE";
-        mensaje = "El proveedor requiere fortalecer algunos aspectos para mejorar su desempeño.";
-
-    } else {
-
-        color = "danger";
-        clase = "bg-danger";
-        icono = "bi-x-octagon-fill";
-        etiqueta = "PLAN DE MEJORA";
-        mensaje = "El proveedor presenta incumplimientos importantes y requiere un plan de mejoramiento.";
-
+    if (!todasRespondidas) {
+        divResultado.innerHTML = `
+            <div class="alert alert-light border text-center">
+                <p class="mb-0 text-muted">Responda todas las preguntas para obtener el puntaje final.</p>
+            </div>
+        `;
+        return { todasRespondidas: false };
     }
 
-    //========================================
-    // PROMEDIO POR CRITERIO
-    //========================================
+    // --- CÁLCULOS POR CRITERIO (Para la tabla del PDF) ---
+    
+    // Criterio 1: Tiempo (P1-P3)
+    const promTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) / 3;
+    const ponderadoTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) * 0.100;
 
-    let tabla = "";
+    // Criterio 2: Calidad (P4-P7)
+    const promCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) / 4;
+    const ponderadoCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) * 0.133;
 
-    criterios.forEach(c => {
+    // Criterio 3: Precio (P8-P10)
+    const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
+    const ponderadoPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) * 0.067;
 
-        let suma = 0;
+    // Criterio 4: SST y Legales (P11-P12)
+    const promSST = (respuestas[11] + respuestas[12]) / 2;
+    const ponderadoSST = (respuestas[11] + respuestas[12]) * 0.033;
 
-        c.preguntas.forEach(p => {
+    // PUNTAJE FINAL (Suma de los 4 ponderados)
+    const puntajeFinal = Number((ponderadoTiempo + ponderadoCalidad + ponderadoPrecio + ponderadoSST).toFixed(2));
 
-            suma += obtenerRespuestas()[p.id];
+    // Generar observación coherente automática
+    const observacionAuto = generarObservacionCoherente(puntajeFinal);
 
-        });
-
-        const promedio = suma / c.preguntas.length;
-
-        tabla += `
-            <tr>
-                <td>${c.criterio}</td>
-                <td class="text-center fw-bold">${promedio.toFixed(1)}</td>
-            </tr>
-        `;
-
-    });
-
-    const porcentaje = (puntaje / 5 * 100).toFixed(0);
+    // Actualizar Interfaz de Usuario
+    let colorClass = "alert-danger";
+    if (puntajeFinal >= 4.5) colorClass = "alert-success";
+    else if (puntajeFinal >= 3.5) colorClass = "alert-warning";
 
     divResultado.innerHTML = `
+        <div class="alert ${colorClass} shadow-sm text-center">
+            <h3 class="mb-1">PUNTAJE TOTAL: ${puntajeFinal.toFixed(2)} / 5.00</h3>
+            <hr>
+            <div class="row g-2">
+                <div class="col-6 col-md-3"><strong>Tiempo:</strong>  
+${promTiempo.toFixed(2)}</div>
+                <div class="col-6 col-md-3"><strong>Calidad:</strong>  
+${promCalidad.toFixed(2)}</div>
+                <div class="col-6 col-md-3"><strong>Precio:</strong>  
+${promPrecio.toFixed(2)}</div>
+                <div class="col-6 col-md-3"><strong>SST/Leg:</strong>  
+${promSST.toFixed(2)}</div>
+            </div>
+            <div class="mt-3 p-2 bg-white rounded border">
+                <small class="text-muted d-block">Sugerencia de observación:</small>
+                <span class="fst-italic">"${observacionAuto}"</span>
+            </div>
+        </div>
+    `;
 
-<div class="card shadow border-0">
+    return { 
+        todasRespondidas: true, 
+        puntaje: puntajeFinal, 
+        respuestas,
+        promedios: {
+            tiempo: promTiempo,
+            calidad: promCalidad,
+            precio: promPrecio,
+            sst: promSST
+        },
+        observacionSugerida: observacionAuto
+    };
+}
 
-<div class="card-header ${clase} text-white">
-
-<h4 class="mb-0">
-
-<i class="bi ${icono}"></i>
-
-RESULTADO DE LA EVALUACIÓN
-
-</h4>
-
-</div>
-
-<div class="card-body">
-
-<div class="row text-center mb-3">
-
-<div class="col-md-4">
-
-<h6 class="text-muted">PUNTAJE</h6>
-
-<h1 class="fw-bold text-${color}">
-${puntaje.toFixed(1)}
-</h1>
-
-<small>sobre 5.0</small>
-
-</div>
-
-<div class="col-md-4">
-
-<h6 class="text-muted">CUMPLIMIENTO</h6>
-
-<div class="progress mt-2" style="height:25px;">
-
-<div class="progress-bar ${clase}"
-style="width:${porcentaje}%">
-
-${porcentaje}%
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<h6 class="text-muted">CLASIFICACIÓN</h6>
-
-<h5 class="fw-bold text-${color}">
-${etiqueta}
-</h5>
-
-</div>
-
-</div>
-
-<div class="alert alert-light border">
-
-${mensaje}
-
-</div>
-
-<h6 class="fw-bold mb-3">
-
-<i class="bi bi-bar-chart-fill"></i>
-
-Resultado por criterio
-
-</h6>
-
-<table class="table table-bordered table-sm align-middle">
-
-<thead class="table-secondary">
-
-<tr>
-
-<th>Criterio</th>
-
-<th width="120" class="text-center">
-
-Resultado
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-${tabla}
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-`;
-
+/**
+ * Genera un comentario breve y coherente según el puntaje obtenido.
+ */
+function generarObservacionCoherente(puntaje) {
+    if (puntaje >= 4.7) return "Proveedor excelente. Cumple con altos estándares de calidad y tiempos.";
+    if (puntaje >= 4.0) return "Proveedor confiable con buen desempeño. Cumple los requisitos satisfactoriamente.";
+    if (puntaje >= 3.5) return "Desempeño aceptable. Se sugiere seguimiento en los puntos de menor calificación.";
+    if (puntaje >= 3.0) return "Nivel crítico. Requiere plan de mejora inmediato y supervisión estrecha.";
+    return "Desempeño insuficiente. No cumple los estándares mínimos. Evaluar alternativas.";
 }
