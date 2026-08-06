@@ -1,18 +1,17 @@
 // ==========================================
-// CALCULOS.JS - VERSIÓN FINAL CORREGIDA
-// Parque Comercial El Tesoro
+// CALCULOS.JS - VERSIÓN FINAL UNIFICADA
 // ==========================================
 
-// 1. PESOS EXACTOS SEGÚN TABLA ISO (Valor descripción)
+// 1. PESOS EXACTOS SEGÚN TABLA ISO
 const PESOS = [
     0.100, 0.100, 0.100,        // Criterio 1: Tiempo de respuesta (30%)
-    0.133, 0.133, 0.133, 0.133, // Criterio 2: Calidad del Producto/Servicio (40%)
-    0.067, 0.067, 0.067,        // Criterio 3: Precio y Condiciones (20%)
-    0.033, 0.033                // Criterio 4: Cumplimiento de SST y Legales (10%)
+    0.133, 0.133, 0.133, 0.133, // Criterio 2: Calidad (40%)
+    0.067, 0.067, 0.067,        // Criterio 3: Precio (20%)
+    0.033, 0.033                // Criterio 4: SST y Legales (10%)
 ];
 
 /**
- * Realiza el cálculo del puntaje final y actualiza la interfaz premium.
+ * Función principal llamada por los botones de radio (onchange)
  */
 function calcularResultado() {
     let respuestas = {};
@@ -32,7 +31,7 @@ function calcularResultado() {
         if (valor === 0) todasRespondidas = false;
         respuestas[i] = valor;
         
-        // Sumamos al total ponderado usando los pesos definidos
+        // Sumamos al total ponderado usando los pesos
         if (valor > 0) {
             totalPonderado += valor * PESOS[i - 1];
         }
@@ -50,25 +49,16 @@ function calcularResultado() {
         return { todasRespondidas: false };
     }
 
-    // --- CÁLCULOS POR CRITERIO (Para la tabla del PDF) ---
-    
-    // Criterio 1: Tiempo (P1-P3)
+    // --- CÁLCULOS POR CRITERIO ---
     const promTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) / 3;
-    
-    // Criterio 2: Calidad (P4-P7)
     const promCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) / 4;
-
-    // Criterio 3: Precio (P8-P10)
     const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
-
-    // Criterio 4: SST y Legales (P11-P12)
     const promSST = (respuestas[11] + respuestas[12]) / 2;
 
-    // PUNTAJE FINAL Y PORCENTAJE
     const puntajeFinal = Number(totalPonderado.toFixed(2));
     const porcentaje = (puntajeFinal / 5) * 100;
 
-    // Clasificación y Color
+    // Clasificación
     let clasificacion = "";
     let colorClase = "";
     if (puntajeFinal >= 4.5) { clasificacion = "EXCELENTE"; colorClase = "text-success"; }
@@ -76,10 +66,9 @@ function calcularResultado() {
     else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
     else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
 
-    // Generar observación coherente automática
     const observacionAuto = generarObservacionCoherente(puntajeFinal);
 
-    // ACTUALIZACIÓN DE INTERFAZ PREMIUM
+    // ACTUALIZACIÓN DE INTERFAZ
     divResultado.innerHTML = `
         <div class="resultado-premium shadow-sm border-0">
             <div class="resultado-header py-2" style="background-color: #6b8e23;">
@@ -122,19 +111,10 @@ function calcularResultado() {
         todasRespondidas: true, 
         puntaje: puntajeFinal, 
         respuestas,
-        promedios: {
-            tiempo: promTiempo,
-            calidad: promCalidad,
-            precio: promPrecio,
-            sst: promSST
-        },
-        observacionSugerida: observacionAuto
+        promedios: { tiempo: promTiempo, calidad: promCalidad, precio: promPrecio, sst: promSST }
     };
 }
 
-/**
- * Genera un comentario breve y coherente según el puntaje obtenido.
- */
 function generarObservacionCoherente(puntaje) {
     if (puntaje >= 4.7) return "Proveedor excelente. Cumple con altos estándares de calidad y tiempos.";
     if (puntaje >= 4.0) return "Proveedor confiable con buen desempeño. Cumple los requisitos satisfactoriamente.";
@@ -142,5 +122,3 @@ function generarObservacionCoherente(puntaje) {
     if (puntaje >= 3.0) return "Nivel crítico. Requiere plan de mejora inmediato y supervisión estrecha.";
     return "Desempeño insuficiente. No cumple los estándares mínimos. Evaluar alternativas.";
 }
-// Agrega esto al final de calculos.js
-const calcularResultado = calcularPuntaje;
