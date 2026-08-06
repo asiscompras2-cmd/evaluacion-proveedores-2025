@@ -119,23 +119,23 @@ document.getElementById("observaciones").value = observacionAuto;
 /**
  * OBSERVACIÓN AUTOMÁTICA BREVE SEGÚN RESULTADO FINAL
  */
-function generarObservacionDetallada(promTiempo, promCalidad, promPrecio, promSST, puntajeFinal) {
+function generarObservacionDetallada(puntajeFinal) {
 
     if (puntajeFinal >= 4.5) {
-        return "El proveedor presentó un desempeño excelente y cumplió satisfactoriamente con los estándares de calidad, oportunidad y servicio establecidos por el Parque Comercial El Tesoro P.H.";
+        return "El proveedor obtuvo un desempeño excelente durante el período evaluado.";
     }
 
     if (puntajeFinal >= 4.0) {
-        return "El proveedor obtuvo un buen desempeño general y cumplió adecuadamente con los requisitos evaluados. Se recomienda mantener los estándares actuales.";
+        return "El proveedor obtuvo un buen desempeño y cumplió satisfactoriamente con los requisitos evaluados.";
     }
 
     if (puntajeFinal >= 3.5) {
-        return "El proveedor presentó un desempeño aceptable, con oportunidades de mejora en algunos aspectos evaluados.";
+        return "El proveedor presentó un desempeño aceptable con oportunidades de mejora.";
     }
 
     if (puntajeFinal >= 3.0) {
-        return "El proveedor requiere implementar acciones de mejora para fortalecer el cumplimiento de los estándares de calidad y servicio.";
+        return "El proveedor requiere acciones de mejora para fortalecer su desempeño.";
     }
 
-    return "El proveedor presentó un desempeño insuficiente y requiere un plan de mejoramiento y seguimiento a las acciones correctivas.";
+    return "El proveedor presentó un desempeño insuficiente y requiere un plan de mejoramiento.";
 }
