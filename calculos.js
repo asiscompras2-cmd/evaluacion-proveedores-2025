@@ -1,5 +1,5 @@
 // ==========================================
-// CALCULOS.JS - OBSERVACIONES BREVES
+// CALCULOS.JS - OBSERVACIONES DETALLADAS
 // ==========================================
 
 // 1. PESOS EXACTOS SEGÚN TABLA ISO
@@ -66,7 +66,17 @@ function calcularResultado() {
     else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
     else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
 
-    const observacionAuto = generarObservacionCoherente(puntajeFinal);
+    // Generar observaciones detalladas por criterio
+    const observacionAuto = generarObservacionDetallada(
+        promTiempo, 
+        promCalidad, 
+        promPrecio, 
+        promSST, 
+        puntajeFinal
+    );
+
+    // Guardar observaciones en el campo oculto para guardar
+    document.getElementById("observaciones").value = observacionAuto;
 
     // ACTUALIZACIÓN DE INTERFAZ
     divResultado.innerHTML = `
@@ -99,10 +109,6 @@ function calcularResultado() {
                         <h3 class="fw-bold mb-0 ${colorClase}">${clasificacion}</h3>
                     </div>
                 </div>
-                <div class="mt-3 p-2 bg-light rounded border text-center">
-                    <small class="text-muted d-block">Conclusión:</small>
-                    <span class="fst-italic">"${observacionAuto}"</span>
-                </div>
             </div>
         </div>
     `;
@@ -116,21 +122,69 @@ function calcularResultado() {
 }
 
 /**
- * OBSERVACIONES BREVES Y CONCISAS
- * Máximo 1-2 líneas por conclusión
+ * OBSERVACIONES DETALLADAS POR CRITERIO
+ * Genera análisis completo basado en puntajes de cada criterio
  */
-function generarObservacionCoherente(puntaje) {
-    if (puntaje >= 4.7) {
-        return "Proveedor excelente. Cumple con altos estándares en todos los criterios.";
+function generarObservacionDetallada(promTiempo, promCalidad, promPrecio, promSST, puntajeFinal) {
+    
+    let observacion = "";
+
+    // ========== TIEMPO DE RESPUESTA ==========
+    if (promTiempo >= 4.5) {
+        observacion += "• Tiempo de respuesta: Excelente oportunidad en entregas y capacidad de respuesta frente a requerimientos e imprevistos.\n\n";
+    } else if (promTiempo >= 4.0) {
+        observacion += "• Tiempo de respuesta: Buen desempeño en entregas y respuesta a requerimientos. Se recomienda mantener los estándares.\n\n";
+    } else if (promTiempo >= 3.5) {
+        observacion += "• Tiempo de respuesta: Desempeño aceptable. Se recomienda fortalecer la oportunidad en entregas y capacidad de respuesta.\n\n";
+    } else {
+        observacion += "• Tiempo de respuesta: Se evidencian retrasos en entregas y respuesta a requerimientos. Requiere mejora inmediata.\n\n";
     }
-    if (puntaje >= 4.0) {
-        return "Proveedor confiable. Desempeño satisfactorio y cumplimiento de requisitos.";
+
+    // ========== CALIDAD DEL PRODUCTO/SERVICIO ==========
+    if (promCalidad >= 4.5) {
+        observacion += "• Calidad del producto o servicio: Se evidencia un excelente nivel de calidad, cumplimiento de especificaciones y adecuada atención a novedades y garantías.\n\n";
+    } else if (promCalidad >= 4.0) {
+        observacion += "• Calidad del producto o servicio: Buen nivel de calidad y cumplimiento de especificaciones. Atención adecuada a novedades.\n\n";
+    } else if (promCalidad >= 3.5) {
+        observacion += "• Calidad del producto o servicio: Calidad aceptable. Se recomienda fortalecer el cumplimiento de especificaciones y atención a garantías.\n\n";
+    } else {
+        observacion += "• Calidad del producto o servicio: Se evidencian deficiencias en calidad y especificaciones. Requiere plan de mejora.\n\n";
     }
-    if (puntaje >= 3.5) {
-        return "Desempeño aceptable. Se recomienda seguimiento en aspectos críticos.";
+
+    // ========== PRECIO Y CONDICIONES COMERCIALES ==========
+    if (promPrecio >= 4.5) {
+        observacion += "• Precio y condiciones comerciales: El proveedor ofrece condiciones comerciales altamente competitivas y favorables para el Parque Comercial.\n\n";
+    } else if (promPrecio >= 4.0) {
+        observacion += "• Precio y condiciones comerciales: Condiciones comerciales competitivas y favorables. Buena relación precio-calidad.\n\n";
+    } else if (promPrecio >= 3.5) {
+        observacion += "• Precio y condiciones comerciales: Condiciones comerciales aceptables. Se recomienda evaluar oportunidades de mejora en precios.\n\n";
+    } else {
+        observacion += "• Precio y condiciones comerciales: Condiciones comerciales no competitivas. Se requiere revisión de precios y términos.\n\n";
     }
-    if (puntaje >= 3.0) {
-        return "Nivel crítico. Requiere plan de mejora inmediato.";
+
+    // ========== SST Y REQUISITOS LEGALES ==========
+    if (promSST >= 4.5) {
+        observacion += "• Cumplimiento de SST y requisitos legales: El proveedor demuestra un excelente cumplimiento de requisitos legales, documentales y de Seguridad y Salud en el Trabajo.\n\n";
+    } else if (promSST >= 4.0) {
+        observacion += "• Cumplimiento de SST y requisitos legales: Adecuado cumplimiento de requisitos legales y de Seguridad y Salud en el Trabajo.\n\n";
+    } else if (promSST >= 3.5) {
+        observacion += "• Cumplimiento de SST y requisitos legales: Cumplimiento básico de requisitos. Se recomienda fortalecer documentación y SST.\n\n";
+    } else {
+        observacion += "• Cumplimiento de SST y requisitos legales: Deficiencias en cumplimiento de requisitos legales y SST. Requiere atención inmediata.\n\n";
     }
-    return "Desempeño insuficiente. No cumple estándares mínimos.";
+
+    // ========== CONCLUSIÓN GENERAL ==========
+    if (puntajeFinal >= 4.5) {
+        observacion += "Conclusión: El proveedor obtuvo un desempeño excelente durante la evaluación. Se recomienda mantener las buenas prácticas evidenciadas y continuar fortaleciendo la relación comercial.";
+    } else if (puntajeFinal >= 4.0) {
+        observacion += "Conclusión: El proveedor obtuvo un buen desempeño. Se recomienda mantener los estándares actuales y continuar con la relación comercial.";
+    } else if (puntajeFinal >= 3.5) {
+        observacion += "Conclusión: El proveedor obtuvo un desempeño aceptable. Se recomienda seguimiento en los aspectos identificados para mejora.";
+    } else if (puntajeFinal >= 3.0) {
+        observacion += "Conclusión: El proveedor requiere plan de mejora inmediato. Se sugiere establecer cronograma de seguimiento y evaluación.";
+    } else {
+        observacion += "Conclusión: El desempeño es insuficiente. Se recomienda evaluar alternativas de proveedores.";
+    }
+
+    return observacion;
 }
