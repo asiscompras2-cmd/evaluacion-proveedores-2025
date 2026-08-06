@@ -65,16 +65,12 @@ const porcentaje = (puntajeFinal / 5) * 100;
     else if (puntajeFinal >= 4.0) { clasificacion = "BUENO"; colorClase = "text-primary"; }
     else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
     else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
+    
+  // Generar observación automática breve
+const observacionAuto = generarObservacionDetallada(puntajeFinal);
 
-    // Generar observaciones detalladas por criterio
-    const observacionAuto = generarObservacionDetallada(
-        promTiempo, 
-        promCalidad, 
-        promPrecio, 
-        promSST, 
-        puntajeFinal
-    );
-
+// Sobrescribir siempre el contenido del campo
+document.getElementById("observaciones").value = observacionAuto;
     // Guardar observaciones en el campo oculto para guardar
     document.getElementById("observaciones").value = observacionAuto;
 
