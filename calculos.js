@@ -2,12 +2,12 @@
 // CALCULOS.JS - OBSERVACIONES DETALLADAS
 // ==========================================
 
-// 1. PESOS EXACTOS SEGÚN TABLA ISO
+// 1. PESOS EXACTOS SEGÚN TABLA ISO (suman exactamente 1.00)
 const PESOS = [
-    0.100, 0.100, 0.100,        // Criterio 1: Tiempo de respuesta (30%)
-    0.133, 0.133, 0.133, 0.133, // Criterio 2: Calidad (40%)
-    0.067, 0.067, 0.067,        // Criterio 3: Precio (20%)
-    0.033, 0.033                // Criterio 4: SST y Legales (10%)
+    0.10, 0.10, 0.10,          // Tiempo de respuesta (30%)
+    0.10, 0.10, 0.10, 0.10,    // Calidad (40%)
+    0.0666667, 0.0666667, 0.0666666, // Precio (20%)
+    0.05, 0.05                 // SST y requisitos legales (10%)
 ];
 
 /**
