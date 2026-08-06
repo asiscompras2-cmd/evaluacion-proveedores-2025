@@ -126,20 +126,20 @@ const porcentaje = (puntajeFinal / 5) * 100;
 function generarObservacionDetallada(promTiempo, promCalidad, promPrecio, promSST, puntajeFinal) {
 
     if (puntajeFinal >= 4.5) {
-        return "El proveedor obtuvo un desempeño excelente durante el período evaluado, evidenciando un alto nivel de cumplimiento, calidad y oportunidad en la prestación de sus productos y/o servicios. Se recomienda mantener las buenas prácticas y fortalecer la relación comercial.";
+        return "El proveedor presentó un desempeño excelente y cumplió satisfactoriamente con los estándares de calidad, oportunidad y servicio establecidos por el Parque Comercial El Tesoro P.H.";
     }
 
     if (puntajeFinal >= 4.0) {
-        return "El proveedor obtuvo un buen desempeño general, cumpliendo satisfactoriamente con los requisitos establecidos por el Parque Comercial El Tesoro P.H. Se recomienda continuar fortaleciendo los procesos que permitan mantener este nivel de desempeño.";
+        return "El proveedor obtuvo un buen desempeño general y cumplió adecuadamente con los requisitos evaluados. Se recomienda mantener los estándares actuales.";
     }
 
     if (puntajeFinal >= 3.5) {
-        return "El proveedor presentó un desempeño aceptable durante el período evaluado. Se identifican oportunidades de mejora que permitirán fortalecer la calidad, la oportunidad y el cumplimiento de los requisitos establecidos.";
+        return "El proveedor presentó un desempeño aceptable, con oportunidades de mejora en algunos aspectos evaluados.";
     }
 
     if (puntajeFinal >= 3.0) {
-        return "El proveedor requiere implementar acciones de mejora para fortalecer su desempeño y asegurar el cumplimiento de los estándares de calidad, servicio y oportunidad exigidos por el Parque Comercial El Tesoro P.H.";
+        return "El proveedor requiere implementar acciones de mejora para fortalecer el cumplimiento de los estándares de calidad y servicio.";
     }
 
-    return "El desempeño del proveedor fue insuficiente durante el período evaluado, por lo que se recomienda establecer un plan de mejoramiento inmediato y realizar seguimiento a las acciones correctivas correspondientes.";
+    return "El proveedor presentó un desempeño insuficiente y requiere un plan de mejoramiento y seguimiento a las acciones correctivas.";
 }
