@@ -65,14 +65,6 @@ const porcentaje = (puntajeFinal / 5) * 100;
     else if (puntajeFinal >= 4.0) { clasificacion = "BUENO"; colorClase = "text-primary"; }
     else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
     else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
-    
-  // Generar observación automática breve
-const observacionAuto = generarObservacionDetallada(puntajeFinal);
-
-// Sobrescribir siempre el contenido del campo
-document.getElementById("observaciones").value = observacionAuto;
-    // Guardar observaciones en el campo oculto para guardar
-    document.getElementById("observaciones").value = observacionAuto;
 
     // ACTUALIZACIÓN DE INTERFAZ
     divResultado.innerHTML = `
@@ -115,27 +107,4 @@ document.getElementById("observaciones").value = observacionAuto;
         respuestas,
         promedios: { tiempo: promTiempo, calidad: promCalidad, precio: promPrecio, sst: promSST }
     };
-}
-/**
- * OBSERVACIÓN AUTOMÁTICA BREVE SEGÚN RESULTADO FINAL
- */
-function generarObservacionDetallada(puntajeFinal) {
-
-    if (puntajeFinal >= 4.5) {
-        return "El proveedor obtuvo un desempeño excelente durante el período evaluado.";
-    }
-
-    if (puntajeFinal >= 4.0) {
-        return "El proveedor obtuvo un buen desempeño y cumplió satisfactoriamente con los requisitos evaluados.";
-    }
-
-    if (puntajeFinal >= 3.5) {
-        return "El proveedor presentó un desempeño aceptable con oportunidades de mejora.";
-    }
-
-    if (puntajeFinal >= 3.0) {
-        return "El proveedor requiere acciones de mejora para fortalecer su desempeño.";
-    }
-
-    return "El proveedor presentó un desempeño insuficiente y requiere un plan de mejoramiento.";
 }
