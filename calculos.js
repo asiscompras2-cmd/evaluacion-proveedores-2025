@@ -58,13 +58,23 @@ const promSST = (respuestas[11] + respuestas[12]) / 2;
 const puntajeFinal = Math.min(5, Number(totalPonderado.toFixed(2)));
 const porcentaje = (puntajeFinal / 5) * 100;
 
-    // Clasificación
-    let clasificacion = "";
-    let colorClase = "";
-    if (puntajeFinal >= 4.5) { clasificacion = "EXCELENTE"; colorClase = "text-success"; }
-    else if (puntajeFinal >= 4.0) { clasificacion = "BUENO"; colorClase = "text-primary"; }
-    else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
-    else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
+// Clasificación institucional
+let clasificacion = "";
+let colorClase = "";
+
+if (puntajeFinal >= 4.5) {
+    clasificacion = "EXCELENTE";
+    colorClase = "text-success";
+} else if (puntajeFinal >= 4.0) {
+    clasificacion = "SATISFACTORIO";
+    colorClase = "text-primary";
+} else if (puntajeFinal >= 3.5) {
+    clasificacion = "ACEPTABLE";
+    colorClase = "text-warning";
+} else {
+    clasificacion = "REQUIERE PLAN DE MEJORAMIENTO";
+    colorClase = "text-danger";
+}
 
     // ACTUALIZACIÓN DE INTERFAZ
     divResultado.innerHTML = `
