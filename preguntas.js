@@ -96,3 +96,32 @@ function obtenerRespuestas() {
     });
     return respuestas;
 }
+
+function generarObservacionesAutomaticas() {
+
+    const campoObservaciones = document.getElementById("observaciones");
+    if (!campoObservaciones) return;
+
+    const respuestas = obtenerRespuestas();
+    const respondidas = Object.values(respuestas).filter(v => v !== null).length;
+
+    if (respondidas === 0) {
+        campoObservaciones.value = "";
+        return;
+    }
+
+    const promedio =
+        Object.values(respuestas).reduce((a, b) => a + b, 0) / respondidas;
+
+    if (promedio >= 4.5) {
+        campoObservaciones.value = "El proveedor obtuvo un desempeño excelente durante el período evaluado.";
+    } else if (promedio >= 4.0) {
+        campoObservaciones.value = "El proveedor obtuvo un buen desempeño y cumplió satisfactoriamente con los requisitos evaluados.";
+    } else if (promedio >= 3.5) {
+        campoObservaciones.value = "El proveedor presentó un desempeño aceptable con oportunidades de mejora.";
+    } else if (promedio >= 3.0) {
+        campoObservaciones.value = "El proveedor requiere acciones de mejora para fortalecer su desempeño.";
+    } else {
+        campoObservaciones.value = "El proveedor presentó un desempeño insuficiente y requiere un plan de mejoramiento.";
+    }
+}
