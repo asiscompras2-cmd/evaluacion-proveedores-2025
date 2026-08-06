@@ -142,3 +142,5 @@ function generarObservacionCoherente(puntaje) {
     if (puntaje >= 3.0) return "Nivel crítico. Requiere plan de mejora inmediato y supervisión estrecha.";
     return "Desempeño insuficiente. No cumple los estándares mínimos. Evaluar alternativas.";
 }
+// Agrega esto al final de calculos.js
+const calcularResultado = calcularPuntaje;
