@@ -14,7 +14,7 @@ const PESOS = [
 /**
  * Realiza el cálculo del puntaje final y actualiza la interfaz premium.
  */
-function calcularPuntaje() {
+function calcularResultado() {
     let respuestas = {};
     let todasRespondidas = true;
     let totalPonderado = 0;
