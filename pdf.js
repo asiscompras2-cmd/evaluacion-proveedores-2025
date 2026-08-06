@@ -145,7 +145,19 @@ function ejecutarGeneracionPDF(data) {
     // FECHA
     //-------------------------------------------------
 
-    const fechaObj = new Date(fecha);
+    // Convertir la fecha sin afectar la zona horaria
+let fechaObj;
+
+if (fecha && fecha.includes("-")) {
+    const partes = fecha.split("-");
+    fechaObj = new Date(
+        parseInt(partes[0]),
+        parseInt(partes[1]) - 1,
+        parseInt(partes[2])
+    );
+} else {
+    fechaObj = new Date(fecha);
+}
 
     const meses = [
         "enero","febrero","marzo","abril","mayo","junio",
