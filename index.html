@@ -314,16 +314,17 @@ Este campo es obligatorio.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Tus archivos JS actuales -->
+<!-- Orden corregido para evitar errores de duplicidad -->
 <script src="proveedores.js"></script>
 <script src="preguntas.js"></script>
 <script src="supabase.js"></script>
 <script src="historial.js"></script>
 <script src="usuarios.js"></script>    
+<script src="calculos.js"></script> <!-- 1. Primero cargamos el que define PESOS -->
 <script src="app.js"></script>
-<script src="calculos.js"></script>
-<script src="excel.js"></script>
+<script src="excel.js"></script>    <!-- 2. Luego los que lo usan -->
 <script src="pdf.js"></script>
 <script src="excel_pendiente.js"></script>
 </body>
 </html>
+
