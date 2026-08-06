@@ -50,13 +50,13 @@ function calcularResultado() {
     }
 
     // --- CÁLCULOS POR CRITERIO ---
-    const promTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) / 3;
-    const promCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) / 4;
-    const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
-    const promSST = (respuestas[11] + respuestas[12]) / 2;
+const promTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) / 3;
+const promCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) / 4;
+const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
+const promSST = (respuestas[11] + respuestas[12]) / 2;
 
-    const puntajeFinal = Math.min(5, Number(totalPonderado.toFixed(2)));
-    const porcentaje = (puntajeFinal / 5) * 100;
+const puntajeFinal = Math.min(5, Number(totalPonderado.toFixed(2)));
+const porcentaje = (puntajeFinal / 5) * 100;
 
     // Clasificación
     let clasificacion = "";
