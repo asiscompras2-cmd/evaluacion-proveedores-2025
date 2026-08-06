@@ -35,21 +35,23 @@ function calcularResultado() {
 
     let puntajeFinal = 0;
 
-    criterios.forEach(criterio => {
+criterios.forEach(criterio => {
 
-        criterio.preguntas.forEach(pregunta => {
+    let sumaCriterio = 0;
 
-            const calificacion = respuestas[pregunta.id];
+    criterio.preguntas.forEach(pregunta => {
 
-            puntajeFinal += calificacion * pregunta.valor;
+        const calificacion = Number(respuestas[pregunta.id]) || 0;
 
-        });
+        sumaCriterio += calificacion;
 
     });
 
-    mostrarResultado(puntajeFinal);
+    const promedio = sumaCriterio / criterio.preguntas.length;
 
-}
+    puntajeFinal += promedio * criterio.peso;
+
+});
 
 //===============================
 // MOSTRAR RESULTADO PREMIUM
