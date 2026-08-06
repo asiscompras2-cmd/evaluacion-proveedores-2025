@@ -55,7 +55,7 @@ function calcularResultado() {
     const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
     const promSST = (respuestas[11] + respuestas[12]) / 2;
 
-    const puntajeFinal = Number(totalPonderado.toFixed(2));
+    const puntajeFinal = Math.min(5, Number(totalPonderado.toFixed(2)));
     const porcentaje = (puntajeFinal / 5) * 100;
 
     // Clasificación
