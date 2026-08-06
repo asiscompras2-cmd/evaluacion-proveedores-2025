@@ -35,24 +35,28 @@ function calcularResultado() {
 
     let puntajeFinal = 0;
 
-criterios.forEach(criterio => {
+    criterios.forEach(criterio => {
 
-    let sumaCriterio = 0;
+        let sumaCriterio = 0;
 
-    criterio.preguntas.forEach(pregunta => {
+        criterio.preguntas.forEach(pregunta => {
 
-        const calificacion = Number(respuestas[pregunta.id]) || 0;
+            const calificacion = Number(respuestas[pregunta.id]) || 0;
 
-        sumaCriterio += calificacion;
+            sumaCriterio += calificacion;
+
+        });
+
+        const promedio = sumaCriterio / criterio.preguntas.length;
+
+        puntajeFinal += promedio * criterio.peso;
 
     });
 
-    const promedio = sumaCriterio / criterio.preguntas.length;
+    // ESTA LÍNEA FALTABA
+    mostrarResultado(puntajeFinal);
 
-    puntajeFinal += promedio * criterio.peso;
-
-});
-
+}   // ESTA LLAVE FALTABA
 //===============================
 // MOSTRAR RESULTADO PREMIUM
 //===============================
