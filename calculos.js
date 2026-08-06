@@ -12,11 +12,12 @@ const PESOS = [
 ];
 
 /**
- * Realiza el cálculo del puntaje final y promedios por criterio.
+ * Realiza el cálculo del puntaje final y actualiza la interfaz premium.
  */
 function calcularPuntaje() {
     let respuestas = {};
     let todasRespondidas = true;
+    let totalPonderado = 0;
 
     // Capturar respuestas de las 12 preguntas (p1 a p12)
     for (let i = 1; i <= 12; i++) {
@@ -30,6 +31,11 @@ function calcularPuntaje() {
         }
         if (valor === 0) todasRespondidas = false;
         respuestas[i] = valor;
+        
+        // Sumamos al total ponderado usando los pesos definidos
+        if (valor > 0) {
+            totalPonderado += valor * PESOS[i - 1];
+        }
     }
 
     const divResultado = document.getElementById("resultado");
@@ -48,48 +54,66 @@ function calcularPuntaje() {
     
     // Criterio 1: Tiempo (P1-P3)
     const promTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) / 3;
-    const ponderadoTiempo = (respuestas[1] + respuestas[2] + respuestas[3]) * 0.100;
-
+    
     // Criterio 2: Calidad (P4-P7)
     const promCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) / 4;
-    const ponderadoCalidad = (respuestas[4] + respuestas[5] + respuestas[6] + respuestas[7]) * 0.133;
 
     // Criterio 3: Precio (P8-P10)
     const promPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) / 3;
-    const ponderadoPrecio = (respuestas[8] + respuestas[9] + respuestas[10]) * 0.067;
 
     // Criterio 4: SST y Legales (P11-P12)
     const promSST = (respuestas[11] + respuestas[12]) / 2;
-    const ponderadoSST = (respuestas[11] + respuestas[12]) * 0.033;
 
-    // PUNTAJE FINAL (Suma de los 4 ponderados)
-    const puntajeFinal = Number((ponderadoTiempo + ponderadoCalidad + ponderadoPrecio + ponderadoSST).toFixed(2));
+    // PUNTAJE FINAL Y PORCENTAJE
+    const puntajeFinal = Number(totalPonderado.toFixed(2));
+    const porcentaje = (puntajeFinal / 5) * 100;
+
+    // Clasificación y Color
+    let clasificacion = "";
+    let colorClase = "";
+    if (puntajeFinal >= 4.5) { clasificacion = "EXCELENTE"; colorClase = "text-success"; }
+    else if (puntajeFinal >= 4.0) { clasificacion = "BUENO"; colorClase = "text-primary"; }
+    else if (puntajeFinal >= 3.5) { clasificacion = "ACEPTABLE"; colorClase = "text-warning"; }
+    else { clasificacion = "INSUFICIENTE"; colorClase = "text-danger"; }
 
     // Generar observación coherente automática
     const observacionAuto = generarObservacionCoherente(puntajeFinal);
 
-    // Actualizar Interfaz de Usuario
-    let colorClass = "alert-danger";
-    if (puntajeFinal >= 4.5) colorClass = "alert-success";
-    else if (puntajeFinal >= 3.5) colorClass = "alert-warning";
-
+    // ACTUALIZACIÓN DE INTERFAZ PREMIUM
     divResultado.innerHTML = `
-        <div class="alert ${colorClass} shadow-sm text-center">
-            <h3 class="mb-1">PUNTAJE TOTAL: ${puntajeFinal.toFixed(2)} / 5.00</h3>
-            <hr>
-            <div class="row g-2">
-                <div class="col-6 col-md-3"><strong>Tiempo:</strong>  
-${promTiempo.toFixed(2)}</div>
-                <div class="col-6 col-md-3"><strong>Calidad:</strong>  
-${promCalidad.toFixed(2)}</div>
-                <div class="col-6 col-md-3"><strong>Precio:</strong>  
-${promPrecio.toFixed(2)}</div>
-                <div class="col-6 col-md-3"><strong>SST/Leg:</strong>  
-${promSST.toFixed(2)}</div>
+        <div class="resultado-premium shadow-sm border-0">
+            <div class="resultado-header py-2" style="background-color: #6b8e23;">
+                <h5 class="mb-0 text-white text-center"><i class="bi bi-trophy-fill"></i> RESULTADO DE LA EVALUACIÓN</h5>
             </div>
-            <div class="mt-3 p-2 bg-white rounded border">
-                <small class="text-muted d-block">Sugerencia de observación:</small>
-                <span class="fst-italic">"${observacionAuto}"</span>
+            <div class="card-body p-4 bg-white">
+                <div class="row align-items-center text-center">
+                    <div class="col-md-4">
+                        <small class="text-muted d-block text-uppercase fw-bold">Puntaje</small>
+                        <h2 class="display-4 fw-bold mb-0 ${colorClase}">${puntajeFinal.toFixed(1)}</h2>
+                        <small class="text-muted">sobre 5.0</small>
+                    </div>
+                    <div class="col-md-4">
+                        <small class="text-muted d-block text-uppercase fw-bold mb-2">Cumplimiento</small>
+                        <div class="progress" style="height: 25px; border-radius: 12px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                 role="progressbar" 
+                                 style="width: ${porcentaje}%" 
+                                 aria-valuenow="${porcentaje}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                 ${porcentaje.toFixed(0)}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <small class="text-muted d-block text-uppercase fw-bold">Clasificación</small>
+                        <h3 class="fw-bold mb-0 ${colorClase}">${clasificacion}</h3>
+                    </div>
+                </div>
+                <div class="mt-3 p-2 bg-light rounded border text-center">
+                    <small class="text-muted d-block">Sugerencia de observación:</small>
+                    <span class="fst-italic">"${observacionAuto}"</span>
+                </div>
             </div>
         </div>
     `;
