@@ -636,4 +636,14 @@ function renderizarMisEvaluaciones() {
         `;
     });
 }
+function formatearFechaCorta(fechaISO) {
+    if (!fechaISO) return "";
 
+    const fecha = new Date(fechaISO);
+
+    return fecha.toLocaleDateString("es-CO", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    }).replace(".", "");
+}
