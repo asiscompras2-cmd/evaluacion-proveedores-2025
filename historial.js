@@ -622,7 +622,7 @@ function renderizarMisEvaluaciones() {
 
         cuerpo.innerHTML += `
             <tr>
-                <td>${e.fecha || ""}</td>
+                <td>${formatearFechaCorta(e.fecha)}</td>
                 <td><strong>${e.proveedor || ""}</strong></td>
                 <td>${e.area || ""}</td>
                 <td>${puntaje.toFixed(2)} / 5.00</td>
