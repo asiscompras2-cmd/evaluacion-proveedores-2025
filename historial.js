@@ -580,7 +580,6 @@ function limpiarFiltros() {
 //=========================================
 // MIS EVALUACIONES (SOLO DEL EVALUADOR ACTUAL)
 //=========================================
-
 function renderizarMisEvaluaciones() {
 
     const cedulaEvaluador = document.getElementById("cedula")?.value.trim();
@@ -592,29 +591,34 @@ function renderizarMisEvaluaciones() {
 
     const historial = cacheHistorial || [];
 
-    // Solo las evaluaciones hechas por este evaluador
-    const misEvaluaciones = historial.filter(
-        e => String(e.cedula).trim() === String(cedulaEvaluador).trim()
-    );
+    // Buscar por cualquiera de los posibles campos de cédula
+    const misEvaluaciones = historial.filter(e => {
+        const cedulaRegistro =
+            e.cedula ||
+            e.cedula_evaluador ||
+            e.cedula_usuario ||
+            e.documento ||
+            "";
+
+        return String(cedulaRegistro).trim() === String(cedulaEvaluador).trim();
+    });
 
     const cuerpo = document.getElementById("cuerpoMisEvaluaciones");
     const sinDatos = document.getElementById("sinMisEvaluaciones");
 
-    if (!cuerpo) return;
-
     cuerpo.innerHTML = "";
 
     if (misEvaluaciones.length === 0) {
-        if (sinDatos) sinDatos.classList.remove("d-none");
+        sinDatos.classList.remove("d-none");
         return;
     }
 
-    if (sinDatos) sinDatos.classList.add("d-none");
+    sinDatos.classList.add("d-none");
 
-    misEvaluaciones.forEach((e) => {
+    misEvaluaciones.forEach(e => {
 
         const indiceReal = historial.indexOf(e);
-        const puntaje = Number(e.puntaje_final || 0);
+        const puntaje = Number(e.puntaje_final || e.puntaje || 0);
 
         cuerpo.innerHTML += `
             <tr>
@@ -623,10 +627,8 @@ function renderizarMisEvaluaciones() {
                 <td>${e.area || ""}</td>
                 <td>${puntaje.toFixed(2)} / 5.00</td>
                 <td>
-                    <button
-                        class="btn btn-outline-danger btn-sm"
-                        onclick="generarPDFISOIndividual(${indiceReal})"
-                        title="Ver PDF">
+                    <button class="btn btn-outline-danger btn-sm"
+                            onclick="generarPDFISOIndividual(${indiceReal})">
                         <i class="bi bi-file-earmark-pdf"></i>
                     </button>
                 </td>
@@ -634,3 +636,4 @@ function renderizarMisEvaluaciones() {
         `;
     });
 }
+
