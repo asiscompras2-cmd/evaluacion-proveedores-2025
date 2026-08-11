@@ -36,18 +36,11 @@ async function exportarProveedor(nombreProveedor) {
 
     const historial = obtenerHistorial();
 
-    const datos = historial.filter(
-
-        e => e.proveedor === nombreProveedor
-
-    );
+    const datos = historial.filter(e => e.proveedor === nombreProveedor);
 
     if (datos.length === 0) {
-
         alert("No hay evaluaciones para este proveedor.");
-
         return;
-
     }
 
     let filas = [];
@@ -56,83 +49,99 @@ async function exportarProveedor(nombreProveedor) {
     filas.push(["PARQUE COMERCIAL EL TESORO P.H."]);
     filas.push([]);
     filas.push(["Proveedor:", nombreProveedor]);
-    filas.push(["Fecha de generación:", new Date().toLocaleDateString()]);
+    filas.push(["Fecha de generación:", new Date().toLocaleDateString("es-CO")]);
     filas.push([]);
 
     filas.push([
-    "Fecha",
-    "Área",
-    "CÉDULA EVALUADOR",
-    "NOMBRE EVALUADOR",
-    "P1","P2","P3","P4","P5","P6",
-    "P7","P8","P9","P10","P11","P12",
-    "PUNTAJE FINAL",
-    "OBSERVACIONES",
-    "COMENTARIOS DEL EVALUADOR"
-]);
-        datos.forEach(ev => {
+        "Fecha",
+        "Área",
+        "CÉDULA EVALUADOR",
+        "NOMBRE EVALUADOR",
+        "P1","P2","P3","P4","P5","P6",
+        "P7","P8","P9","P10","P11","P12",
+        "Tiempo de respuesta (30%)",
+        "Calidad (40%)",
+        "Precio (20%)",
+        "SST y requisitos legales (10%)",
+        "PUNTAJE FINAL",
+        "RESULTADO",
+        "OBSERVACIÓN AUTOMÁTICA",
+        "COMENTARIO DEL EVALUADOR"
+    ]);
+
+    datos.forEach(ev => {
 
         let fila = [
-    ev.fecha || "",
-    ev.area || "",
-    ev.cedula || "",
-    ev.nombre || ""
-];
+            ev.fecha || "",
+            ev.area || "",
+            ev.cedula || "",
+            ev.nombre || ""
+        ];
 
+        let respuestas = [];
         let total = 0;
 
         for (let i = 0; i < 12; i++) {
-
             const valor = obtenerValorRespuesta(ev, i);
-
+            respuestas.push(valor);
             fila.push(valor);
-
             total += valor * PESOS[i];
-
         }
 
-    fila.push(Number(total.toFixed(1)));
+        // Resultados por criterio
+        const tiempo = (respuestas[0] + respuestas[1] + respuestas[2]) / 3;
+        const calidad = (respuestas[3] + respuestas[4] + respuestas[5] + respuestas[6]) / 4;
+        const precio = (respuestas[7] + respuestas[8] + respuestas[9]) / 3;
+        const sst = (respuestas[10] + respuestas[11]) / 2;
 
-// Observaciones automáticas
-fila.push(ev.observaciones || "");
+        fila.push(Number(tiempo.toFixed(1)));
+        fila.push(Number(calidad.toFixed(1)));
+        fila.push(Number(precio.toFixed(1)));
+        fila.push(Number(sst.toFixed(1)));
 
-// Comentarios del evaluador
-fila.push(ev.comentario_evaluador || "");
+        const puntajeFinal = Number(total.toFixed(1));
 
-filas.push(fila);   
+        let resultado = "";
+        if (puntajeFinal >= 4.5) resultado = "Proveedor Excelente";
+        else if (puntajeFinal >= 4.0) resultado = "Proveedor Aprobado";
+        else if (puntajeFinal >= 3.5) resultado = "Proveedor Aceptable";
+        else resultado = "Requiere Plan de Mejora";
+
+        fila.push(puntajeFinal);
+        fila.push(resultado);
+        fila.push(ev.observaciones || "");
+        fila.push(ev.comentario_evaluador || "");
+
+        filas.push(fila);
     });
 
     const wb = XLSX.utils.book_new();
-
     const ws = XLSX.utils.aoa_to_sheet(filas);
 
-   ws["!cols"] = [
-    { wch: 15 }, // Fecha
-    { wch: 20 }, // Área
-    { wch: 18 }, // Cédula
-    { wch: 35 }, // Nombre
-    ...Array(12).fill({ wch: 8 }),
-    { wch: 15 }, // Puntaje
-    { wch: 60 }, // Observaciones
-    { wch: 60 }  // Comentarios
-];
+    ws["!cols"] = [
+        { wch: 15 }, // Fecha
+        { wch: 20 }, // Área
+        { wch: 18 }, // Cédula
+        { wch: 35 }, // Nombre
+        ...Array(12).fill({ wch: 8 }),
+        { wch: 18 }, // Tiempo
+        { wch: 18 }, // Calidad
+        { wch: 15 }, // Precio
+        { wch: 20 }, // SST
+        { wch: 15 }, // Puntaje
+        { wch: 22 }, // Resultado
+        { wch: 60 }, // Observación
+        { wch: 60 }  // Comentario
+    ];
 
-  ws["!merges"] = [
-    { s: { r: 0, c: 0 }, e: { r: 0, c: 19 } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: 19 } }
-];
+    ws["!merges"] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 24 } },
+        { s: { r: 1, c: 0 }, e: { r: 1, c: 24 } }
+    ];
 
-    XLSX.utils.book_append_sheet(
-        wb,
-        ws,
-        "Detalle"
-    );
+    XLSX.utils.book_append_sheet(wb, ws, "Detalle");
 
-    XLSX.writeFile(
-        wb,
-        `Informe_${nombreProveedor}.xlsx`
-    );
-
+    XLSX.writeFile(wb, `Informe_${nombreProveedor}.xlsx`);
 }
 
 // ==========================================
