@@ -660,7 +660,7 @@ function formatearFechaCorta(fechaISO) {
 // =============================================================
 // PDF CONSOLIDADO POR PROVEEDOR Y ÁREAS - PERÍODO 2025
 // Parque Comercial El Tesoro P.H.
-//
+// =============================================================
 // Esta función NO reemplaza generarPDFISOIndividual().
 // Reutiliza ejecutarGeneracionPDF(), por lo que conserva el mismo
 // formato, logo, distribución y espacio para firma del PDF actual.
@@ -676,25 +676,40 @@ window.generarPDFISOConsolidado = function (indice) {
         return;
     }
 
-    const nitSeleccionado = String(seleccionado.nit || "").trim();
-    const proveedorSeleccionado = String(seleccionado.proveedor || "").trim();
+    const normalizar = valor => String(valor || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+
+    const nitSeleccionado = normalizar(seleccionado.nit);
+    const proveedorSeleccionado = normalizar(seleccionado.proveedor);
 
     const esMismoProveedor = evaluacion => {
-        const mismoNit = nitSeleccionado &&
-            String(evaluacion.nit || "").trim() === nitSeleccionado;
+        const nitRegistro = normalizar(evaluacion.nit);
+        const nombreRegistro = normalizar(evaluacion.proveedor);
 
-        const mismoNombre = proveedorSeleccionado &&
-            String(evaluacion.proveedor || "").trim() === proveedorSeleccionado;
-
-        return nitSeleccionado ? mismoNit : mismoNombre;
+        return (
+            (nitSeleccionado && nitRegistro === nitSeleccionado) ||
+            (proveedorSeleccionado && nombreRegistro === proveedorSeleccionado)
+        );
     };
 
     const esPeriodo2025 = evaluacion => {
-        const periodo = Number(evaluacion.periodo);
-        if (periodo) return periodo === 2025;
+        const periodo = String(evaluacion.periodo ?? "").trim();
+        if (periodo) return periodo === "2025";
 
-        const fecha = String(evaluacion.fecha || "");
-        return fecha.slice(0, 4) === "2025";
+        const fecha = String(evaluacion.fecha || "").trim();
+        if (!fecha) return false;
+
+        // Acepta 2025-01-15, 15/01/2025, 15-01-2025 y fechas con texto.
+        if (/(^|[^0-9])2025([^0-9]|$)/.test(fecha)) return true;
+
+        const fechaConvertida = new Date(fecha);
+        return !Number.isNaN(fechaConvertida.getTime()) &&
+            fechaConvertida.getFullYear() === 2025;
     };
 
     const evaluaciones = historial.filter(evaluacion =>
@@ -702,7 +717,13 @@ window.generarPDFISOConsolidado = function (indice) {
     );
 
     if (evaluaciones.length === 0) {
-        alert("No hay evaluaciones del proveedor en el período 2025.");
+        alert(
+            "No se encontraron evaluaciones de " +
+            (seleccionado.proveedor || "este proveedor") +
+            " en el período 2025. Verifique que el historial esté cargado."
+        );
+        console.log("Registro seleccionado para consolidar:", seleccionado);
+        console.log("Registros disponibles en historial:", historial);
         return;
     }
 
@@ -716,12 +737,13 @@ window.generarPDFISOConsolidado = function (indice) {
     const porArea = {};
 
     evaluaciones.forEach(evaluacion => {
-        const area = String(evaluacion.area || "Sin área").trim();
+        const area = normalizar(evaluacion.area) || "sin area";
         if (!porArea[area]) porArea[area] = [];
         porArea[area].push(evaluacion);
     });
 
-    // Primero se calcula el promedio de cada área.
+    // Promedio de cada área. Si un área tiene varias evaluaciones,
+    // primero se promedian sus evaluaciones entre sí.
     const promediosAreas = Object.entries(porArea).map(([area, registros]) => {
         const suma = registros.reduce(
             (total, evaluacion) => total + obtenerPuntaje(evaluacion),
@@ -735,32 +757,103 @@ window.generarPDFISOConsolidado = function (indice) {
         };
     });
 
-    // Opción A: todas las áreas tienen el mismo peso.
-    const promedioGlobal = promediosAreas.reduce(
-        (total, item) => total + item.promedio,
-        0
-    ) / promediosAreas.length;
+    const nombreProveedor = normalizar(seleccionado.proveedor);
+
+    // Solo estos dos proveedores tienen pesos especiales.
+    const pesosEspeciales = {
+        "g4s secure solutions colombia sa": {
+            nombreMostrar: "G4S - Secure Solutions Colombia S.A.",
+            pesos: {
+                teatro: 20,
+                mercadeo: 20,
+                seguridad: 60
+            }
+        },
+        "aseo y sostenimiento y compania s a": {
+            nombreMostrar: "Aseo y Sostenimiento y Compañía S.A.",
+            pesos: {
+                operaciones: 60,
+                comercial: 13.3333333333,
+                teatro: 13.3333333333,
+                mercadeo: 13.3333333333
+            }
+        }
+    };
+
+    const configuracion = pesosEspeciales[nombreProveedor];
+    let promedioGlobal;
+    let detalleAreas;
+
+    if (configuracion) {
+        const faltantes = Object.keys(configuracion.pesos)
+            .filter(area => !porArea[area]);
+
+        if (faltantes.length > 0) {
+            alert(
+                "Para generar el PDF consolidado de " +
+                configuracion.nombreMostrar +
+                " todavía faltan evaluaciones de: " +
+                faltantes.join(", ") + "."
+            );
+            return;
+        }
+
+        const pesoTotal = Object.values(configuracion.pesos)
+            .reduce((total, peso) => total + peso, 0);
+
+        promedioGlobal = Object.entries(configuracion.pesos)
+            .reduce((total, [area, peso]) => {
+                const promedioArea = porArea[area].reduce(
+                    (suma, evaluacion) => suma + obtenerPuntaje(evaluacion),
+                    0
+                ) / porArea[area].length;
+
+                return total + promedioArea * (peso / pesoTotal);
+            }, 0);
+
+        detalleAreas = Object.entries(configuracion.pesos)
+            .map(([area, peso]) => {
+                const registros = porArea[area];
+                const promedioArea = registros.reduce(
+                    (suma, evaluacion) => suma + obtenerPuntaje(evaluacion),
+                    0
+                ) / registros.length;
+
+                return `${area}: ${promedioArea.toFixed(2)} ` +
+                    `(${peso.toFixed(2)}% - ${registros.length} eval.)`;
+            })
+            .join("; ");
+    } else {
+        // Los demás proveedores mantienen el promedio igualitario entre áreas.
+        promedioGlobal = promediosAreas.reduce(
+            (total, item) => total + item.promedio,
+            0
+        ) / promediosAreas.length;
+
+        detalleAreas = promediosAreas.map(item =>
+            `${item.area}: ${item.promedio.toFixed(2)} ` +
+            `(${item.cantidad} eval.)`
+        ).join("; ");
+    }
 
     const promedioRedondeado = Number(promedioGlobal.toFixed(2));
-
-    // Resumen corto para la caja de observaciones ya existente.
-    const detalleAreas = promediosAreas.map(item =>
-        `${item.area}: ${item.promedio.toFixed(2)}`
-    ).join("; ");
+    const fechaConsolidado = evaluaciones
+        .map(evaluacion => String(evaluacion.fecha || ""))
+        .sort()
+        .slice(-1)[0] || seleccionado.fecha || "";
 
     const datosConsolidados = {
         ...seleccionado,
-        fecha: evaluaciones
-            .map(evaluacion => String(evaluacion.fecha || ""))
-            .sort()
-            .slice(-1)[0] || seleccionado.fecha || "",
-        area: "Consolidado de todas las áreas",
+        fecha: fechaConsolidado,
+        area: configuracion
+            ? "Consolidado ponderado de áreas"
+            : "Consolidado de todas las áreas",
         puntaje: promedioRedondeado,
         puntaje_final: promedioRedondeado,
         observaciones:
             `Resultado consolidado del período 2025. ` +
             `Promedios por área: ${detalleAreas}. ` +
-            `Promedio global: ${promedioRedondeado.toFixed(2)} sobre 5.00.`,
+            `Calificación global: ${promedioRedondeado.toFixed(2)} sobre 5.00.`,
         comentario_evaluador: ""
     };
 
