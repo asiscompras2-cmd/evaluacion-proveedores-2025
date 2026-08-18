@@ -143,7 +143,122 @@ async function exportarProveedor(nombreProveedor) {
 
     XLSX.writeFile(wb, `Informe_${nombreProveedor}.xlsx`);
 }
+// ==========================================
+// HOJA: PROMEDIO POR CRITERIO
+// ==========================================
 
+function crearHojaPromedioCriterios(wb, datos) {
+
+    let filas = [];
+
+    filas.push(["PROMEDIO POR CRITERIO"]);
+    filas.push(["PARQUE COMERCIAL EL TESORO P.H."]);
+    filas.push([]);
+
+    filas.push([
+        "Fecha",
+        "Proveedor",
+        "Área",
+        "Cédula Evaluador",
+        "Nombre Evaluador",
+        "Tiempo de respuesta (30%)",
+        "Calidad (40%)",
+        "Precio (20%)",
+        "SST y requisitos legales (10%)",
+        "PUNTAJE FINAL",
+        "RESULTADO",
+        "COMENTARIOS DEL EVALUADOR"
+    ]);
+
+    datos.forEach(ev => {
+
+        let respuestas = [];
+
+        for (let i = 0; i < 12; i++) {
+            respuestas.push(obtenerValorRespuesta(ev, i));
+        }
+
+        // Promedios por criterio
+        const tiempo =
+            (respuestas[0] + respuestas[1] + respuestas[2]) / 3;
+
+        const calidad =
+            (respuestas[3] + respuestas[4] + respuestas[5] + respuestas[6]) / 4;
+
+        const precio =
+            (respuestas[7] + respuestas[8] + respuestas[9]) / 3;
+
+        const sst =
+            (respuestas[10] + respuestas[11]) / 2;
+
+        // Puntaje final ponderado
+        let puntajeFinal = 0;
+
+        for (let i = 0; i < 12; i++) {
+            puntajeFinal += respuestas[i] * PESOS[i];
+        }
+
+        puntajeFinal = Number(puntajeFinal.toFixed(1));
+
+        // Resultado
+        let resultado = "";
+
+        if (puntajeFinal >= 4.5)
+            resultado = "Proveedor Excelente";
+        else if (puntajeFinal >= 4.0)
+            resultado = "Proveedor Aprobado";
+        else if (puntajeFinal >= 3.5)
+            resultado = "Proveedor Aceptable";
+        else
+            resultado = "Requiere Plan de Mejora";
+
+        filas.push([
+            ev.fecha || "",
+            ev.proveedor || "",
+            ev.area || "",
+            ev.cedula || "",
+            ev.nombre || "",
+
+            Number(tiempo.toFixed(1)),
+            Number(calidad.toFixed(1)),
+            Number(precio.toFixed(1)),
+            Number(sst.toFixed(1)),
+
+            puntajeFinal,
+            resultado,
+
+            obtenerComentarioEvaluador(ev)
+        ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(filas);
+
+    ws["!cols"] = [
+        { wch: 15 },
+        { wch: 35 },
+        { wch: 20 },
+        { wch: 18 },
+        { wch: 35 },
+        { wch: 22 },
+        { wch: 18 },
+        { wch: 15 },
+        { wch: 25 },
+        { wch: 15 },
+        { wch: 25 },
+        { wch: 70 }
+    ];
+
+    ws["!merges"] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 11 } },
+        { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } }
+    ];
+
+    XLSX.utils.book_append_sheet(
+        wb,
+        ws,
+        "Promedio por Criterio"
+    );
+}
 // ==========================================
 // EXPORTAR CONSOLIDADO
 // ==========================================
