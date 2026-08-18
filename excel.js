@@ -271,3 +271,13 @@ function exportarExcel() {
     );
 
 }
+function obtenerComentarioEvaluador(ev) {
+    return String(
+        ev.comentario_evaluador ??
+        ev.comentarioEvaluador ??
+        ev.comentarios_evaluador ??
+        ev.comentarios ??
+        ev.comentario ??
+        ""
+    ).trim();
+}
