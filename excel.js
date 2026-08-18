@@ -110,7 +110,7 @@ async function exportarProveedor(nombreProveedor) {
         fila.push(puntajeFinal);
         fila.push(resultado);
         fila.push(ev.observaciones || "");
-        fila.push(ev.comentario_evaluador || "");
+        fila.push(obtenerComentarioEvaluador(ev));
 
         filas.push(fila);
     });
