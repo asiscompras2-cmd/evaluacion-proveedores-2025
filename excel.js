@@ -252,7 +252,164 @@ async function exportarReporteConsolidado() {
         ws,
         "Consolidado"
     );
+// ==========================================
+// SEGUNDA HOJA: PROMEDIO POR CRITERIO
+// ==========================================
 
+let filasCriterios = [];
+
+filasCriterios.push([
+    "PROMEDIO POR CRITERIO"
+]);
+
+filasCriterios.push([
+    "PARQUE COMERCIAL EL TESORO P.H."
+]);
+
+filasCriterios.push([]);
+
+filasCriterios.push([
+    "Proveedor",
+    "NIT",
+    "Evaluaciones",
+    "Tiempo de respuesta (30%)",
+    "Calidad (40%)",
+    "Precio (20%)",
+    "SST y requisitos legales (10%)",
+    "PUNTAJE FINAL",
+    "RESULTADO"
+]);
+
+Object.keys(proveedores).forEach(nombre => {
+
+    const p = proveedores[nombre];
+
+    // Promedio de cada pregunta
+    const promedios = [];
+
+    for (let i = 0; i < 12; i++) {
+
+        promedios.push(
+            p.total[i] / p.cantidad
+        );
+
+    }
+
+    // Promedio por criterio
+    const tiempo =
+        (promedios[0] +
+         promedios[1] +
+         promedios[2]) / 3;
+
+    const calidad =
+        (promedios[3] +
+         promedios[4] +
+         promedios[5] +
+         promedios[6]) / 4;
+
+    const precio =
+        (promedios[7] +
+         promedios[8] +
+         promedios[9]) / 3;
+
+    const sst =
+        (promedios[10] +
+         promedios[11]) / 2;
+
+    // Puntaje final utilizando los PESOS actuales
+    let puntajeFinal = 0;
+
+    for (let i = 0; i < 12; i++) {
+
+        puntajeFinal +=
+            promedios[i] * PESOS[i];
+
+    }
+
+    puntajeFinal = Number(
+        puntajeFinal.toFixed(1)
+    );
+
+    // Clasificación
+    let resultado = "";
+
+    if (puntajeFinal >= 4.5) {
+        resultado = "EXCELENTE";
+    }
+    else if (puntajeFinal >= 4.0) {
+        resultado = "BUENO";
+    }
+    else if (puntajeFinal >= 3.5) {
+        resultado = "ACEPTABLE";
+    }
+    else {
+        resultado = "INSUFICIENTE";
+    }
+
+    filasCriterios.push([
+
+        nombre,
+
+        p.nit,
+
+        p.cantidad,
+
+        Number(tiempo.toFixed(1)),
+
+        Number(calidad.toFixed(1)),
+
+        Number(precio.toFixed(1)),
+
+        Number(sst.toFixed(1)),
+
+        puntajeFinal,
+
+        resultado
+
+    ]);
+
+});
+
+// Crear segunda hoja
+const wsCriterios =
+    XLSX.utils.aoa_to_sheet(filasCriterios);
+
+// Ancho de columnas
+wsCriterios["!cols"] = [
+
+    { wch: 35 }, // Proveedor
+    { wch: 18 }, // NIT
+    { wch: 15 }, // Evaluaciones
+    { wch: 25 }, // Tiempo
+    { wch: 20 }, // Calidad
+    { wch: 20 }, // Precio
+    { wch: 30 }, // SST
+    { wch: 18 }, // Puntaje
+    { wch: 18 }  // Resultado
+
+];
+
+// Combinar títulos
+wsCriterios["!merges"] = [
+
+    {
+        s: { r: 0, c: 0 },
+        e: { r: 0, c: 8 }
+    },
+
+    {
+        s: { r: 1, c: 0 },
+        e: { r: 1, c: 8 }
+    }
+
+];
+
+// Agregar segunda hoja al mismo archivo
+XLSX.utils.book_append_sheet(
+    wb,
+    wsCriterios,
+    "Promedio por Criterio"
+);
     XLSX.writeFile(
         wb,
         "Reporte_Consolidado.xlsx"
