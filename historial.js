@@ -13,44 +13,56 @@ async function guardarEnHistorial(evaluacion) {
 
     console.log("Respuestas:", evaluacion.respuestas);
 
+    const respuestas = evaluacion.respuestas || {};
+
     const datos = {
+        fecha: evaluacion.fecha || "",
+        nombre: evaluacion.nombre || "",
+        cedula: evaluacion.cedula || "",
+        area: evaluacion.area || "",
+        proveedor: evaluacion.proveedor || "",
+        nit: evaluacion.nit || "",
+        observaciones: evaluacion.observaciones || "",
 
-        fecha: evaluacion.fecha,
-        nombre: evaluacion.nombre,
-        cedula: evaluacion.cedula,
-        area: evaluacion.area,
-        proveedor: evaluacion.proveedor,
-        nit: evaluacion.nit,
-        observaciones: evaluacion.observaciones,
+        // calculos.js guarda las respuestas como respuestas[1] ... respuestas[12]
+        p1: Number(respuestas[1] || 0),
+        p2: Number(respuestas[2] || 0),
+        p3: Number(respuestas[3] || 0),
+        p4: Number(respuestas[4] || 0),
+        p5: Number(respuestas[5] || 0),
+        p6: Number(respuestas[6] || 0),
+        p7: Number(respuestas[7] || 0),
+        p8: Number(respuestas[8] || 0),
+        p9: Number(respuestas[9] || 0),
+        p10: Number(respuestas[10] || 0),
+        p11: Number(respuestas[11] || 0),
+        p12: Number(respuestas[12] || 0),
 
-        p1: evaluacion.respuestas[1],
-        p2: evaluacion.respuestas[2],
-        p3: evaluacion.respuestas[3],
-        p4: evaluacion.respuestas[4],
-        p5: evaluacion.respuestas[5],
-        p6: evaluacion.respuestas[6],
-        p7: evaluacion.respuestas[7],
-        p8: evaluacion.respuestas[8],
-        p9: evaluacion.respuestas[9],
-        p10: evaluacion.respuestas[10],
-        p11: evaluacion.respuestas[11],
-        p12: evaluacion.respuestas[12],
+        puntaje_final: Number(evaluacion.puntaje || 0),
 
-        puntaje_final: evaluacion.puntaje
-
+        // Esta era la propiedad que faltaba enviar a Supabase.
+        comentario_evaluador: String(
+            evaluacion.comentario_evaluador || ""
+        ).trim()
     };
 
     console.log("Enviando a Supabase:", datos);
 
     const { data, error } = await window.supabaseClient
         .from("evaluaciones")
-        .insert([datos]);
+        .insert([datos])
+        .select();
 
     if (error) {
-        console.error(error);
-        return;
+        console.error("Error guardando evaluación en Supabase:", error);
+        mostrarModal("No fue posible guardar la evaluación. Revise la consola.");
+        throw error;
     }
+
+    console.log("Evaluación guardada correctamente:", data);
+    return data;
 }
+
 
 //=====================================
 // CARGAR HISTORIAL
