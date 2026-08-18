@@ -259,30 +259,28 @@ function renderizarHistorial() {
             </td>
 
 
-            <td>
+                <td>
+                    <div class="btn-group btn-group-sm">
 
-                <div class="btn-group btn-group-sm">
+                        <!-- PDF individual del área -->
+                        <button
+                            class="btn btn-outline-danger"
+                            onclick="generarPDFISOIndividual(${indiceReal})"
+                            title="Generar PDF individual">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </button>
 
-                    <button
-                        class="btn btn-outline-danger"
-                        onclick="generarPDFISOIndividual(${indiceReal})"
-                        title="Generar PDF">
+                        <!-- PDF consolidado de todas las áreas -->
+                        <button
+                            class="btn btn-outline-success"
+                            onclick="generarPDFISOConsolidado(${indiceReal})"
+                            title="Generar PDF consolidado">
+                            <i class="bi bi-files"></i>
+                        </button>
 
-                        <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                </td>
 
-                    </button>
-
-                 <button
-    class="btn btn-outline-success btn-sm"
-
-
-</button>
-
-                    </button>
-
-                </div>
-
-            </td>
 
         `;
 
