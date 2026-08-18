@@ -657,3 +657,113 @@ function formatearFechaCorta(fechaISO) {
         year: "numeric"
     }).replace(".", "");
 }
+// =============================================================
+// PDF CONSOLIDADO POR PROVEEDOR Y ÁREAS - PERÍODO 2025
+// Parque Comercial El Tesoro P.H.
+//
+// Esta función NO reemplaza generarPDFISOIndividual().
+// Reutiliza ejecutarGeneracionPDF(), por lo que conserva el mismo
+// formato, logo, distribución y espacio para firma del PDF actual.
+// Solo lee el historial que ya está cargado.
+// =============================================================
+
+window.generarPDFISOConsolidado = function (indice) {
+    const historial = obtenerHistorial() || [];
+    const seleccionado = historial[indice];
+
+    if (!seleccionado) {
+        alert("No se encontró la evaluación seleccionada.");
+        return;
+    }
+
+    const nitSeleccionado = String(seleccionado.nit || "").trim();
+    const proveedorSeleccionado = String(seleccionado.proveedor || "").trim();
+
+    const esMismoProveedor = evaluacion => {
+        const mismoNit = nitSeleccionado &&
+            String(evaluacion.nit || "").trim() === nitSeleccionado;
+
+        const mismoNombre = proveedorSeleccionado &&
+            String(evaluacion.proveedor || "").trim() === proveedorSeleccionado;
+
+        return nitSeleccionado ? mismoNit : mismoNombre;
+    };
+
+    const esPeriodo2025 = evaluacion => {
+        const periodo = Number(evaluacion.periodo);
+        if (periodo) return periodo === 2025;
+
+        const fecha = String(evaluacion.fecha || "");
+        return fecha.slice(0, 4) === "2025";
+    };
+
+    const evaluaciones = historial.filter(evaluacion =>
+        esMismoProveedor(evaluacion) && esPeriodo2025(evaluacion)
+    );
+
+    if (evaluaciones.length === 0) {
+        alert("No hay evaluaciones del proveedor en el período 2025.");
+        return;
+    }
+
+    const obtenerPuntaje = evaluacion => {
+        const valor = Number(
+            evaluacion.puntaje_final ?? evaluacion.puntaje ?? 0
+        );
+        return Number.isFinite(valor) ? valor : 0;
+    };
+
+    const porArea = {};
+
+    evaluaciones.forEach(evaluacion => {
+        const area = String(evaluacion.area || "Sin área").trim();
+        if (!porArea[area]) porArea[area] = [];
+        porArea[area].push(evaluacion);
+    });
+
+    // Primero se calcula el promedio de cada área.
+    const promediosAreas = Object.entries(porArea).map(([area, registros]) => {
+        const suma = registros.reduce(
+            (total, evaluacion) => total + obtenerPuntaje(evaluacion),
+            0
+        );
+
+        return {
+            area,
+            promedio: suma / registros.length,
+            cantidad: registros.length
+        };
+    });
+
+    // Opción A: todas las áreas tienen el mismo peso.
+    const promedioGlobal = promediosAreas.reduce(
+        (total, item) => total + item.promedio,
+        0
+    ) / promediosAreas.length;
+
+    const promedioRedondeado = Number(promedioGlobal.toFixed(2));
+
+    // Resumen corto para la caja de observaciones ya existente.
+    const detalleAreas = promediosAreas.map(item =>
+        `${item.area}: ${item.promedio.toFixed(2)}`
+    ).join("; ");
+
+    const datosConsolidados = {
+        ...seleccionado,
+        fecha: evaluaciones
+            .map(evaluacion => String(evaluacion.fecha || ""))
+            .sort()
+            .slice(-1)[0] || seleccionado.fecha || "",
+        area: "Consolidado de todas las áreas",
+        puntaje: promedioRedondeado,
+        puntaje_final: promedioRedondeado,
+        observaciones:
+            `Resultado consolidado del período 2025. ` +
+            `Promedios por área: ${detalleAreas}. ` +
+            `Promedio global: ${promedioRedondeado.toFixed(2)} sobre 5.00.`,
+        comentario_evaluador: ""
+    };
+
+    // Reutiliza el PDF actual. No se modifica su plantilla.
+    ejecutarGeneracionPDF(datosConsolidados);
+};
