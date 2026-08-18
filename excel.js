@@ -139,9 +139,16 @@ async function exportarProveedor(nombreProveedor) {
         { s: { r: 1, c: 0 }, e: { r: 1, c: 24 } }
     ];
 
-    XLSX.utils.book_append_sheet(wb, ws, "Detalle");
+XLSX.utils.book_append_sheet(wb, ws, "Detalle");
 
-    XLSX.writeFile(wb, `Informe_${nombreProveedor}.xlsx`);
+// Nueva hoja con promedio por criterio
+crearHojaPromedioCriterios(wb, datos);
+
+// Generar archivo
+XLSX.writeFile(
+    wb,
+    `Informe_${nombreProveedor}.xlsx`
+);
 }
 // ==========================================
 // HOJA: PROMEDIO POR CRITERIO
