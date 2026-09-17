@@ -92,7 +92,7 @@ if (cedulaActual) {
 
     // Si ya evaluó a todos en el área, mostrar todos para permitir revisión si es necesario
     // Pero priorizar siempre los pendientes
-    const listaAMostrar = (pendientes.length > 0) ? pendientes : filtrados;
+    const listaAMostrar = pendientes;
 
     // Ordenar alfabéticamente
     listaAMostrar.sort((a, b) => {
