@@ -102,6 +102,12 @@ if (cedulaActual) {
     });
 
     // Llenar el combo
+    if (listaAMostrar.length === 0) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "-- No hay proveedores pendientes --";
+    comboProveedor.appendChild(option);
+}
     listaAMostrar.forEach(p => {
         const option = document.createElement("option");
         option.value = p["NOMBRE DE PROVEEDOR"];
