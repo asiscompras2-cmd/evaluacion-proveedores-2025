@@ -242,16 +242,29 @@ async function llenarComboProveedores(areaSeleccionada) {
     };
 }
 async function obtenerNitsEvaluados(cedula) {
+    const normalizarNit = valor =>
+        String(valor ?? "")
+            .trim()
+            .replace(/[.\-\s]/g, "");
 
     const { data, error } = await window.supabaseClient
         .from("evaluaciones")
         .select("nit")
-        .eq("cedula", cedula);
+        .eq("cedula", String(cedula).trim());
 
     if (error) {
-        console.error("Error consultando evaluaciones:", error);
+        console.error(
+            "Error consultando evaluaciones:",
+            error
+        );
+
         return [];
     }
 
-    return data.map(e => String(e.nit));
+    return (data || [])
+        .map(evaluacion =>
+            normalizarNit(evaluacion.nit)
+        )
+        .filter(Boolean);
 }
+
