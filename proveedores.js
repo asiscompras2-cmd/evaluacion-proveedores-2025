@@ -69,7 +69,10 @@ if (cedulaActual) {
     if (error) {
         console.error(error);
     } else {
-        nitsEvaluados = data.map(e => String(e.nit));
+        nitsEvaluados = (data || [])
+    .map(e => String(e.nit || "").trim())
+    .filter(Boolean);
+;
     }
 
 }
