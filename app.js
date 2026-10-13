@@ -134,11 +134,15 @@ async function guardarEvaluacion() {
         console.log("Respuestas:", evaluacion.respuestas);
         console.log("Puntaje a guardar:", evaluacion.puntaje);
         
-        await guardarEnHistorial(evaluacion);
+      await guardarEnHistorial(evaluacion);
 
-        mostrarModal("Evaluación guardada correctamente.");
+// Actualizar el listado del área actual
+await llenarComboProveedores(area);
 
-        limpiarFormulario();
+mostrarModal("Evaluación guardada correctamente.");
+
+limpiarFormulario();
+  
 
     } catch (error) {
 
