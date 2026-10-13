@@ -91,7 +91,11 @@ if (cedulaActual) {
     const filtrados = datosProveedores.filter(p => p.AREA === areaSeleccionada);
 
     // Filtrar los que NO ha evaluado este usuario aún
-    const pendientes = filtrados.filter(p => !nitsEvaluados.includes(String(p.NIT)));
+    const pendientes = filtrados.filter(p => {
+    const nitProveedor = String(p.NIT || "").trim();
+
+    return !nitsEvaluados.includes(nitProveedor);
+});
 
     // Si ya evaluó a todos en el área, mostrar todos para permitir revisión si es necesario
     // Pero priorizar siempre los pendientes
