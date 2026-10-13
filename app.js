@@ -120,7 +120,7 @@ async function guardarEvaluacion() {
             fecha: document.getElementById("fecha").value,
             nombre,
             cedula,
-            area: document.getElementById("area").value,
+            area,
             proveedor,
             nit,
             puntaje: puntajeActual,
