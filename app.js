@@ -89,8 +89,6 @@ async function guardarEvaluacion() {
         const nit = document.getElementById("nit").value;
         const area = document.getElementById("area").value.trim();
 
-        // Continúa el resto de tu código...
-
         // Verificar duplicado
         const duplicado = await existeEvaluacion(cedula, nit);
 
